@@ -133,6 +133,8 @@
 		6D2E612E16C3897300C51C9D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D2E612D16C3897300C51C9D /* AppDelegate.m */; };
 		6D2E613116C3897300C51C9D /* TrainCatLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D2E613016C3897300C51C9D /* TrainCatLayer.m */; };
 		6D2E613416C3897300C51C9D /* IntroLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D2E613316C3897300C51C9D /* IntroLayer.m */; };
+		6D805F8216CD0F3B00DC2096 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6D805F8116CD0F3B00DC2096 /* MainStoryboard.storyboard */; };
+		6D805F8516CD144500DC2096 /* CCViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D805F8416CD144500DC2096 /* CCViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -398,6 +400,9 @@
 		6D2E613016C3897300C51C9D /* TrainCatLayer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TrainCatLayer.m; sourceTree = "<group>"; };
 		6D2E613216C3897300C51C9D /* IntroLayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IntroLayer.h; sourceTree = "<group>"; };
 		6D2E613316C3897300C51C9D /* IntroLayer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IntroLayer.m; sourceTree = "<group>"; };
+		6D805F8116CD0F3B00DC2096 /* MainStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MainStoryboard.storyboard; sourceTree = "<group>"; };
+		6D805F8316CD144500DC2096 /* CCViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCViewController.h; sourceTree = "<group>"; };
+		6D805F8416CD144500DC2096 /* CCViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -456,6 +461,9 @@
 		6D2E5FB416C3897100C51C9D /* TrainCat */ = {
 			isa = PBXGroup;
 			children = (
+				6D805F8316CD144500DC2096 /* CCViewController.h */,
+				6D805F8416CD144500DC2096 /* CCViewController.m */,
+				6D805F8116CD0F3B00DC2096 /* MainStoryboard.storyboard */,
 				6D2E612C16C3897300C51C9D /* AppDelegate.h */,
 				6D2E612D16C3897300C51C9D /* AppDelegate.m */,
 				6D2E612F16C3897300C51C9D /* TrainCatLayer.h */,
@@ -895,6 +903,7 @@
 				6D2E5FCB16C3897100C51C9D /* Icon@2x.png in Resources */,
 				6D2E5FCE16C3897100C51C9D /* iTunesArtwork in Resources */,
 				6D2E610C16C3897300C51C9D /* ChangeLog in Resources */,
+				6D805F8216CD0F3B00DC2096 /* MainStoryboard.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1009,6 +1018,7 @@
 				6D2E612E16C3897300C51C9D /* AppDelegate.m in Sources */,
 				6D2E613116C3897300C51C9D /* TrainCatLayer.m in Sources */,
 				6D2E613416C3897300C51C9D /* IntroLayer.m in Sources */,
+				6D805F8516CD144500DC2096 /* CCViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1030,7 +1040,7 @@
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 2;
 			};
@@ -1049,7 +1059,7 @@
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 2;
 			};
