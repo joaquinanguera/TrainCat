@@ -131,7 +131,7 @@
 		6D2E612616C3897300C51C9D /* vec4.c in Sources */ = {isa = PBXBuildFile; fileRef = 6D2E612516C3897300C51C9D /* vec4.c */; };
 		6D2E612B16C3897300C51C9D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D2E612A16C3897300C51C9D /* main.m */; };
 		6D2E612E16C3897300C51C9D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D2E612D16C3897300C51C9D /* AppDelegate.m */; };
-		6D2E613116C3897300C51C9D /* HelloWorldLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D2E613016C3897300C51C9D /* HelloWorldLayer.m */; };
+		6D2E613116C3897300C51C9D /* TrainCatLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D2E613016C3897300C51C9D /* TrainCatLayer.m */; };
 		6D2E613416C3897300C51C9D /* IntroLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D2E613316C3897300C51C9D /* IntroLayer.m */; };
 /* End PBXBuildFile section */
 
@@ -394,8 +394,8 @@
 		6D2E612A16C3897300C51C9D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		6D2E612C16C3897300C51C9D /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		6D2E612D16C3897300C51C9D /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		6D2E612F16C3897300C51C9D /* HelloWorldLayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HelloWorldLayer.h; sourceTree = "<group>"; };
-		6D2E613016C3897300C51C9D /* HelloWorldLayer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HelloWorldLayer.m; sourceTree = "<group>"; };
+		6D2E612F16C3897300C51C9D /* TrainCatLayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TrainCatLayer.h; sourceTree = "<group>"; };
+		6D2E613016C3897300C51C9D /* TrainCatLayer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TrainCatLayer.m; sourceTree = "<group>"; };
 		6D2E613216C3897300C51C9D /* IntroLayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IntroLayer.h; sourceTree = "<group>"; };
 		6D2E613316C3897300C51C9D /* IntroLayer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IntroLayer.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -458,8 +458,8 @@
 			children = (
 				6D2E612C16C3897300C51C9D /* AppDelegate.h */,
 				6D2E612D16C3897300C51C9D /* AppDelegate.m */,
-				6D2E612F16C3897300C51C9D /* HelloWorldLayer.h */,
-				6D2E613016C3897300C51C9D /* HelloWorldLayer.m */,
+				6D2E612F16C3897300C51C9D /* TrainCatLayer.h */,
+				6D2E613016C3897300C51C9D /* TrainCatLayer.m */,
 				6D2E613216C3897300C51C9D /* IntroLayer.h */,
 				6D2E613316C3897300C51C9D /* IntroLayer.m */,
 				6D2E5FB516C3897100C51C9D /* Resources */,
@@ -1007,7 +1007,7 @@
 				6D2E612616C3897300C51C9D /* vec4.c in Sources */,
 				6D2E612B16C3897300C51C9D /* main.m in Sources */,
 				6D2E612E16C3897300C51C9D /* AppDelegate.m in Sources */,
-				6D2E613116C3897300C51C9D /* HelloWorldLayer.m in Sources */,
+				6D2E613116C3897300C51C9D /* TrainCatLayer.m in Sources */,
 				6D2E613416C3897300C51C9D /* IntroLayer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1112,6 +1112,7 @@
 				6D2E613916C3897300C51C9D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
