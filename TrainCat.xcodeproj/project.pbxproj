@@ -440,9 +440,6 @@
 		6D2E5F9616C3897100C51C9D = {
 			isa = PBXGroup;
 			children = (
-				6D805F9016CD38C000DC2096 /* SystemConfiguration.framework */,
-				6D805F8E16CD38B700DC2096 /* Security.framework */,
-				6D805F8C16CD38AA00DC2096 /* CFNetwork.framework */,
 				6D2E5FB416C3897100C51C9D /* TrainCat */,
 				6D2E5FA116C3897100C51C9D /* Frameworks */,
 				6D2E5FA016C3897100C51C9D /* Products */,
@@ -460,6 +457,9 @@
 		6D2E5FA116C3897100C51C9D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				6D805F9016CD38C000DC2096 /* SystemConfiguration.framework */,
+				6D805F8E16CD38B700DC2096 /* Security.framework */,
+				6D805F8C16CD38AA00DC2096 /* CFNetwork.framework */,
 				6D805F8A16CD369700DC2096 /* Dropbox.framework */,
 				6D2E5FA216C3897100C51C9D /* QuartzCore.framework */,
 				6D2E5FA416C3897100C51C9D /* OpenGLES.framework */,

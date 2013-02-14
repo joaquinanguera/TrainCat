@@ -20,7 +20,7 @@
     
     // The account manager stores all the account info. Create this when your app launches
     DBAccountManager* accountMgr =
-    [[DBAccountManager alloc] initWithAppKey:@"b6zj8tgox1qetuw" secret:@"xiy8g7jg4gzjg2z"];
+    [[DBAccountManager alloc] initWithAppKey:@"ev7wggh9l3s2vy7" secret:@"bgoed4lggdhkuke"];
     [DBAccountManager setSharedManager:accountMgr];
     DBAccount *account = accountMgr.linkedAccount;
     
