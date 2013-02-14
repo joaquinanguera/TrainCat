@@ -18,9 +18,6 @@
 		6D2E5FB316C3897100C51C9D /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D2E5FB216C3897100C51C9D /* GameKit.framework */; };
 		6D2E5FB716C3897100C51C9D /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 6D2E5FB616C3897100C51C9D /* Default.png */; };
 		6D2E5FB916C3897100C51C9D /* Default-Landscape~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 6D2E5FB816C3897100C51C9D /* Default-Landscape~ipad.png */; };
-		6D2E5FBB16C3897100C51C9D /* fps_images.png in Resources */ = {isa = PBXBuildFile; fileRef = 6D2E5FBA16C3897100C51C9D /* fps_images.png */; };
-		6D2E5FBD16C3897100C51C9D /* fps_images-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = 6D2E5FBC16C3897100C51C9D /* fps_images-hd.png */; };
-		6D2E5FBF16C3897100C51C9D /* fps_images-ipadhd.png in Resources */ = {isa = PBXBuildFile; fileRef = 6D2E5FBE16C3897100C51C9D /* fps_images-ipadhd.png */; };
 		6D2E5FC116C3897100C51C9D /* Icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = 6D2E5FC016C3897100C51C9D /* Icon-72.png */; };
 		6D2E5FC316C3897100C51C9D /* Icon-Small-50.png in Resources */ = {isa = PBXBuildFile; fileRef = 6D2E5FC216C3897100C51C9D /* Icon-Small-50.png */; };
 		6D2E5FC516C3897100C51C9D /* Icon-Small.png in Resources */ = {isa = PBXBuildFile; fileRef = 6D2E5FC416C3897100C51C9D /* Icon-Small.png */; };
@@ -135,6 +132,12 @@
 		6D2E613416C3897300C51C9D /* IntroLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D2E613316C3897300C51C9D /* IntroLayer.m */; };
 		6D805F8216CD0F3B00DC2096 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6D805F8116CD0F3B00DC2096 /* MainStoryboard.storyboard */; };
 		6D805F8516CD144500DC2096 /* CCViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D805F8416CD144500DC2096 /* CCViewController.m */; };
+		6D805F8816CD14E300DC2096 /* CocosViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D805F8716CD14E300DC2096 /* CocosViewController.m */; };
+		6D805F8B16CD369700DC2096 /* Dropbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D805F8A16CD369700DC2096 /* Dropbox.framework */; };
+		6D805F8D16CD38AB00DC2096 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D805F8C16CD38AA00DC2096 /* CFNetwork.framework */; };
+		6D805F8F16CD38B700DC2096 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D805F8E16CD38B700DC2096 /* Security.framework */; };
+		6D805F9116CD38C000DC2096 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D805F9016CD38C000DC2096 /* SystemConfiguration.framework */; };
+		6D805F9416CD39FF00DC2096 /* DropboxTestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D805F9316CD39FF00DC2096 /* DropboxTestViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -150,9 +153,6 @@
 		6D2E5FB216C3897100C51C9D /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
 		6D2E5FB616C3897100C51C9D /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Default.png; path = Resources/Default.png; sourceTree = "<group>"; };
 		6D2E5FB816C3897100C51C9D /* Default-Landscape~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-Landscape~ipad.png"; path = "Resources/Default-Landscape~ipad.png"; sourceTree = "<group>"; };
-		6D2E5FBA16C3897100C51C9D /* fps_images.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = fps_images.png; path = Resources/fps_images.png; sourceTree = "<group>"; };
-		6D2E5FBC16C3897100C51C9D /* fps_images-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "fps_images-hd.png"; path = "Resources/fps_images-hd.png"; sourceTree = "<group>"; };
-		6D2E5FBE16C3897100C51C9D /* fps_images-ipadhd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "fps_images-ipadhd.png"; path = "Resources/fps_images-ipadhd.png"; sourceTree = "<group>"; };
 		6D2E5FC016C3897100C51C9D /* Icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-72.png"; path = "Resources/Icon-72.png"; sourceTree = "<group>"; };
 		6D2E5FC216C3897100C51C9D /* Icon-Small-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-Small-50.png"; path = "Resources/Icon-Small-50.png"; sourceTree = "<group>"; };
 		6D2E5FC416C3897100C51C9D /* Icon-Small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-Small.png"; path = "Resources/Icon-Small.png"; sourceTree = "<group>"; };
@@ -403,6 +403,14 @@
 		6D805F8116CD0F3B00DC2096 /* MainStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MainStoryboard.storyboard; sourceTree = "<group>"; };
 		6D805F8316CD144500DC2096 /* CCViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCViewController.h; sourceTree = "<group>"; };
 		6D805F8416CD144500DC2096 /* CCViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCViewController.m; sourceTree = "<group>"; };
+		6D805F8616CD14E300DC2096 /* CocosViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CocosViewController.h; sourceTree = "<group>"; };
+		6D805F8716CD14E300DC2096 /* CocosViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CocosViewController.m; sourceTree = "<group>"; };
+		6D805F8A16CD369700DC2096 /* Dropbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Dropbox.framework; sourceTree = "<group>"; };
+		6D805F8C16CD38AA00DC2096 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		6D805F8E16CD38B700DC2096 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		6D805F9016CD38C000DC2096 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		6D805F9216CD39FF00DC2096 /* DropboxTestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DropboxTestViewController.h; sourceTree = "<group>"; };
+		6D805F9316CD39FF00DC2096 /* DropboxTestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DropboxTestViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -410,6 +418,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6D805F9116CD38C000DC2096 /* SystemConfiguration.framework in Frameworks */,
+				6D805F8F16CD38B700DC2096 /* Security.framework in Frameworks */,
+				6D805F8D16CD38AB00DC2096 /* CFNetwork.framework in Frameworks */,
 				6D2E5FA316C3897100C51C9D /* QuartzCore.framework in Frameworks */,
 				6D2E5FA516C3897100C51C9D /* OpenGLES.framework in Frameworks */,
 				6D2E5FA716C3897100C51C9D /* OpenAL.framework in Frameworks */,
@@ -419,6 +430,7 @@
 				6D2E5FAF16C3897100C51C9D /* Foundation.framework in Frameworks */,
 				6D2E5FB116C3897100C51C9D /* CoreGraphics.framework in Frameworks */,
 				6D2E5FB316C3897100C51C9D /* GameKit.framework in Frameworks */,
+				6D805F8B16CD369700DC2096 /* Dropbox.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -428,6 +440,9 @@
 		6D2E5F9616C3897100C51C9D = {
 			isa = PBXGroup;
 			children = (
+				6D805F9016CD38C000DC2096 /* SystemConfiguration.framework */,
+				6D805F8E16CD38B700DC2096 /* Security.framework */,
+				6D805F8C16CD38AA00DC2096 /* CFNetwork.framework */,
 				6D2E5FB416C3897100C51C9D /* TrainCat */,
 				6D2E5FA116C3897100C51C9D /* Frameworks */,
 				6D2E5FA016C3897100C51C9D /* Products */,
@@ -445,6 +460,7 @@
 		6D2E5FA116C3897100C51C9D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				6D805F8A16CD369700DC2096 /* Dropbox.framework */,
 				6D2E5FA216C3897100C51C9D /* QuartzCore.framework */,
 				6D2E5FA416C3897100C51C9D /* OpenGLES.framework */,
 				6D2E5FA616C3897100C51C9D /* OpenAL.framework */,
@@ -461,6 +477,10 @@
 		6D2E5FB416C3897100C51C9D /* TrainCat */ = {
 			isa = PBXGroup;
 			children = (
+				6D805F9216CD39FF00DC2096 /* DropboxTestViewController.h */,
+				6D805F9316CD39FF00DC2096 /* DropboxTestViewController.m */,
+				6D805F8616CD14E300DC2096 /* CocosViewController.h */,
+				6D805F8716CD14E300DC2096 /* CocosViewController.m */,
 				6D805F8316CD144500DC2096 /* CCViewController.h */,
 				6D805F8416CD144500DC2096 /* CCViewController.m */,
 				6D805F8116CD0F3B00DC2096 /* MainStoryboard.storyboard */,
@@ -482,9 +502,6 @@
 			children = (
 				6D2E5FB616C3897100C51C9D /* Default.png */,
 				6D2E5FB816C3897100C51C9D /* Default-Landscape~ipad.png */,
-				6D2E5FBA16C3897100C51C9D /* fps_images.png */,
-				6D2E5FBC16C3897100C51C9D /* fps_images-hd.png */,
-				6D2E5FBE16C3897100C51C9D /* fps_images-ipadhd.png */,
 				6D2E5FC016C3897100C51C9D /* Icon-72.png */,
 				6D2E5FC216C3897100C51C9D /* Icon-Small-50.png */,
 				6D2E5FC416C3897100C51C9D /* Icon-Small.png */,
@@ -892,9 +909,6 @@
 			files = (
 				6D2E5FB716C3897100C51C9D /* Default.png in Resources */,
 				6D2E5FB916C3897100C51C9D /* Default-Landscape~ipad.png in Resources */,
-				6D2E5FBB16C3897100C51C9D /* fps_images.png in Resources */,
-				6D2E5FBD16C3897100C51C9D /* fps_images-hd.png in Resources */,
-				6D2E5FBF16C3897100C51C9D /* fps_images-ipadhd.png in Resources */,
 				6D2E5FC116C3897100C51C9D /* Icon-72.png in Resources */,
 				6D2E5FC316C3897100C51C9D /* Icon-Small-50.png in Resources */,
 				6D2E5FC516C3897100C51C9D /* Icon-Small.png in Resources */,
@@ -1019,6 +1033,8 @@
 				6D2E613116C3897300C51C9D /* TrainCatLayer.m in Sources */,
 				6D2E613416C3897300C51C9D /* IntroLayer.m in Sources */,
 				6D805F8516CD144500DC2096 /* CCViewController.m in Sources */,
+				6D805F8816CD14E300DC2096 /* CocosViewController.m in Sources */,
+				6D805F9416CD39FF00DC2096 /* DropboxTestViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1070,6 +1086,10 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = TrainCat/Prefix.pch;
@@ -1089,6 +1109,10 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = TrainCat/Prefix.pch;
 				HEADER_SEARCH_PATHS = "\"TrainCat/libs/kazmath/include\"";

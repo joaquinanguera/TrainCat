@@ -6,17 +6,29 @@
 //  Copyright __MyCompanyName__ 2013. All rights reserved.
 //
 
+#import <Dropbox/Dropbox.h>
 #import "cocos2d.h"
-
 #import "AppDelegate.h"
 #import "IntroLayer.h"
 
 @implementation AppController
 
-@synthesize window=window_, navController=navController_, director=director_;
+@synthesize window=window_, navController=navController_, director=director_; 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    
+    // The account manager stores all the account info. Create this when your app launches
+    DBAccountManager* accountMgr =
+    [[DBAccountManager alloc] initWithAppKey:@"b6zj8tgox1qetuw" secret:@"xiy8g7jg4gzjg2z"];
+    [DBAccountManager setSharedManager:accountMgr];
+    DBAccount *account = accountMgr.linkedAccount;
+    
+    if (account) {
+        DBFilesystem *filesystem = [[DBFilesystem alloc] initWithAccount:account];
+        [DBFilesystem setSharedFilesystem:filesystem];
+    }
+    
     /*
 	// Create the main window
 	window_ = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
@@ -89,6 +101,38 @@
 	[window_ makeKeyAndVisible];
 	*/
 	return YES;
+}
+
+- (BOOL)application:(UIApplication *)app openURL:(NSURL *)url
+  sourceApplication:(NSString *)source annotation:(id)annotation {
+    DBAccount *account = [[DBAccountManager sharedManager] handleOpenURL:url];
+    if (account) {
+        DBFilesystem *filesystem = [[DBFilesystem alloc] initWithAccount:account];
+        [DBFilesystem setSharedFilesystem:filesystem];
+        /*
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Success"
+                                                        message:@"The application has been connected to your dropbox account."
+                                                       delegate:nil
+                                              cancelButtonTitle:@"OK"
+                                              otherButtonTitles:nil];
+        [alert show];
+        [alert release]; */
+        NSLog(@"Application authenticated!");
+        return YES;
+    } else {
+        /*
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Failure"
+                                                        message:@"Could not connect your app! Can't really say why."
+                                                       delegate:nil
+                                              cancelButtonTitle:@"OK"
+                                              otherButtonTitles:nil];
+        [alert show];
+        [alert release];
+         */
+        NSLog(@"**ERROR: Application could not be authenticated!");
+    }
+    
+    return NO;
 }
 
 // Supported orientations: Landscape. Customize it for your own needs
