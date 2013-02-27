@@ -3,13 +3,12 @@
 //  TrainCat
 //
 //  Created by Alankar Misra on 07/02/13.
-//  Copyright __MyCompanyName__ 2013. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
 #import "cocos2d.h"
 
-@interface AppController : NSObject <UIApplicationDelegate, CCDirectorDelegate>
+@interface AppController : UIResponder <UIApplicationDelegate, CCDirectorDelegate>
 {
 	UIWindow *window_;
 	UINavigationController *navController_;
@@ -20,5 +19,13 @@
 @property (nonatomic, retain) UIWindow *window;
 @property (readonly) UINavigationController *navController;
 @property (readonly) CCDirectorIOS *director;
+
+@property (readonly, strong, nonatomic) NSManagedObjectContext *managedObjectContext;
+@property (readonly, strong, nonatomic) NSManagedObjectModel *managedObjectModel;
+@property (readonly, strong, nonatomic) NSPersistentStoreCoordinator *persistentStoreCoordinator;
+
+- (void)saveContext;
+- (NSURL *)applicationDocumentsDirectory;
+
 
 @end

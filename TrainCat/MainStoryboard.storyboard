@@ -1,116 +1,159 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="3084" systemVersion="12C60" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" useAutolayout="YES" initialViewController="Gyh-8S-Htt">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="3084" systemVersion="12C60" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" initialViewController="1jG-E2-tGl">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="2083"/>
     </dependencies>
     <scenes>
-        <!--Dropbox Test View Controller-->
-        <scene sceneID="knR-pa-E3c">
+        <!--Participant Detail View Controller-->
+        <scene sceneID="bxs-9L-zxf">
             <objects>
-                <viewController id="KdA-vr-M2W" customClass="DropboxTestViewController" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="c3Y-nf-sg8">
-                        <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
+                <viewController id="5Ef-gC-uBr" customClass="ParticipantDetailViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="cE8-3V-p0g">
+                        <rect key="frame" x="0.0" y="20" width="703" height="748"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JDp-qt-8Tz">
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                <state key="normal" title="Start here: Activate Dropbox connection">
-                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <state key="highlighted">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="didClickActivateButton" destination="KdA-vr-M2W" eventType="touchUpInside" id="MSv-kg-WKK"/>
-                                </connections>
-                            </button>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="488" translatesAutoresizingMaskIntoConstraints="NO" id="hjP-7P-XQU">
-                                <accessibility key="accessibilityConfiguration">
-                                    <accessibilityTraits key="traits" none="YES" staticText="YES" notEnabled="YES"/>
-                                </accessibility>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="184" id="7JN-lJ-4vv"/>
-                                    <constraint firstAttribute="width" constant="488" id="tA7-Fb-ta3"/>
-                                </constraints>
-                                <string key="text">Clicking on the button below will generate a random string, create a file response.txt and put it on Dropbox. Ensure that the random string displays here matches the one you see in response.txt to confirm that the connection works.   This is not meant to look pretty.</string>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Participant ID" minimumFontSize="17" id="WdT-0j-8aA">
+                                <rect key="frame" x="376" y="96" width="235" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" minimumFontSize="17" id="9n7-Bk-KAb">
+                                <rect key="frame" x="376" y="134" width="235" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Participant ID" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="pzl-uN-jbE">
+                                <rect key="frame" x="226" y="100" width="142" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Dropbox Test" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gn4-hw-bdZ">
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="306" id="O4M-nF-tmn"/>
-                                    <constraint firstAttribute="height" constant="90" id="zsa-G5-m5P"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="50"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Password" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="pA8-bX-ZrW">
+                                <rect key="frame" x="226" y="137" width="142" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vdn-BA-X9M">
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                <state key="normal" title="Activated? Generate a random file on Dropbox.">
-                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <state key="highlighted">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="didClickGenerateRandomFileButton" destination="KdA-vr-M2W" eventType="touchUpInside" id="eJm-jJ-ZXy"/>
-                                </connections>
-                            </button>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Show Password" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="UF3-dz-X2k">
+                                <rect key="frame" x="226" y="186" width="142" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <switch opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="DvN-MB-Dpl">
+                                <rect key="frame" x="376" y="180" width="79" height="27"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </switch>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="JDp-qt-8Tz" firstAttribute="top" secondItem="c3Y-nf-sg8" secondAttribute="top" constant="379" id="7J8-Yg-dPv"/>
-                            <constraint firstItem="JDp-qt-8Tz" firstAttribute="trailing" secondItem="vdn-BA-X9M" secondAttribute="trailing" type="default" id="H9W-gG-TEW"/>
-                            <constraint firstItem="hjP-7P-XQU" firstAttribute="top" secondItem="c3Y-nf-sg8" secondAttribute="top" constant="165" id="IId-s3-WRj"/>
-                            <constraint firstItem="gn4-hw-bdZ" firstAttribute="centerX" secondItem="JDp-qt-8Tz" secondAttribute="centerX" type="default" id="PCv-5g-nHT"/>
-                            <constraint firstItem="JDp-qt-8Tz" firstAttribute="centerX" secondItem="c3Y-nf-sg8" secondAttribute="centerX" type="default" id="d01-ae-jHk"/>
-                            <constraint firstItem="gn4-hw-bdZ" firstAttribute="top" secondItem="c3Y-nf-sg8" secondAttribute="top" constant="84" id="ppq-ZG-uc2"/>
-                            <constraint firstItem="hjP-7P-XQU" firstAttribute="leading" secondItem="c3Y-nf-sg8" secondAttribute="leading" constant="287" id="qeA-uf-sbi"/>
-                            <constraint firstItem="vdn-BA-X9M" firstAttribute="leading" secondItem="JDp-qt-8Tz" secondAttribute="leading" type="default" id="ukO-gu-pSt"/>
-                            <constraint firstAttribute="bottom" secondItem="vdn-BA-X9M" secondAttribute="bottom" constant="282" id="z6M-7x-PFQ"/>
-                        </constraints>
                         <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     </view>
-                    <navigationItem key="navigationItem" id="wh3-d5-0bN"/>
+                    <toolbarItems/>
+                    <connections>
+                        <outlet property="boolShowPassword" destination="DvN-MB-Dpl" id="h4Q-Bz-MNs"/>
+                        <outlet property="txtParticipant" destination="WdT-0j-8aA" id="CAB-Yz-QcR"/>
+                        <outlet property="txtPassword" destination="9n7-Bk-KAb" id="ZEb-Tk-gin"/>
+                    </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="FN1-Wv-QRy" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fWk-Ki-8EI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2461" y="-96"/>
+            <point key="canvasLocation" x="3863" y="-946"/>
+        </scene>
+        <!--Participant Master View Controller - Participant-->
+        <scene sceneID="1sE-aG-A1H">
+            <objects>
+                <tableViewController clearsSelectionOnViewWillAppear="NO" id="b8q-IB-B4t" customClass="ParticipantMasterViewController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="uUO-Ck-RnE">
+                        <rect key="frame" x="0.0" y="64" width="320" height="704"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" id="58l-Lo-zs6">
+                                <rect key="frame" x="0.0" y="22" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="b8q-IB-B4t" id="aIm-K6-17F"/>
+                            <outlet property="delegate" destination="b8q-IB-B4t" id="csa-af-p6b"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Participant" id="wkT-Yg-AhH"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="eBq-Nf-QxV" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4397" y="-1882"/>
         </scene>
         <!--Navigation Controller-->
-        <scene sceneID="D9H-j1-DxS">
+        <scene sceneID="oGV-nw-yw4">
             <objects>
-                <navigationController autoresizesArchivedViewToFullSize="NO" navigationBarHidden="YES" id="Gyh-8S-Htt" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <nil key="simulatedStatusBarMetrics"/>
-                    <nil key="simulatedTopBarMetrics"/>
-                    <nil key="simulatedBottomBarMetrics"/>
-                    <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
-                    <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="96X-H1-Mxw">
-                        <rect key="frame" x="0.0" y="0.0" width="768" height="44"/>
+                <navigationController id="L6w-VP-3x1" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="3vI-6Q-6u3">
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
-                    <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="KdA-vr-M2W" kind="relationship" relationship="rootViewController" id="uPa-vR-jgw"/>
+                        <segue destination="b8q-IB-B4t" kind="relationship" relationship="rootViewController" id="bA1-RD-EHh"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="8v5-QK-idf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="mUq-KG-UoG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1157" y="-84"/>
+            <point key="canvasLocation" x="3863" y="-1883"/>
+        </scene>
+        <!--Participant Split View Controller-->
+        <scene sceneID="8ar-NQ-Q4V">
+            <objects>
+                <splitViewController id="1jG-E2-tGl" customClass="ParticipantSplitViewController" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
+                    <connections>
+                        <segue destination="L6w-VP-3x1" kind="relationship" relationship="masterViewController" id="2tc-8e-GFs"/>
+                        <segue destination="5Ef-gC-uBr" kind="relationship" relationship="detailViewController" id="mtY-kD-X25"/>
+                    </connections>
+                </splitViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="MaS-UZ-SFn" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2569" y="-1420"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="tSZ-2V-KQT">
+            <objects>
+                <viewController id="rgi-HH-6EV" sceneMemberID="viewController">
+                    <view key="view" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="o2u-7p-Cog">
+                        <rect key="frame" x="0.0" y="20" width="768" height="1004"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <toolbarItems/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="WGN-Jd-3QM" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
         </scene>
     </scenes>
     <classes>
-        <class className="DropboxTestViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/DropboxTestViewController.h"/>
+        <class className="ParticipantDetailViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ParticipantDetailViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="boolShowPassword" candidateClass="UISwitch"/>
+                <relationship kind="outlet" name="txtParticipant" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="txtPassword" candidateClass="UITextField"/>
+            </relationships>
         </class>
-        <class className="NSLayoutConstraint" superclassName="NSObject">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/NSLayoutConstraint.h"/>
+        <class className="ParticipantMasterViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ParticipantMasterViewController.h"/>
+        </class>
+        <class className="ParticipantSplitViewController" superclassName="UISplitViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ParticipantSplitViewController.h"/>
         </class>
     </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

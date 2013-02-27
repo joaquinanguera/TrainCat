@@ -3,7 +3,6 @@
 //  TrainCat
 //
 //  Created by Alankar Misra on 07/02/13.
-//  Copyright __MyCompanyName__ 2013. All rights reserved.
 //
 
 

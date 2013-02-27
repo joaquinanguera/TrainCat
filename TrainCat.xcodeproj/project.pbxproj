@@ -130,14 +130,24 @@
 		6D2E612E16C3897300C51C9D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D2E612D16C3897300C51C9D /* AppDelegate.m */; };
 		6D2E613116C3897300C51C9D /* TrainCatLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D2E613016C3897300C51C9D /* TrainCatLayer.m */; };
 		6D2E613416C3897300C51C9D /* IntroLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D2E613316C3897300C51C9D /* IntroLayer.m */; };
+		6D3675FA16DA87AC004FB5FE /* TestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D3675F916DA87AC004FB5FE /* TestViewController.m */; };
+		6D4ADE4C16DD56650077E1D7 /* DropboxController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D4ADE4B16DD56650077E1D7 /* DropboxController.m */; };
+		6D4ADE8116DE451B0077E1D7 /* Participant.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D4ADE8016DE451B0077E1D7 /* Participant.m */; };
+		6D4ADE8416DE451B0077E1D7 /* Session.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D4ADE8316DE451B0077E1D7 /* Session.m */; };
+		6D4ADE8716DE451C0077E1D7 /* Block.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D4ADE8616DE451C0077E1D7 /* Block.m */; };
 		6D805F8216CD0F3B00DC2096 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6D805F8116CD0F3B00DC2096 /* MainStoryboard.storyboard */; };
 		6D805F8516CD144500DC2096 /* CCViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D805F8416CD144500DC2096 /* CCViewController.m */; };
-		6D805F8816CD14E300DC2096 /* CocosViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D805F8716CD14E300DC2096 /* CocosViewController.m */; };
+		6D805F8816CD14E300DC2096 /* GameController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D805F8716CD14E300DC2096 /* GameController.m */; };
 		6D805F8B16CD369700DC2096 /* Dropbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D805F8A16CD369700DC2096 /* Dropbox.framework */; };
 		6D805F8D16CD38AB00DC2096 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D805F8C16CD38AA00DC2096 /* CFNetwork.framework */; };
 		6D805F8F16CD38B700DC2096 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D805F8E16CD38B700DC2096 /* Security.framework */; };
 		6D805F9116CD38C000DC2096 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D805F9016CD38C000DC2096 /* SystemConfiguration.framework */; };
 		6D805F9416CD39FF00DC2096 /* DropboxTestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D805F9316CD39FF00DC2096 /* DropboxTestViewController.m */; };
+		6DAC8FFC16D2C01C00BD0312 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DAC8FFB16D2C01C00BD0312 /* CoreData.framework */; };
+		6DCCC5D116DE5EA400B11E13 /* TrainCat.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6DCCC5CF16DE5EA400B11E13 /* TrainCat.xcdatamodeld */; };
+		6DCCC5D416DE7E5E00B11E13 /* ParticipantMasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DCCC5D316DE7E5E00B11E13 /* ParticipantMasterViewController.m */; };
+		6DCCC5D716DEA43600B11E13 /* ParticipantDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DCCC5D616DEA43600B11E13 /* ParticipantDetailViewController.m */; };
+		6DCCC5DA16DEAB4A00B11E13 /* ParticipantSplitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DCCC5D916DEAB4A00B11E13 /* ParticipantSplitViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -400,17 +410,35 @@
 		6D2E613016C3897300C51C9D /* TrainCatLayer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TrainCatLayer.m; sourceTree = "<group>"; };
 		6D2E613216C3897300C51C9D /* IntroLayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IntroLayer.h; sourceTree = "<group>"; };
 		6D2E613316C3897300C51C9D /* IntroLayer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IntroLayer.m; sourceTree = "<group>"; };
+		6D3675F816DA87AC004FB5FE /* TestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestViewController.h; sourceTree = "<group>"; };
+		6D3675F916DA87AC004FB5FE /* TestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestViewController.m; sourceTree = "<group>"; };
+		6D4ADE4A16DD56650077E1D7 /* DropboxController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DropboxController.h; sourceTree = "<group>"; };
+		6D4ADE4B16DD56650077E1D7 /* DropboxController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DropboxController.m; sourceTree = "<group>"; };
+		6D4ADE7F16DE451B0077E1D7 /* Participant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Participant.h; sourceTree = "<group>"; };
+		6D4ADE8016DE451B0077E1D7 /* Participant.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Participant.m; sourceTree = "<group>"; };
+		6D4ADE8216DE451B0077E1D7 /* Session.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Session.h; sourceTree = "<group>"; };
+		6D4ADE8316DE451B0077E1D7 /* Session.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Session.m; sourceTree = "<group>"; };
+		6D4ADE8516DE451C0077E1D7 /* Block.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Block.h; sourceTree = "<group>"; };
+		6D4ADE8616DE451C0077E1D7 /* Block.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Block.m; sourceTree = "<group>"; };
 		6D805F8116CD0F3B00DC2096 /* MainStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MainStoryboard.storyboard; sourceTree = "<group>"; };
 		6D805F8316CD144500DC2096 /* CCViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCViewController.h; sourceTree = "<group>"; };
 		6D805F8416CD144500DC2096 /* CCViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCViewController.m; sourceTree = "<group>"; };
-		6D805F8616CD14E300DC2096 /* CocosViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CocosViewController.h; sourceTree = "<group>"; };
-		6D805F8716CD14E300DC2096 /* CocosViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CocosViewController.m; sourceTree = "<group>"; };
+		6D805F8616CD14E300DC2096 /* GameController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameController.h; sourceTree = "<group>"; };
+		6D805F8716CD14E300DC2096 /* GameController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameController.m; sourceTree = "<group>"; };
 		6D805F8A16CD369700DC2096 /* Dropbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Dropbox.framework; sourceTree = "<group>"; };
 		6D805F8C16CD38AA00DC2096 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		6D805F8E16CD38B700DC2096 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		6D805F9016CD38C000DC2096 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		6D805F9216CD39FF00DC2096 /* DropboxTestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DropboxTestViewController.h; sourceTree = "<group>"; };
 		6D805F9316CD39FF00DC2096 /* DropboxTestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DropboxTestViewController.m; sourceTree = "<group>"; };
+		6DAC8FFB16D2C01C00BD0312 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		6DCCC5D016DE5EA400B11E13 /* TrainCat 1.0.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "TrainCat 1.0.xcdatamodel"; sourceTree = "<group>"; };
+		6DCCC5D216DE7E5E00B11E13 /* ParticipantMasterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParticipantMasterViewController.h; sourceTree = "<group>"; };
+		6DCCC5D316DE7E5E00B11E13 /* ParticipantMasterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParticipantMasterViewController.m; sourceTree = "<group>"; };
+		6DCCC5D516DEA43600B11E13 /* ParticipantDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParticipantDetailViewController.h; sourceTree = "<group>"; };
+		6DCCC5D616DEA43600B11E13 /* ParticipantDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParticipantDetailViewController.m; sourceTree = "<group>"; };
+		6DCCC5D816DEAB4A00B11E13 /* ParticipantSplitViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParticipantSplitViewController.h; sourceTree = "<group>"; };
+		6DCCC5D916DEAB4A00B11E13 /* ParticipantSplitViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParticipantSplitViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -418,6 +446,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6DAC8FFC16D2C01C00BD0312 /* CoreData.framework in Frameworks */,
 				6D805F9116CD38C000DC2096 /* SystemConfiguration.framework in Frameworks */,
 				6D805F8F16CD38B700DC2096 /* Security.framework in Frameworks */,
 				6D805F8D16CD38AB00DC2096 /* CFNetwork.framework in Frameworks */,
@@ -457,6 +486,7 @@
 		6D2E5FA116C3897100C51C9D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				6DAC8FFB16D2C01C00BD0312 /* CoreData.framework */,
 				6D805F9016CD38C000DC2096 /* SystemConfiguration.framework */,
 				6D805F8E16CD38B700DC2096 /* Security.framework */,
 				6D805F8C16CD38AA00DC2096 /* CFNetwork.framework */,
@@ -477,20 +507,11 @@
 		6D2E5FB416C3897100C51C9D /* TrainCat */ = {
 			isa = PBXGroup;
 			children = (
-				6D805F9216CD39FF00DC2096 /* DropboxTestViewController.h */,
-				6D805F9316CD39FF00DC2096 /* DropboxTestViewController.m */,
-				6D805F8616CD14E300DC2096 /* CocosViewController.h */,
-				6D805F8716CD14E300DC2096 /* CocosViewController.m */,
-				6D805F8316CD144500DC2096 /* CCViewController.h */,
-				6D805F8416CD144500DC2096 /* CCViewController.m */,
-				6D805F8116CD0F3B00DC2096 /* MainStoryboard.storyboard */,
-				6D2E612C16C3897300C51C9D /* AppDelegate.h */,
-				6D2E612D16C3897300C51C9D /* AppDelegate.m */,
-				6D2E612F16C3897300C51C9D /* TrainCatLayer.h */,
-				6D2E613016C3897300C51C9D /* TrainCatLayer.m */,
-				6D2E613216C3897300C51C9D /* IntroLayer.h */,
-				6D2E613316C3897300C51C9D /* IntroLayer.m */,
+				6DBC380816D02AE500A4C492 /* Controllers */,
+				6DBC380916D02B0F00A4C492 /* Storyboards */,
+				6DBC380616D02AB200A4C492 /* Models */,
 				6D2E5FB516C3897100C51C9D /* Resources */,
+				6DBC380716D02ACF00A4C492 /* App */,
 				6D2E5FCF16C3897100C51C9D /* libs */,
 				6D2E612816C3897300C51C9D /* Supporting Files */,
 			);
@@ -517,6 +538,8 @@
 		6D2E5FCF16C3897100C51C9D /* libs */ = {
 			isa = PBXGroup;
 			children = (
+				6D4ADE4E16DD584F0077E1D7 /* CocosUIKit */,
+				6D4ADE4D16DD58330077E1D7 /* Dropbox */,
 				6D2E60E616C3897200C51C9D /* LICENSE_cocos2d.txt */,
 				6D2E60F516C3897300C51C9D /* LICENSE_CocosDenshion.txt */,
 				6D2E612716C3897300C51C9D /* LICENSE_Kazmath.txt */,
@@ -857,6 +880,110 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		6D4ADE4D16DD58330077E1D7 /* Dropbox */ = {
+			isa = PBXGroup;
+			children = (
+				6D4ADE4A16DD56650077E1D7 /* DropboxController.h */,
+				6D4ADE4B16DD56650077E1D7 /* DropboxController.m */,
+			);
+			name = Dropbox;
+			sourceTree = "<group>";
+		};
+		6D4ADE4E16DD584F0077E1D7 /* CocosUIKit */ = {
+			isa = PBXGroup;
+			children = (
+				6D805F8316CD144500DC2096 /* CCViewController.h */,
+				6D805F8416CD144500DC2096 /* CCViewController.m */,
+			);
+			name = CocosUIKit;
+			sourceTree = "<group>";
+		};
+		6D4ADE4F16DD58920077E1D7 /* Game */ = {
+			isa = PBXGroup;
+			children = (
+				6D2E613216C3897300C51C9D /* IntroLayer.h */,
+				6D2E613316C3897300C51C9D /* IntroLayer.m */,
+				6D805F8616CD14E300DC2096 /* GameController.h */,
+				6D805F8716CD14E300DC2096 /* GameController.m */,
+				6D2E612F16C3897300C51C9D /* TrainCatLayer.h */,
+				6D2E613016C3897300C51C9D /* TrainCatLayer.m */,
+			);
+			name = Game;
+			sourceTree = "<group>";
+		};
+		6D4ADE5016DD59CC0077E1D7 /* Experiments */ = {
+			isa = PBXGroup;
+			children = (
+				6D805F9216CD39FF00DC2096 /* DropboxTestViewController.h */,
+				6D805F9316CD39FF00DC2096 /* DropboxTestViewController.m */,
+				6D3675F816DA87AC004FB5FE /* TestViewController.h */,
+				6D3675F916DA87AC004FB5FE /* TestViewController.m */,
+			);
+			name = Experiments;
+			sourceTree = "<group>";
+		};
+		6D4ADE5116DD5B3F0077E1D7 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Classes;
+			sourceTree = "<group>";
+		};
+		6DBC380616D02AB200A4C492 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				6DCCC5CF16DE5EA400B11E13 /* TrainCat.xcdatamodeld */,
+				6D4ADE7F16DE451B0077E1D7 /* Participant.h */,
+				6D4ADE8516DE451C0077E1D7 /* Block.h */,
+				6D4ADE8616DE451C0077E1D7 /* Block.m */,
+				6D4ADE8216DE451B0077E1D7 /* Session.h */,
+				6D4ADE8316DE451B0077E1D7 /* Session.m */,
+				6D4ADE8016DE451B0077E1D7 /* Participant.m */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		6DBC380716D02ACF00A4C492 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				6D2E612C16C3897300C51C9D /* AppDelegate.h */,
+				6D2E612D16C3897300C51C9D /* AppDelegate.m */,
+			);
+			name = App;
+			sourceTree = "<group>";
+		};
+		6DBC380816D02AE500A4C492 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				6DCCC5DB16DEC01B00B11E13 /* Participant Manager */,
+				6D4ADE5116DD5B3F0077E1D7 /* Classes */,
+				6D4ADE5016DD59CC0077E1D7 /* Experiments */,
+				6D4ADE4F16DD58920077E1D7 /* Game */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		6DBC380916D02B0F00A4C492 /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				6D805F8116CD0F3B00DC2096 /* MainStoryboard.storyboard */,
+			);
+			name = Storyboards;
+			sourceTree = "<group>";
+		};
+		6DCCC5DB16DEC01B00B11E13 /* Participant Manager */ = {
+			isa = PBXGroup;
+			children = (
+				6DCCC5D216DE7E5E00B11E13 /* ParticipantMasterViewController.h */,
+				6DCCC5D316DE7E5E00B11E13 /* ParticipantMasterViewController.m */,
+				6DCCC5D516DEA43600B11E13 /* ParticipantDetailViewController.h */,
+				6DCCC5D616DEA43600B11E13 /* ParticipantDetailViewController.m */,
+				6DCCC5D816DEAB4A00B11E13 /* ParticipantSplitViewController.h */,
+				6DCCC5D916DEAB4A00B11E13 /* ParticipantSplitViewController.m */,
+			);
+			name = "Participant Manager";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1033,8 +1160,17 @@
 				6D2E613116C3897300C51C9D /* TrainCatLayer.m in Sources */,
 				6D2E613416C3897300C51C9D /* IntroLayer.m in Sources */,
 				6D805F8516CD144500DC2096 /* CCViewController.m in Sources */,
-				6D805F8816CD14E300DC2096 /* CocosViewController.m in Sources */,
+				6D805F8816CD14E300DC2096 /* GameController.m in Sources */,
 				6D805F9416CD39FF00DC2096 /* DropboxTestViewController.m in Sources */,
+				6D3675FA16DA87AC004FB5FE /* TestViewController.m in Sources */,
+				6D4ADE4C16DD56650077E1D7 /* DropboxController.m in Sources */,
+				6D4ADE8116DE451B0077E1D7 /* Participant.m in Sources */,
+				6D4ADE8416DE451B0077E1D7 /* Session.m in Sources */,
+				6D4ADE8716DE451C0077E1D7 /* Block.m in Sources */,
+				6DCCC5D116DE5EA400B11E13 /* TrainCat.xcdatamodeld in Sources */,
+				6DCCC5D416DE7E5E00B11E13 /* ParticipantMasterViewController.m in Sources */,
+				6DCCC5D716DEA43600B11E13 /* ParticipantDetailViewController.m in Sources */,
+				6DCCC5DA16DEAB4A00B11E13 /* ParticipantSplitViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1149,6 +1285,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		6DCCC5CF16DE5EA400B11E13 /* TrainCat.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				6DCCC5D016DE5EA400B11E13 /* TrainCat 1.0.xcdatamodel */,
+			);
+			currentVersion = 6DCCC5D016DE5EA400B11E13 /* TrainCat 1.0.xcdatamodel */;
+			path = TrainCat.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 6D2E5F9716C3897100C51C9D /* Project object */;
 }

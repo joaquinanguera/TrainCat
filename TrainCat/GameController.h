@@ -9,6 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "cocos2d.h"
 
-@interface CocosViewController : UIViewController <CCDirectorDelegate>
+@interface GameController : UIViewController <CCDirectorDelegate>
 
 @end
