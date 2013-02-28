@@ -7,13 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-
 #import <CoreData/CoreData.h>
-#import "ParticipantDetailViewController.h"
+#import "AddParticipantViewController.h"
 
-@interface ParticipantMasterViewController : UITableViewController <NSFetchedResultsControllerDelegate>
+@interface ParticipantMasterViewController : UITableViewController <NSFetchedResultsControllerDelegate, AddParticipantViewControllerDelegate>
 
-@property (strong, nonatomic) ParticipantDetailViewController *detailViewController;
 @property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 

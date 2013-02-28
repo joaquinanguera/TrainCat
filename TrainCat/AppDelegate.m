@@ -42,26 +42,9 @@
     if (account) {
         DBFilesystem *filesystem = [[DBFilesystem alloc] initWithAccount:account];
         [DBFilesystem setSharedFilesystem:filesystem];
-        /*
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Success"
-                                                        message:@"The application has been connected to your dropbox account."
-                                                       delegate:nil
-                                              cancelButtonTitle:@"OK"
-                                              otherButtonTitles:nil];
-        [alert show];
-        [alert release]; */
-        NSLog(@"Application authenticated!");
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"DS_APPLICATION_LINKED_TO_DROPBOX" object:nil];
         return YES;
     } else {
-        /*
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Failure"
-                                                        message:@"Could not connect your app! Can't really say why."
-                                                       delegate:nil
-                                              cancelButtonTitle:@"OK"
-                                              otherButtonTitles:nil];
-        [alert show];
-        [alert release];
-         */
         NSLog(@"**ERROR: Application could not be authenticated!");
     }
     
@@ -122,7 +105,7 @@
 {
 	[[CCDirector sharedDirector] setNextDeltaTimeZero:YES];
 }
-
+/*
 - (void) dealloc
 {
 	[window_ release];
@@ -131,7 +114,7 @@
     [_managedObjectModel release];
     [_persistentStoreCoordinator release];
     [super dealloc];
-}
+} */
 
 - (void)saveContext
 {

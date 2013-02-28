@@ -6,10 +6,10 @@
 //
 //
 
-#import "DropboxController.h"
+#import "DSDropbox.h"
 #import <Dropbox/Dropbox.h>
 
-@implementation DropboxController
+@implementation DSDropbox
 
 +(void)writeToFile:(NSString *)path theString:(NSString *)string; {
     DBPath *newPath = [[DBPath root] childPath:path];
@@ -32,6 +32,24 @@
      */
 
     NSLog(@"Created file %@ on DropBox.", path);
+}
+
++(void)linkWithDelegate:(UIViewController *)controller {
+    DBAccountManager *dbm = [DBAccountManager sharedManager];
+    /*
+    [dbm addObserver:nil block:^(DBAccount *account) {
+        NSLog(@"Done");
+        if(account && [account isLinked]) {
+            NSLog(@"Authenticated from within DSDropbox");
+        } else {
+            NSLog(@"NOT Authenticated from within DSDropbox");
+        }
+    }];*/
+    [dbm linkFromController:controller];
+}
+
++(void)unlinkWithDelegate:(UIViewController *)controller {
+    [[[DBAccountManager sharedManager] linkedAccount] unlink];
 }
 
 @end

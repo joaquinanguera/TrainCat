@@ -8,8 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ParticipantDetailViewController : UIViewController <UISplitViewControllerDelegate>
+@protocol ParticipantDetailViewControllerDelegate <NSObject>
 
-@property (strong, nonatomic) id detailItem;
+
+@end
+
+@interface ParticipantDetailViewController : UIViewController
 
 @end

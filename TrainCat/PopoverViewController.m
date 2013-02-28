@@ -1,24 +1,24 @@
 //
-//  ParticipantDetailViewController.m
+//  PopoverViewController.m
 //  TrainCat
 //
 //  Created by Alankar Misra on 28/02/13.
 //
 //
 
-#import "ParticipantDetailViewController.h"
+#import "PopoverViewController.h"
 
-@interface ParticipantDetailViewController ()
+@interface PopoverViewController ()
 
 @end
 
-@implementation ParticipantDetailViewController
+@implementation PopoverViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Custom initialization
+        // Additional initialization
     }
     return self;
 }
@@ -26,8 +26,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
+	// Do any additional setup after loading the view.    
 }
+
 
 - (void)didReceiveMemoryWarning
 {

@@ -1,0 +1,3 @@
+1. Dropbox notifications to be completed in the AppDelegate
+2. Link unlink UI needs to be improved (low priority)
+3. Edit screen for Participants

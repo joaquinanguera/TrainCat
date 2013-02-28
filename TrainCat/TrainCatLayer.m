@@ -108,6 +108,7 @@
 }
 
 // on "dealloc" you need to release all your retained objects
+/*
 - (void) dealloc
 {
 	// in case you have something to dealloc, do it in this method
@@ -117,6 +118,7 @@
 	// don't forget to call "super dealloc"
 	[super dealloc];
 }
+*/
 
 #pragma mark GameKit delegate
 

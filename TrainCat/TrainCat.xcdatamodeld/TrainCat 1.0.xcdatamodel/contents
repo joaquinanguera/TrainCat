@@ -1,24 +1,23 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="2057" systemVersion="12C60" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="Block" representedClassName="Block" syncable="YES">
-        <attribute name="exemplars" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="trial" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="exemplars" attributeType="String" syncable="YES"/>
+        <attribute name="trial" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <relationship name="session" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Session" inverseName="blocks" inverseEntity="Session" syncable="YES"/>
     </entity>
     <entity name="Participant" representedClassName="Participant" syncable="YES">
-        <attribute name="password" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="pid" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="pid" attributeType="String" syncable="YES"/>
         <relationship name="sessions" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="Session" inverseName="participant" inverseEntity="Session" syncable="YES"/>
     </entity>
     <entity name="Session" representedClassName="Session" syncable="YES">
-        <attribute name="endTime" optional="YES" attributeType="Date" syncable="YES"/>
-        <attribute name="startTime" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="endTime" attributeType="Date" syncable="YES"/>
+        <attribute name="startTime" attributeType="Date" syncable="YES"/>
         <relationship name="blocks" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="Block" inverseName="session" inverseEntity="Block" syncable="YES"/>
         <relationship name="participant" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Participant" inverseName="sessions" inverseEntity="Participant" syncable="YES"/>
     </entity>
     <elements>
         <element name="Block" positionX="648" positionY="54" width="128" height="90"/>
-        <element name="Participant" positionX="90" positionY="-171" width="128" height="90"/>
+        <element name="Participant" positionX="90" positionY="-171" width="128" height="75"/>
         <element name="Session" positionX="387" positionY="-54" width="128" height="105"/>
     </elements>
 </model>

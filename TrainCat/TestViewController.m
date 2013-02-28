@@ -40,7 +40,6 @@
     NSEntityDescription *participantEntity = [[self.fetchedResultsController fetchRequest] entity];
     Participant *newParticipant = [NSEntityDescription insertNewObjectForEntityForName:[participantEntity name] inManagedObjectContext:context];
     newParticipant.pid = pid;
-    newParticipant.password = password;
     
     // Save the context.
     NSError *error = nil;
@@ -160,7 +159,4 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)dealloc {
-    [super dealloc];
-}
 @end

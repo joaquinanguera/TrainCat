@@ -7,7 +7,6 @@
 //
 
 #import "ParticipantMasterViewController.h"
-#import "ParticipantDetailViewController.h"
 #import "AppDelegate.h"
 #import "Participant.h"
 
@@ -27,37 +26,46 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     self.navigationItem.leftBarButtonItem = self.editButtonItem;
-    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(insertParticipant:)];
-    self.navigationItem.rightBarButtonItem = addButton;
+ 
+    // Uncomment the following line to preserve selection between presentations.
+    // self.clearsSelectionOnViewWillAppear = NO;    
     
-    self.detailViewController = (ParticipantDetailViewController *)[self.splitViewController.viewControllers lastObject];
-    //self.navigationController.navigationBarHidden = YES;     // topBar
 }
 
-- (void)insertParticipant:(id)sender {
-    NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
-    NSEntityDescription *participantEntity = [[self.fetchedResultsController fetchRequest] entity];
-    Participant *newParticipant = [NSEntityDescription insertNewObjectForEntityForName:[participantEntity name] inManagedObjectContext:context];
-    newParticipant.pid = [NSString stringWithFormat:@"%d", arc4random()];
-    newParticipant.password = [NSString stringWithFormat:@"%d", arc4random()];
-    
-    // Save the context.
-    NSError *error = nil;
-    if (![context save:&error]) {
-        // Replace this implementation with code to handle the error appropriately.
-        // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-        abort();
-    } else {
-        NSLog(@"Successfully created and saved object. %d objects in store.", [self.fetchedResultsController.fetchedObjects count]);
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if([[segue identifier] isEqualToString:@"addParticipant"]) {
+        Participant *newParticipant = [NSEntityDescription
+                                       insertNewObjectForEntityForName:[[[self.fetchedResultsController fetchRequest] entity] name]
+                                       inManagedObjectContext:self.fetchedResultsController.managedObjectContext];
+        AddParticipantViewController *apvc = (AddParticipantViewController *)[segue destinationViewController];
+        apvc.delegate = self;
+        apvc.participant = newParticipant;
     }
 }
+
+-(void)addParticipantViewControllerDidSave {
+    NSError *error = nil;
+    if (![self.fetchedResultsController.managedObjectContext save:&error]) {
+        // Replace this implementation with code to handle the error appropriately.
+        // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+        UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"Failed to create new participant"
+                                                          message:[error domain] /* , [error userInfo] */
+                                                         delegate:nil
+                                                cancelButtonTitle:@"OK"
+                                                otherButtonTitles:nil];
+        [message show];
+    } else {
+        [self dismissViewControllerAnimated:YES completion:nil];
+        [self.tableView setNeedsDisplay];
+    }
+}
+
+-(void)addParticipantViewControllerDidCancel:(Participant *)participant {
+    [self.fetchedResultsController.managedObjectContext deleteObject:participant];
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
 
 - (void)didReceiveMemoryWarning
 {
@@ -139,8 +147,8 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSManagedObject *object = [[self fetchedResultsController] objectAtIndexPath:indexPath];
-    self.detailViewController.detailItem = object;
+    //NSManagedObject *object = [[self fetchedResultsController] objectAtIndexPath:indexPath];
+    //self.detailViewController.detailItem = object;
     
     // Navigation logic may go here. Create and push another view controller.
     /*
@@ -169,7 +177,7 @@
     [fetchRequest setFetchBatchSize:20];
     
     // Edit the sort key as appropriate.
-    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"pid" ascending:NO];
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"pid" ascending:YES];
     NSArray *sortDescriptors = @[sortDescriptor];
     
     [fetchRequest setSortDescriptors:sortDescriptors];

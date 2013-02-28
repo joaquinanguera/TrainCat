@@ -8,8 +8,9 @@
 
 #import <Foundation/Foundation.h>
 
-@interface DropboxController : NSObject
+@interface DSDropbox : NSObject
 
 +(void)writeToFile:(NSString *)path theString:(NSString *)string;
-
++(void)linkWithDelegate:(UIViewController *)controller;
++(void)unlinkWithDelegate:(UIViewController *)controller;
 @end
