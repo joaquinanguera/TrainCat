@@ -124,6 +124,8 @@
             abort();
         }
     }
+    
+    // Why doesn't this do anything for the add editing style? or the edit? or is that handled elsewhere?
 }
 
 /*
