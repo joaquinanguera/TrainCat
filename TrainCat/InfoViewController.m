@@ -8,7 +8,7 @@
 
 #import "InfoViewController.h"
 #import <Dropbox/Dropbox.h>
-
+#import "SessionManager.h"
 
 @interface InfoViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *lblCurrentPid;
@@ -29,9 +29,8 @@
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
-    NSString *pid =[ud stringForKey:@"loggedInPid"];
-    self.lblCurrentPid.text = pid ? pid : @"Not set!";
+    int32_t pid = [SessionManager loggedIn];
+    self.lblCurrentPid.text = pid ? [NSString stringWithFormat:@"%04d", pid] : @"Demo";
     DBAccountInfo *ai = [[[DBAccountManager sharedManager] linkedAccount] info];
     if(ai) {
         self.lblDropboxAuthenticated.text = [NSString stringWithFormat:@"%@ with %@", [ai displayName], [ai email]];

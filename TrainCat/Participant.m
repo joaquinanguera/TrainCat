@@ -18,11 +18,11 @@
 
 
 - (BOOL)validatePid:(id *)ioValue error:(NSError **)outError {
-    int32_t pid = [*ioValue integerValue];
-    NSLog(@"pid: %d", pid);
     NSError *error = NULL;
-    if (!pid) { // blank or invalid pid?
-        error = [[NSError alloc] initWithDomain:@"Empty or 0 Participant ID" code:0x1 userInfo:nil];
+    int32_t pid = [*ioValue integerValue];
+    if(pid < 0 || pid >= 9999) {
+        NSString *errorMessage = [NSString stringWithFormat:@"%04d out of bounds. Valid participant numbers range from 0001 to 9999.", pid];
+        error = [[NSError alloc] initWithDomain:errorMessage code:0x2 userInfo:nil];
     } else { // duplicate?
         NSManagedObjectContext *moc = ((AppController *)[[UIApplication sharedApplication] delegate]).managedObjectContext;
         NSFetchRequest *request = [[NSFetchRequest alloc] init];
@@ -32,10 +32,10 @@
         int idCount = [moc countForFetchRequest:request error:&executeFetchError];
         if (executeFetchError) {
             NSString *errorMessage = [NSString stringWithFormat:@"Error looking up Participant %04d with error: %@", pid, [executeFetchError localizedDescription]];
-            error = [[NSError alloc] initWithDomain:errorMessage code:0x2 userInfo:nil];
+            error = [[NSError alloc] initWithDomain:errorMessage code:0x4 userInfo:nil];
         } else if(idCount > 1){ // idCount will be 2 in case of duplicates cause we created the new duplicate object in the current managed object context
             NSLog(@"%d", idCount);
-            error = [[NSError alloc] initWithDomain:@"Duplicate Participant ID" code:0x2 userInfo:nil];
+            error = [[NSError alloc] initWithDomain:@"Duplicate Participant ID" code:0x8 userInfo:nil];
         }
     }
     if (error!= NULL) {

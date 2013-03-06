@@ -7,9 +7,12 @@
 //
 
 #import "ParticipantDetailViewController.h"
+#import "SessionManager.h"
 
 @interface ParticipantDetailViewController ()
 @property (weak, nonatomic) IBOutlet UITextField *pidField;
+@property (weak, nonatomic) IBOutlet UISwitch *loggedInField;
+
 @end
 
 @implementation ParticipantDetailViewController
@@ -29,8 +32,9 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     self.navigationItem.rightBarButtonItem = self.editButtonItem;
-    self.pidField.borderStyle = UITextBorderStyleNone;
-    self.pidField.userInteractionEnabled = NO;
+    self.pidField.text = [NSString stringWithFormat:@"%04d", self.participant.pid];
+    self.loggedInField.on = [SessionManager isLoggedIn:self.participant.pid];
+    [self disableControls];
 }
 
 -(void)setEditing:(BOOL)editing animated:(BOOL)animated {
@@ -38,10 +42,18 @@
     if(editing) {
         self.pidField.borderStyle = UITextBorderStyleRoundedRect;
         self.pidField.userInteractionEnabled = YES;
+        self.loggedInField.userInteractionEnabled = YES;
     } else {
-        self.pidField.borderStyle = UITextBorderStyleNone;
-        self.pidField.userInteractionEnabled = NO;
+        self.participant.pid = [self.pidField.text integerValue];
+        [self.delegate participantDetailViewControllerDidSave:self.participant withAutoLogin:self.loggedInField.on];
+        [self disableControls];
     }
+}
+
+-(void)disableControls {
+    self.pidField.borderStyle = UITextBorderStyleNone;
+    self.pidField.userInteractionEnabled = NO;
+    self.loggedInField.userInteractionEnabled = NO;
 }
 
 

@@ -9,8 +9,10 @@
 #import "ParticipantMasterViewController.h"
 #import "AppDelegate.h"
 #import "Participant.h"
+#import "SessionManager.h"
 
 @interface ParticipantMasterViewController ()
+@property (strong, nonatomic) IBOutlet UITableView *tableView;
 
 @end
 
@@ -34,17 +36,26 @@
 }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if([[segue identifier] isEqualToString:@"addParticipant"]) {
+    NSString *identifier = [segue identifier];
+    
+    if([identifier isEqualToString:@"addParticipant"]) {
         Participant *newParticipant = [NSEntityDescription
                                        insertNewObjectForEntityForName:[[[self.fetchedResultsController fetchRequest] entity] name]
                                        inManagedObjectContext:self.fetchedResultsController.managedObjectContext];
         AddParticipantViewController *apvc = (AddParticipantViewController *)[segue destinationViewController];
         apvc.delegate = self;
         apvc.participant = newParticipant;
+    } else if([identifier isEqualToString:@"viewEditParticipant"]) {
+        NSIndexPath *indexPath = self.tableView.indexPathForSelectedRow;
+        Participant *participant = [[self fetchedResultsController] objectAtIndexPath:indexPath];
+        ParticipantDetailViewController *detailViewController = segue.destinationViewController;
+        detailViewController.participant = participant;
+        detailViewController.delegate = self;
     }
+    
 }
 
--(void)addParticipantViewControllerDidSave {
+-(void)addParticipantViewControllerDidSave:(Participant*)participant withAutoLogin:(BOOL)autoLogin {
     NSError *error = nil;
     if (![self.fetchedResultsController.managedObjectContext save:&error]) {
         // Replace this implementation with code to handle the error appropriately.
@@ -57,19 +68,23 @@
         [message show];
     } else {
         [self dismissViewControllerAnimated:YES completion:nil];
+        if(autoLogin) {
+            [SessionManager login:participant.pid];
+        }
         [self.tableView setNeedsDisplay];
     }
 }
 
 -(void)addParticipantViewControllerDidCancel:(Participant *)participant {
+
     [self.fetchedResultsController.managedObjectContext deleteObject:participant];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 
--(void)participantDetailViewControllerDidSave {
-    //NSError *error = nil;
-    /*
+-(void)participantDetailViewControllerDidSave:(Participant *)participant withAutoLogin:(BOOL)autoLogin {
+    NSLog(@"Saving participant with pid %d", participant.pid);
+    NSError *error = nil;
     if (![self.fetchedResultsController.managedObjectContext save:&error]) {
         // Replace this implementation with code to handle the error appropriately.
         // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
@@ -80,16 +95,13 @@
                                                 otherButtonTitles:nil];
         [message show];
     } else {
-        [self dismissViewControllerAnimated:YES completion:nil];
+        if(autoLogin) {
+            [SessionManager login:participant.pid];
+        } else {
+            [SessionManager logout];
+        }
         [self.tableView setNeedsDisplay];
     }
-     */
-    [self dismissViewControllerAnimated:YES completion:nil];
-}
-
--(void)participantDetailViewControllerDidCancel:(Participant *)participant {
-    //[self.fetchedResultsController.managedObjectContext deleteObject:participant];
-    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 
@@ -124,9 +136,9 @@
 {
     static NSString *CellIdentifier = @"Cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
-    UIView *selectionColor = [[UIView alloc] init];
-    selectionColor.backgroundColor = [UIColor colorWithRed:63.0/255.0 green:206.0/255.0 blue:0.0/255.0 alpha:1.0];
-    cell.selectedBackgroundView = selectionColor;    
+    //UIView *selectionColor = [[UIView alloc] init];
+    //selectionColor.backgroundColor = [UIColor colorWithRed:63.0/255.0 green:206.0/255.0 blue:0.0/255.0 alpha:1.0];
+    //cell.selectedBackgroundView = selectionColor;
     [self configureCell:cell atIndexPath:indexPath];
     
     return cell;
@@ -175,19 +187,10 @@
 
 #pragma mark - Table view delegate
 
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    //NSManagedObject *object = [[self fetchedResultsController] objectAtIndexPath:indexPath];
-    //self.detailViewController.detailItem = object;
-    
     // Navigation logic may go here. Create and push another view controller.
-    /*
-     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
-     [self.navigationController pushViewController:detailViewController animated:YES];
-     [detailViewController release];
-     */
 }
 
 #pragma mark - Fetched results controller
@@ -291,8 +294,8 @@
 
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {
-    NSManagedObject *object = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    cell.textLabel.text = [NSString stringWithFormat:@"%04d", [[object valueForKey:@"pid"] integerValue]];
+    Participant *participant = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    cell.textLabel.text = [NSString stringWithFormat:@"%04d", participant.pid];    
 }
 
 

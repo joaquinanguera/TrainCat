@@ -128,6 +128,7 @@
 		6D665A4B16E699A000541724 /* Participant.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D665A4A16E699A000541724 /* Participant.m */; };
 		6D665A4F16E6D32800541724 /* exemplar_A_Left.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 6D665A4D16E6D32800541724 /* exemplar_A_Left.jpg */; };
 		6D665A5016E6D32800541724 /* exemplar_A_Right.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 6D665A4E16E6D32800541724 /* exemplar_A_Right.jpg */; };
+		6D665A5316E7AEE900541724 /* SessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D665A5216E7AEE900541724 /* SessionManager.m */; };
 		6D805F8216CD0F3B00DC2096 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6D805F8116CD0F3B00DC2096 /* MainStoryboard.storyboard */; };
 		6D805F8516CD144500DC2096 /* CCViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D805F8416CD144500DC2096 /* CCViewController.m */; };
 		6D805F8816CD14E300DC2096 /* GameController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D805F8716CD14E300DC2096 /* GameController.m */; };
@@ -424,6 +425,8 @@
 		6D665A4A16E699A000541724 /* Participant.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Participant.m; sourceTree = "<group>"; };
 		6D665A4D16E6D32800541724 /* exemplar_A_Left.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = exemplar_A_Left.jpg; sourceTree = "<group>"; };
 		6D665A4E16E6D32800541724 /* exemplar_A_Right.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = exemplar_A_Right.jpg; sourceTree = "<group>"; };
+		6D665A5116E7AEE900541724 /* SessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SessionManager.h; sourceTree = "<group>"; };
+		6D665A5216E7AEE900541724 /* SessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SessionManager.m; sourceTree = "<group>"; };
 		6D805F8116CD0F3B00DC2096 /* MainStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MainStoryboard.storyboard; sourceTree = "<group>"; };
 		6D805F8316CD144500DC2096 /* CCViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCViewController.h; sourceTree = "<group>"; };
 		6D805F8416CD144500DC2096 /* CCViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCViewController.m; sourceTree = "<group>"; };
@@ -1020,6 +1023,8 @@
 				6DCCC5E216DF5CCA00B11E13 /* ParticipantDetailViewController.m */,
 				6DCCC5E416DF621D00B11E13 /* AddParticipantViewController.h */,
 				6DCCC5E516DF621D00B11E13 /* AddParticipantViewController.m */,
+				6D665A5116E7AEE900541724 /* SessionManager.h */,
+				6D665A5216E7AEE900541724 /* SessionManager.m */,
 			);
 			name = "Participant Manager";
 			sourceTree = "<group>";
@@ -1251,6 +1256,7 @@
 				6DD044B416DFA75900136668 /* Toast+UIView.m in Sources */,
 				6DD044BA16DFAAE400136668 /* PCToastMessage.m in Sources */,
 				6D665A4B16E699A000541724 /* Participant.m in Sources */,
+				6D665A5316E7AEE900541724 /* SessionManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

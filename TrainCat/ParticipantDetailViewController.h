@@ -16,11 +16,9 @@
 @property (nonatomic, strong) Participant *participant;
 @property (nonatomic, weak) id <ParticipantDetailViewControllerDelegate> delegate;
 
-
 @end
 
 
 @protocol ParticipantDetailViewControllerDelegate
--(void)participantDetailViewControllerDidSave;
--(void)participantDetailViewControllerDidCancel:(Participant *)participant;
+-(void)participantDetailViewControllerDidSave:(Participant *)participant withAutoLogin:(BOOL)autoLogin;
 @end

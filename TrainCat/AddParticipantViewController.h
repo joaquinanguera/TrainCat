@@ -20,6 +20,6 @@
 
 
 @protocol AddParticipantViewControllerDelegate
--(void)addParticipantViewControllerDidSave;
+-(void)addParticipantViewControllerDidSave:(Participant*)participant withAutoLogin:(BOOL)autoLogin;
 -(void)addParticipantViewControllerDidCancel:(Participant *)participant;
 @end
