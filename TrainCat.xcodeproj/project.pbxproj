@@ -129,6 +129,7 @@
 		6D665A4F16E6D32800541724 /* exemplar_A_Left.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 6D665A4D16E6D32800541724 /* exemplar_A_Left.jpg */; };
 		6D665A5016E6D32800541724 /* exemplar_A_Right.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 6D665A4E16E6D32800541724 /* exemplar_A_Right.jpg */; };
 		6D665A5316E7AEE900541724 /* SessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D665A5216E7AEE900541724 /* SessionManager.m */; };
+		6D665A5516E7C40A00541724 /* dropbox-logo.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 6D665A5416E7C40A00541724 /* dropbox-logo.jpg */; };
 		6D805F8216CD0F3B00DC2096 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6D805F8116CD0F3B00DC2096 /* MainStoryboard.storyboard */; };
 		6D805F8516CD144500DC2096 /* CCViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D805F8416CD144500DC2096 /* CCViewController.m */; };
 		6D805F8816CD14E300DC2096 /* GameController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D805F8716CD14E300DC2096 /* GameController.m */; };
@@ -427,6 +428,7 @@
 		6D665A4E16E6D32800541724 /* exemplar_A_Right.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = exemplar_A_Right.jpg; sourceTree = "<group>"; };
 		6D665A5116E7AEE900541724 /* SessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SessionManager.h; sourceTree = "<group>"; };
 		6D665A5216E7AEE900541724 /* SessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SessionManager.m; sourceTree = "<group>"; };
+		6D665A5416E7C40A00541724 /* dropbox-logo.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "dropbox-logo.jpg"; sourceTree = "<group>"; };
 		6D805F8116CD0F3B00DC2096 /* MainStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MainStoryboard.storyboard; sourceTree = "<group>"; };
 		6D805F8316CD144500DC2096 /* CCViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCViewController.h; sourceTree = "<group>"; };
 		6D805F8416CD144500DC2096 /* CCViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCViewController.m; sourceTree = "<group>"; };
@@ -974,6 +976,7 @@
 		6DBC380616D02AB200A4C492 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				6D665A5416E7C40A00541724 /* dropbox-logo.jpg */,
 				6DCCC5CF16DE5EA400B11E13 /* TrainCat.xcdatamodeld */,
 				6D665A4916E699A000541724 /* Participant.h */,
 				6D665A4A16E699A000541724 /* Participant.m */,
@@ -1125,6 +1128,7 @@
 				6DE8A1CD16E68B0B00EF48F8 /* Icon-Settings@2x.png in Resources */,
 				6D665A4F16E6D32800541724 /* exemplar_A_Left.jpg in Resources */,
 				6D665A5016E6D32800541724 /* exemplar_A_Right.jpg in Resources */,
+				6D665A5516E7C40A00541724 /* dropbox-logo.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

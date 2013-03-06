@@ -259,6 +259,10 @@
                                     <action selector="didClickUnlink:" destination="fSR-i8-qJO" eventType="touchUpInside" id="81e-g0-ZfL"/>
                                 </connections>
                             </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" image="dropbox-logo.jpg" id="CEj-5w-KqP">
+                                <rect key="frame" x="311" y="105" width="403" height="215"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
@@ -366,6 +370,7 @@
     <resources>
         <image name="Icon-Settings.png" width="44" height="44"/>
         <image name="System_Preferences_icon.png" width="512" height="512"/>
+        <image name="dropbox-logo.jpg" width="352" height="353"/>
         <image name="exemplar_A_Left.jpg" width="648" height="189"/>
         <image name="exemplar_A_Right.jpg" width="591" height="177"/>
     </resources>

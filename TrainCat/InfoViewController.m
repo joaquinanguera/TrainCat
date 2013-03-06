@@ -30,7 +30,7 @@
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     int32_t pid = [SessionManager loggedIn];
-    self.lblCurrentPid.text = pid ? [NSString stringWithFormat:@"%04d", pid] : @"Demo";
+    self.lblCurrentPid.text = [NSString stringWithFormat:@"%04d", pid];
     DBAccountInfo *ai = [[[DBAccountManager sharedManager] linkedAccount] info];
     if(ai) {
         self.lblDropboxAuthenticated.text = [NSString stringWithFormat:@"%@ with %@", [ai displayName], [ai email]];
