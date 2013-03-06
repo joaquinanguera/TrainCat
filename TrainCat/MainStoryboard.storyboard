@@ -147,7 +147,7 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Participant ID" minimumFontSize="17" id="Tlk-tr-DSG">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Participant ID" minimumFontSize="17" id="Tlk-tr-DSG" customClass="NumericTextField">
                                 <rect key="frame" x="243" y="88" width="221" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -178,7 +178,7 @@
                         <rect key="frame" x="0.0" y="44" width="1024" height="724"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="right" minimumFontSize="17" id="5kO-61-zBf">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="right" minimumFontSize="17" id="5kO-61-zBf" customClass="NumericTextField">
                                 <rect key="frame" x="457" y="55" width="115" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -397,6 +397,9 @@
                 <relationship kind="outlet" name="lblCurrentPid" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="lblDropboxAuthenticated" candidateClass="UILabel"/>
             </relationships>
+        </class>
+        <class className="NumericTextField" superclassName="UITextField">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/NumericTextField.h"/>
         </class>
         <class className="ParticipantDetailViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/ParticipantDetailViewController.h"/>

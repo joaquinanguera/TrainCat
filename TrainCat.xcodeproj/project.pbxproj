@@ -130,6 +130,7 @@
 		6D665A5016E6D32800541724 /* exemplar_A_Right.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 6D665A4E16E6D32800541724 /* exemplar_A_Right.jpg */; };
 		6D665A5316E7AEE900541724 /* SessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D665A5216E7AEE900541724 /* SessionManager.m */; };
 		6D665A5516E7C40A00541724 /* dropbox-logo.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 6D665A5416E7C40A00541724 /* dropbox-logo.jpg */; };
+		6D665A5916E7CE9700541724 /* NumericTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D665A5816E7CE9700541724 /* NumericTextField.m */; };
 		6D805F8216CD0F3B00DC2096 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6D805F8116CD0F3B00DC2096 /* MainStoryboard.storyboard */; };
 		6D805F8516CD144500DC2096 /* CCViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D805F8416CD144500DC2096 /* CCViewController.m */; };
 		6D805F8816CD14E300DC2096 /* GameController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D805F8716CD14E300DC2096 /* GameController.m */; };
@@ -429,6 +430,8 @@
 		6D665A5116E7AEE900541724 /* SessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SessionManager.h; sourceTree = "<group>"; };
 		6D665A5216E7AEE900541724 /* SessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SessionManager.m; sourceTree = "<group>"; };
 		6D665A5416E7C40A00541724 /* dropbox-logo.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "dropbox-logo.jpg"; sourceTree = "<group>"; };
+		6D665A5716E7CE9700541724 /* NumericTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NumericTextField.h; sourceTree = "<group>"; };
+		6D665A5816E7CE9700541724 /* NumericTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NumericTextField.m; sourceTree = "<group>"; };
 		6D805F8116CD0F3B00DC2096 /* MainStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MainStoryboard.storyboard; sourceTree = "<group>"; };
 		6D805F8316CD144500DC2096 /* CCViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCViewController.h; sourceTree = "<group>"; };
 		6D805F8416CD144500DC2096 /* CCViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCViewController.m; sourceTree = "<group>"; };
@@ -577,6 +580,7 @@
 		6D2E5FCF16C3897100C51C9D /* libs */ = {
 			isa = PBXGroup;
 			children = (
+				6D665A5616E7CDF800541724 /* ControlExtensions */,
 				6DD044B516DFA76300136668 /* Toast */,
 				6D4ADE4E16DD584F0077E1D7 /* CocosUIKit */,
 				6D4ADE4D16DD58330077E1D7 /* Dropbox */,
@@ -973,6 +977,15 @@
 			name = test;
 			sourceTree = "<group>";
 		};
+		6D665A5616E7CDF800541724 /* ControlExtensions */ = {
+			isa = PBXGroup;
+			children = (
+				6D665A5716E7CE9700541724 /* NumericTextField.h */,
+				6D665A5816E7CE9700541724 /* NumericTextField.m */,
+			);
+			name = ControlExtensions;
+			sourceTree = "<group>";
+		};
 		6DBC380616D02AB200A4C492 /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -1261,6 +1274,7 @@
 				6DD044BA16DFAAE400136668 /* PCToastMessage.m in Sources */,
 				6D665A4B16E699A000541724 /* Participant.m in Sources */,
 				6D665A5316E7AEE900541724 /* SessionManager.m in Sources */,
+				6D665A5916E7CE9700541724 /* NumericTextField.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
