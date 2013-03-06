@@ -32,6 +32,7 @@
     [super viewDidLoad];
     
 	self.autoLoginField.on = [[NSUserDefaults standardUserDefaults] boolForKey:@"autoLoginFieldDefault"];
+    [self.pidField becomeFirstResponder];
 }
 
 - (void)didReceiveMemoryWarning
@@ -45,12 +46,12 @@
 }
 
 - (IBAction)didSave:(UIBarButtonItem *)sender {
-    self.pidField.text = self.participant.pid = [self.pidField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    self.participant.pid = [self.pidField.text integerValue];
     [self.delegate addParticipantViewControllerDidSave];
     
     NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
     if(self.autoLoginField.on) {
-        [ud setObject:self.pidField.text forKey:@"loggedInPid"];
+        [ud setInteger:self.participant.pid forKey:@"loggedInPid"];
     }
     [ud setBool:self.autoLoginField.on forKey:@"autoLoginFieldDefault"];
     [ud synchronize];

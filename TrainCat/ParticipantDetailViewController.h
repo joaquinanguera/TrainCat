@@ -7,12 +7,20 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Participant.h"
 
-@protocol ParticipantDetailViewControllerDelegate <NSObject>
+@protocol ParticipantDetailViewControllerDelegate;
+
+@interface ParticipantDetailViewController : UIViewController
+
+@property (nonatomic, strong) Participant *participant;
+@property (nonatomic, weak) id <ParticipantDetailViewControllerDelegate> delegate;
 
 
 @end
 
-@interface ParticipantDetailViewController : UIViewController
 
+@protocol ParticipantDetailViewControllerDelegate
+-(void)participantDetailViewControllerDidSave;
+-(void)participantDetailViewControllerDidCancel:(Participant *)participant;
 @end

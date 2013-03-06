@@ -2,7 +2,7 @@
 //  Participant.h
 //  TrainCat
 //
-//  Created by Alankar Misra on 28/02/13.
+//  Created by Alankar Misra on 06/03/13.
 //
 //
 
@@ -13,7 +13,7 @@
 
 @interface Participant : NSManagedObject
 
-@property (nonatomic, retain) NSString * pid;
+@property (nonatomic) int32_t pid;
 @property (nonatomic, retain) NSOrderedSet *sessions;
 @end
 
@@ -29,6 +29,4 @@
 - (void)removeSessionsObject:(Session *)value;
 - (void)addSessions:(NSOrderedSet *)values;
 - (void)removeSessions:(NSOrderedSet *)values;
-- (BOOL)validatepid:(id *)participant error:(NSError **)outError;
 @end
-

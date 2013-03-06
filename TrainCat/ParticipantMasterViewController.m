@@ -67,6 +67,32 @@
 }
 
 
+-(void)participantDetailViewControllerDidSave {
+    //NSError *error = nil;
+    /*
+    if (![self.fetchedResultsController.managedObjectContext save:&error]) {
+        // Replace this implementation with code to handle the error appropriately.
+        // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+        UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"Failed to update participant"
+                                                          message:[error domain] 
+                                                         delegate:nil
+                                                cancelButtonTitle:@"OK"
+                                                otherButtonTitles:nil];
+        [message show];
+    } else {
+        [self dismissViewControllerAnimated:YES completion:nil];
+        [self.tableView setNeedsDisplay];
+    }
+     */
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+-(void)participantDetailViewControllerDidCancel:(Participant *)participant {
+    //[self.fetchedResultsController.managedObjectContext deleteObject:participant];
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -98,7 +124,9 @@
 {
     static NSString *CellIdentifier = @"Cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
-    
+    UIView *selectionColor = [[UIView alloc] init];
+    selectionColor.backgroundColor = [UIColor colorWithRed:63.0/255.0 green:206.0/255.0 blue:0.0/255.0 alpha:1.0];
+    cell.selectedBackgroundView = selectionColor;    
     [self configureCell:cell atIndexPath:indexPath];
     
     return cell;
@@ -188,10 +216,10 @@
     // nil for section name key path means "no sections".
     NSFetchedResultsController *aFetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:self.managedObjectContext sectionNameKeyPath:nil cacheName:@"Participant"];
     aFetchedResultsController.delegate = self;
-    self.fetchedResultsController = aFetchedResultsController;
+    _fetchedResultsController = aFetchedResultsController;
     
 	NSError *error = nil;
-	if (![self.fetchedResultsController performFetch:&error]) {
+	if (![_fetchedResultsController performFetch:&error]) {
         // Replace this implementation with code to handle the error appropriately.
         // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
 	    NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
@@ -264,7 +292,7 @@
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {
     NSManagedObject *object = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    cell.textLabel.text = [[object valueForKey:@"pid"] description];
+    cell.textLabel.text = [NSString stringWithFormat:@"%04d", [[object valueForKey:@"pid"] integerValue]];
 }
 
 

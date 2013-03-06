@@ -100,7 +100,7 @@
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
         Participant *participant = [self.fetchedResultsController objectAtIndexPath:indexPath]; // We are only concerned with the first record
         NSLog(@"%d records", [self.fetchedResultsController.fetchedObjects count]);
-        NSLog(@"pid: %@", participant.pid);
+        NSLog(@"pid: %d", participant.pid);
     } else {
         NSLog(@"Nothing to display");
     }
