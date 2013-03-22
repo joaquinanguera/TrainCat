@@ -8,7 +8,7 @@
 
 #import "ParticipantMasterViewController.h"
 #import "AppDelegate.h"
-#import "Participant.h"
+#import "Participant+Validation.h"
 #import "SessionManager.h"
 
 @interface ParticipantMasterViewController ()

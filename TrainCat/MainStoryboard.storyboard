@@ -1,13 +1,51 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="3084" systemVersion="12C60" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" initialViewController="8ua-lz-DYr">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="3084" systemVersion="12C60" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" initialViewController="L9F-VV-78Q">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="2083"/>
     </dependencies>
     <scenes>
-        <!--Popover View Controller-->
+        <!--View Controller-->
+        <scene sceneID="jUe-rr-jgm">
+            <objects>
+                <viewController id="004-aV-FOj" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Rg4-W0-yfK">
+                        <rect key="frame" x="0.0" y="20" width="1024" height="748"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="Background.jpg" id="LDc-Gg-Lg6">
+                                <rect key="frame" x="0.0" y="0.0" width="1024" height="748"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            </imageView>
+                            <button contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="21H-tf-9b0">
+                                <rect key="frame" x="907" y="47" width="66" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" title="Game">
+                                    <color key="titleColor" white="0.48862340328467158" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="8ua-lz-DYr" kind="push" id="spm-B4-lMG"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="0e9-N1-5P4"/>
+                    <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Lgh-8u-3eo" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1454" y="-331"/>
+        </scene>
+        <!--Game Controller-->
         <scene sceneID="cIb-ia-Bpp">
             <objects>
-                <viewController id="8ua-lz-DYr" customClass="PopoverViewController" sceneMemberID="viewController">
+                <viewController id="8ua-lz-DYr" customClass="GameController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Pac-7b-K9m">
                         <rect key="frame" x="0.0" y="20" width="1024" height="748"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -29,30 +67,16 @@
                                     </segue>
                                 </connections>
                             </button>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="{ Game will appear here }" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="7Ko-56-e70">
-                                <rect key="frame" x="315" y="590" width="368" height="57"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="30"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" image="exemplar_A_Left.jpg" id="8Ht-2u-ieC">
-                                <rect key="frame" x="153" y="219" width="344" height="232"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" image="exemplar_A_Right.jpg" id="x4M-9A-7lY">
-                                <rect key="frame" x="537" y="224" width="344" height="232"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     </view>
+                    <navigationItem key="navigationItem" id="A9P-Nh-Nyk"/>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4By-9f-Zr4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1766" y="-331"/>
+            <point key="canvasLocation" x="2640" y="-1043"/>
         </scene>
         <!--Participant Master View Controller - Participants-->
         <scene sceneID="V7R-cP-Ak8">
@@ -105,7 +129,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="E6S-vc-laB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5352" y="-1566"/>
+            <point key="canvasLocation" x="7504" y="-1862"/>
         </scene>
         <!--Add Participant View Controller-->
         <scene sceneID="htR-A3-jJN">
@@ -148,7 +172,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Participant ID" minimumFontSize="17" id="Tlk-tr-DSG" customClass="NumericTextField">
-                                <rect key="frame" x="243" y="88" width="221" height="30"/>
+                                <rect key="frame" x="243" y="88" width="220" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
@@ -168,40 +192,47 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="orH-NF-nhs" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6623" y="-1966"/>
+            <point key="canvasLocation" x="8775" y="-2262"/>
         </scene>
         <!--Participant Detail View Controller - Participant-->
         <scene sceneID="MId-eK-nzI">
             <objects>
-                <viewController title="Participant" id="iJv-dQ-ywI" customClass="ParticipantDetailViewController" sceneMemberID="viewController">
+                <viewController autoresizesArchivedViewToFullSize="NO" title="Participant" modalPresentationStyle="currentContext" id="iJv-dQ-ywI" customClass="ParticipantDetailViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="aIe-78-i59">
                         <rect key="frame" x="0.0" y="44" width="1024" height="724"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="right" minimumFontSize="17" id="5kO-61-zBf" customClass="NumericTextField">
-                                <rect key="frame" x="457" y="55" width="115" height="30"/>
+                            <view contentMode="scaleToFill" id="xdB-eg-mfF">
+                                <rect key="frame" x="395" y="4" width="235" height="105"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
-                            </textField>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Participant ID" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="mW9-q3-dxP">
-                                <rect key="frame" x="419" y="20" width="147" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Logged in?" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="UjW-WI-1wR">
-                                <rect key="frame" x="466" y="112" width="92" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <switch opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" id="2Gb-FA-dco">
-                                <rect key="frame" x="474" y="155" width="79" height="27"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </switch>
+                                <subviews>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="5kO-61-zBf" customClass="NumericTextField">
+                                        <rect key="frame" x="138" y="16" width="77" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                                    </textField>
+                                    <switch opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" id="2Gb-FA-dco">
+                                        <rect key="frame" x="138" y="64" width="79" height="27"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </switch>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Participant ID" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="mW9-q3-dxP">
+                                        <rect key="frame" x="20" y="20" width="110" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Logged in?" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="UjW-WI-1wR">
+                                        <rect key="frame" x="38" y="64" width="92" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
@@ -210,6 +241,7 @@
                     <navigationItem key="navigationItem" title="Info" id="lmh-0f-8S6">
                         <barButtonItem key="backBarButtonItem" title="Participants" id="An8-FV-QNO"/>
                     </navigationItem>
+                    <value key="contentSizeForViewInPopover" type="size" width="235" height="105"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="blackOpaque" prompted="NO"/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <connections>
@@ -219,7 +251,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4ap-Y5-pDi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6546" y="-747"/>
+            <point key="canvasLocation" x="9672" y="-1043"/>
         </scene>
         <!--Dropbox View Controller - Dropbox-->
         <scene sceneID="Ekv-AL-5JT">
@@ -230,7 +262,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="iYY-mo-4P7">
-                                <rect key="frame" x="462" y="374" width="101" height="44"/>
+                                <rect key="frame" x="462" y="325" width="101" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <state key="normal" title="Link">
@@ -245,7 +277,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="MBN-Ap-hYZ">
-                                <rect key="frame" x="462" y="461" width="101" height="44"/>
+                                <rect key="frame" x="462" y="412" width="101" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <state key="normal" title="Unlink">
@@ -268,10 +300,11 @@
                         <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Dropbox" id="pgD-B8-7Ym"/>
+                    <navigationItem key="navigationItem" id="glq-d3-Bxt"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Tlx-K5-nw9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4139" y="-388"/>
+            <point key="canvasLocation" x="6293" y="-628"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="KQK-3G-fTC">
@@ -291,7 +324,7 @@
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EhQ-aN-j2M" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2916" y="-1542"/>
+            <point key="canvasLocation" x="4060" y="-2294"/>
         </scene>
         <!--Info View Controller - System Information-->
         <scene sceneID="Lxh-fa-dCU">
@@ -345,7 +378,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NDR-lw-Usf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4106" y="-2554"/>
+            <point key="canvasLocation" x="6258" y="-2850"/>
         </scene>
         <!--Navigation Controller - Participants-->
         <scene sceneID="dkI-Tq-yMJ">
@@ -364,15 +397,35 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eCx-Sc-H7M" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4114" y="-1542"/>
+            <point key="canvasLocation" x="6266" y="-1838"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="DCH-4G-1dY">
+            <objects>
+                <navigationController navigationBarHidden="YES" id="L9F-VV-78Q" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <nil key="simulatedTopBarMetrics"/>
+                    <nil key="simulatedBottomBarMetrics"/>
+                    <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="zC2-8U-aL5">
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="004-aV-FOj" kind="relationship" relationship="rootViewController" id="bwJ-uH-bjg"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="rZV-iq-ieO" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="104" y="-315"/>
         </scene>
     </scenes>
     <resources>
+        <image name="Background.jpg" width="1024" height="748"/>
         <image name="Icon-Settings.png" width="44" height="44"/>
         <image name="System_Preferences_icon.png" width="512" height="512"/>
         <image name="dropbox-logo.jpg" width="352" height="353"/>
-        <image name="exemplar_A_Left.jpg" width="648" height="189"/>
-        <image name="exemplar_A_Right.jpg" width="591" height="177"/>
     </resources>
     <classes>
         <class className="AddParticipantViewController" superclassName="UIViewController">
@@ -390,6 +443,9 @@
                 <relationship kind="action" name="didClickAuthorize:"/>
                 <relationship kind="action" name="didClickUnlink:"/>
             </relationships>
+        </class>
+        <class className="GameController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/GameController.h"/>
         </class>
         <class className="InfoViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/InfoViewController.h"/>
@@ -413,9 +469,6 @@
             <relationships>
                 <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
             </relationships>
-        </class>
-        <class className="PopoverViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PopoverViewController.h"/>
         </class>
     </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

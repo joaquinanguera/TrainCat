@@ -28,12 +28,13 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    NSLog(@"viewDidLoad");
     
     CCDirector *director = [CCDirector sharedDirector];
     
     if([director isViewLoaded] == NO)
     {
-        CGRect bounds = [[[UIApplication sharedApplication] keyWindow] bounds];
+        CGRect bounds = [[[UIApplication sharedApplication] keyWindow] bounds];        
         CGRect horizontalBounds = CGRectMake(bounds.origin.x, bounds.origin.y, bounds.size.height, bounds.size.width);
         
         // Create the OpenGL view that Cocos2D will render to.
@@ -45,7 +46,7 @@
                                      multiSampling:NO
                                    numberOfSamples:0];
         
-        glView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+        // glView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         // Assign the view to the director.
         director.view = glView;
         

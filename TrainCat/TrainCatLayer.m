@@ -11,6 +11,14 @@
 
 // Needed to obtain the Navigation Controller
 #import "AppDelegate.h"
+#import "StimulusPack.h"
+#import "StimulusCategory.h"
+#import "StimulusBlock.h"
+#import "StimulusList.h"
+#import "RangeArray.h"
+#import "NSMutableArray+Shuffling.h"
+#import "TrainCatProgram.h"
+#import "TrainCatSession.h"
 
 #pragma mark - HelloWorldLayer
 
@@ -42,6 +50,8 @@
         CCSprite *sprite = [CCSprite spriteWithFile:@"Icon.png"];
         sprite.position = ccp(300, 300);
         [self addChild:sprite];
+        [self printStimulusPack];
+        [self makeTrainCatProgram];
 		/*
 		// create and initialize a Label
 		CCLabelTTF *label = [CCLabelTTF labelWithString:@"Hello World" fontName:@"Marker Felt" fontSize:64];
@@ -107,18 +117,36 @@
 	return self;
 }
 
-// on "dealloc" you need to release all your retained objects
-/*
-- (void) dealloc
-{
-	// in case you have something to dealloc, do it in this method
-	// in this particular example nothing needs to be released.
-	// cocos2d will automatically release all the children (Label)
-	
-	// don't forget to call "super dealloc"
-	[super dealloc];
+-(void)printStimulusPack {
+    NSArray *stim = [StimulusPack categories];
+    for(StimulusCategory *cat in stim) {
+        NSLog(@"%@", cat);
+    }    
 }
-*/
+
+-(void)makeTrainCatProgram {
+    NSArray *stim = [StimulusPack categories];
+    NSMutableArray *categories = [[[RangeArray alloc] initWithRangeFrom:0 to:stim.count-1] mutableCopy];
+    [categories shuffle];
+    NSMutableArray *categorySequence = [categories mutableCopy];
+    [categories shuffle];
+    [categorySequence addObjectsFromArray:categories];
+    
+    NSNumber *zero = [NSNumber numberWithInt:0];
+    NSNumber *one = [NSNumber numberWithInt:1];
+    NSMutableArray *blocks = [NSMutableArray arrayWithObjects:zero,zero,zero,one,one,one, nil];
+    
+    TrainCatProgram *program = [[TrainCatProgram alloc] init];
+    for(NSNumber *catID in categorySequence) {
+        [blocks shuffle];
+        [program.sessions addObject:[[TrainCatSession alloc] initWithCategoryID:catID blocks:[blocks mutableCopy]]];
+    }    
+    
+    NSLog(@"%@", [categorySequence componentsJoinedByString:@","]);
+    NSLog(@"%@", [blocks componentsJoinedByString:@","]);
+    NSLog(@"%@", program);
+}
+
 
 #pragma mark GameKit delegate
 

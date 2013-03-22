@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "Participant.h"
+#import "Participant+Validation.h"
 
 @protocol AddParticipantViewControllerDelegate;
 

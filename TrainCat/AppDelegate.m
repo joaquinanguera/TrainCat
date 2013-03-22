@@ -33,8 +33,6 @@
         [DBFilesystem setSharedFilesystem:filesystem];
     }
     
-    
-
 	return YES;
 }
 
@@ -204,7 +202,6 @@
     
     return _persistentStoreCoordinator;
 }
-
 
 
 #pragma mark - Application's Documents directory

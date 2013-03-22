@@ -96,9 +96,9 @@ and when to execute the Scenes.
 
 	ccTime		accumDt_;
 	ccTime		frameRate_;
-	CCLabelAtlas *FPSLabel_;
-	CCLabelAtlas *SPFLabel_;
-	CCLabelAtlas *drawsLabel_;
+	//CCLabelAtlas *FPSLabel_;
+	//CCLabelAtlas *SPFLabel_;
+	//CCLabelAtlas *drawsLabel_;
 
 	/* is the running scene paused */
 	BOOL isPaused_;

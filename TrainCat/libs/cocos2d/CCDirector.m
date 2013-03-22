@@ -182,10 +182,11 @@ static CCDirector *_sharedDirector = nil;
 - (void) dealloc
 {
 	CCLOGINFO(@"cocos2d: deallocing %@", self);
-
+    /*
 	[FPSLabel_ release];
 	[SPFLabel_ release];
 	[drawsLabel_ release];
+     */
 	[runningScene_ release];
 	[notificationNode_ release];
 	[scenesStack_ release];
@@ -445,12 +446,12 @@ static CCDirector *_sharedDirector = nil;
 	[scenesStack_ removeAllObjects];
 
 	[self stopAnimation];
-
+    /*
 	[FPSLabel_ release];
 	[SPFLabel_ release];
 	[drawsLabel_ release];
 	FPSLabel_ = nil, SPFLabel_=nil, drawsLabel_=nil;
-
+     */
 	[delegate_ release];
 	delegate_ = nil;
 
@@ -558,6 +559,7 @@ static CCDirector *_sharedDirector = nil;
 // display statistics
 -(void) showStats
 {
+/*
 	frames_++;
 	accumDt_ += dt;
 
@@ -566,6 +568,7 @@ static CCDirector *_sharedDirector = nil;
 
 		if( accumDt_ > CC_DIRECTOR_STATS_INTERVAL)
 		{
+            
 			NSString *spfstr = [[NSString alloc] initWithFormat:@"%.3f", secondsPerFrame_];
 			[SPFLabel_ setString:spfstr];
 			[spfstr release];
@@ -592,6 +595,7 @@ static CCDirector *_sharedDirector = nil;
 	}
 	
 	__ccNumberOfDraws = 0;
+*/ 
 }
 
 -(void) calculateMPF
@@ -606,6 +610,7 @@ static CCDirector *_sharedDirector = nil;
 
 -(void) createStatsLabel
 {
+    /*
 	if( FPSLabel_ && SPFLabel_ ) {
 		CCTexture2D *texture = [FPSLabel_ texture];
 
@@ -622,15 +627,16 @@ static CCDirector *_sharedDirector = nil;
 
 	CCTexture2DPixelFormat currentFormat = [CCTexture2D defaultAlphaPixelFormat];
 	[CCTexture2D setDefaultAlphaPixelFormat:kCCTexture2DPixelFormat_RGBA4444];
-	FPSLabel_ = [[CCLabelAtlas alloc]  initWithString:@"00.0" charMapFile:@"fps_images.png" itemWidth:12 itemHeight:32 startCharMap:'.'];
-	SPFLabel_ = [[CCLabelAtlas alloc]  initWithString:@"0.000" charMapFile:@"fps_images.png" itemWidth:12 itemHeight:32 startCharMap:'.'];
-	drawsLabel_ = [[CCLabelAtlas alloc]  initWithString:@"000" charMapFile:@"fps_images.png" itemWidth:12 itemHeight:32 startCharMap:'.'];
+	//FPSLabel_ = [[CCLabelAtlas alloc]  initWithString:@"00.0" charMapFile:@"fps_images.png" itemWidth:12 itemHeight:32 startCharMap:'.'];
+	//SPFLabel_ = [[CCLabelAtlas alloc]  initWithString:@"0.000" charMapFile:@"fps_images.png" itemWidth:12 itemHeight:32 startCharMap:'.'];
+	//drawsLabel_ = [[CCLabelAtlas alloc]  initWithString:@"000" charMapFile:@"fps_images.png" itemWidth:12 itemHeight:32 startCharMap:'.'];
 
 	[CCTexture2D setDefaultAlphaPixelFormat:currentFormat];
 
 	[drawsLabel_ setPosition: ccpAdd( ccp(0,34), CC_DIRECTOR_STATS_POSITION ) ];
 	[SPFLabel_ setPosition: ccpAdd( ccp(0,17), CC_DIRECTOR_STATS_POSITION ) ];
 	[FPSLabel_ setPosition: CC_DIRECTOR_STATS_POSITION ];
+     */
 }
 
 @end

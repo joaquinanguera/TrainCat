@@ -125,12 +125,17 @@
 		6D4ADE4C16DD56650077E1D7 /* DSDropbox.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D4ADE4B16DD56650077E1D7 /* DSDropbox.m */; };
 		6D4ADE8416DE451B0077E1D7 /* Session.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D4ADE8316DE451B0077E1D7 /* Session.m */; };
 		6D4ADE8716DE451C0077E1D7 /* Block.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D4ADE8616DE451C0077E1D7 /* Block.m */; };
+		6D5AAE1416FC55A70066FF80 /* Participant+Validation.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D5AAE1316FC55A70066FF80 /* Participant+Validation.m */; };
 		6D665A4B16E699A000541724 /* Participant.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D665A4A16E699A000541724 /* Participant.m */; };
 		6D665A4F16E6D32800541724 /* exemplar_A_Left.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 6D665A4D16E6D32800541724 /* exemplar_A_Left.jpg */; };
 		6D665A5016E6D32800541724 /* exemplar_A_Right.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 6D665A4E16E6D32800541724 /* exemplar_A_Right.jpg */; };
 		6D665A5316E7AEE900541724 /* SessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D665A5216E7AEE900541724 /* SessionManager.m */; };
 		6D665A5516E7C40A00541724 /* dropbox-logo.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 6D665A5416E7C40A00541724 /* dropbox-logo.jpg */; };
 		6D665A5916E7CE9700541724 /* NumericTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D665A5816E7CE9700541724 /* NumericTextField.m */; };
+		6D665A5C16E7E1E800541724 /* Background.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 6D665A5A16E7E1E800541724 /* Background.jpg */; };
+		6D665A5D16E7E1E800541724 /* Background@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 6D665A5B16E7E1E800541724 /* Background@2x.jpg */; };
+		6D665A6016E7E32400541724 /* Default-Landscape@2x~ipad.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 6D665A5E16E7E32400541724 /* Default-Landscape@2x~ipad.jpg */; };
+		6D665A6116E7E32400541724 /* Default-Landscape~ipad.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 6D665A5F16E7E32400541724 /* Default-Landscape~ipad.jpg */; };
 		6D805F8216CD0F3B00DC2096 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6D805F8116CD0F3B00DC2096 /* MainStoryboard.storyboard */; };
 		6D805F8516CD144500DC2096 /* CCViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D805F8416CD144500DC2096 /* CCViewController.m */; };
 		6D805F8816CD14E300DC2096 /* GameController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D805F8716CD14E300DC2096 /* GameController.m */; };
@@ -149,8 +154,6 @@
 		6DD044AB16DF96C700136668 /* InfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DD044AA16DF96C700136668 /* InfoViewController.m */; };
 		6DD044B416DFA75900136668 /* Toast+UIView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DD044B316DFA75900136668 /* Toast+UIView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		6DD044BA16DFAAE400136668 /* PCToastMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DD044B916DFAAE400136668 /* PCToastMessage.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		6DE8A1BB16E6789B00EF48F8 /* Default-Landscape@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 6DE8A1B016E6789B00EF48F8 /* Default-Landscape@2x~ipad.png */; };
-		6DE8A1BC16E6789B00EF48F8 /* Default-Landscape~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 6DE8A1B116E6789B00EF48F8 /* Default-Landscape~ipad.png */; };
 		6DE8A1BD16E6789B00EF48F8 /* Icon-Small.png in Resources */ = {isa = PBXBuildFile; fileRef = 6DE8A1B216E6789B00EF48F8 /* Icon-Small.png */; };
 		6DE8A1BE16E6789B00EF48F8 /* Icon-Small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6DE8A1B316E6789B00EF48F8 /* Icon-Small@2x.png */; };
 		6DE8A1BF16E6789B00EF48F8 /* Icon-Small~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 6DE8A1B416E6789B00EF48F8 /* Icon-Small~ipad.png */; };
@@ -162,6 +165,14 @@
 		6DE8A1C916E6867700EF48F8 /* iTunesArtwork@2x in Resources */ = {isa = PBXBuildFile; fileRef = 6DE8A1C716E6867700EF48F8 /* iTunesArtwork@2x */; };
 		6DE8A1CC16E68B0B00EF48F8 /* Icon-Settings.png in Resources */ = {isa = PBXBuildFile; fileRef = 6DE8A1CA16E68B0B00EF48F8 /* Icon-Settings.png */; };
 		6DE8A1CD16E68B0B00EF48F8 /* Icon-Settings@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6DE8A1CB16E68B0B00EF48F8 /* Icon-Settings@2x.png */; };
+		6DE8D2C016FC6A2800F76997 /* StimulusCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DE8D2BF16FC6A2800F76997 /* StimulusCategory.m */; };
+		6DE8D2C316FC6A5900F76997 /* StimulusBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DE8D2C216FC6A5900F76997 /* StimulusBlock.m */; };
+		6DE8D2C916FC6E5500F76997 /* StimulusPack.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DE8D2C816FC6E5500F76997 /* StimulusPack.m */; };
+		6DE8D2CC16FC780100F76997 /* StimulusList.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DE8D2CB16FC780100F76997 /* StimulusList.m */; };
+		6DE8D2D216FCA10200F76997 /* TrainCatProgram.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DE8D2D116FCA10200F76997 /* TrainCatProgram.m */; };
+		6DE8D2D516FCA22100F76997 /* TrainCatSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DE8D2D416FCA22100F76997 /* TrainCatSession.m */; };
+		6DE8D2DB16FCA50400F76997 /* RangeArray.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DE8D2DA16FCA50400F76997 /* RangeArray.m */; };
+		6DE8D2DE16FCA79700F76997 /* NSMutableArray+Shuffling.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DE8D2DD16FCA79700F76997 /* NSMutableArray+Shuffling.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -423,6 +434,8 @@
 		6D4ADE8316DE451B0077E1D7 /* Session.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Session.m; sourceTree = "<group>"; };
 		6D4ADE8516DE451C0077E1D7 /* Block.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Block.h; sourceTree = "<group>"; };
 		6D4ADE8616DE451C0077E1D7 /* Block.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Block.m; sourceTree = "<group>"; };
+		6D5AAE1216FC55A70066FF80 /* Participant+Validation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Participant+Validation.h"; sourceTree = "<group>"; };
+		6D5AAE1316FC55A70066FF80 /* Participant+Validation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Participant+Validation.m"; sourceTree = "<group>"; };
 		6D665A4916E699A000541724 /* Participant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Participant.h; sourceTree = "<group>"; };
 		6D665A4A16E699A000541724 /* Participant.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Participant.m; sourceTree = "<group>"; };
 		6D665A4D16E6D32800541724 /* exemplar_A_Left.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = exemplar_A_Left.jpg; sourceTree = "<group>"; };
@@ -432,6 +445,10 @@
 		6D665A5416E7C40A00541724 /* dropbox-logo.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "dropbox-logo.jpg"; sourceTree = "<group>"; };
 		6D665A5716E7CE9700541724 /* NumericTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NumericTextField.h; sourceTree = "<group>"; };
 		6D665A5816E7CE9700541724 /* NumericTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NumericTextField.m; sourceTree = "<group>"; };
+		6D665A5A16E7E1E800541724 /* Background.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = Background.jpg; path = Resources/Background.jpg; sourceTree = "<group>"; };
+		6D665A5B16E7E1E800541724 /* Background@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = "Background@2x.jpg"; path = "Resources/Background@2x.jpg"; sourceTree = "<group>"; };
+		6D665A5E16E7E32400541724 /* Default-Landscape@2x~ipad.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = "Default-Landscape@2x~ipad.jpg"; path = "Resources/Default-Landscape@2x~ipad.jpg"; sourceTree = "<group>"; };
+		6D665A5F16E7E32400541724 /* Default-Landscape~ipad.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = "Default-Landscape~ipad.jpg"; path = "Resources/Default-Landscape~ipad.jpg"; sourceTree = "<group>"; };
 		6D805F8116CD0F3B00DC2096 /* MainStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MainStoryboard.storyboard; sourceTree = "<group>"; };
 		6D805F8316CD144500DC2096 /* CCViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCViewController.h; sourceTree = "<group>"; };
 		6D805F8416CD144500DC2096 /* CCViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCViewController.m; sourceTree = "<group>"; };
@@ -462,8 +479,6 @@
 		6DD044B816DFAAE400136668 /* PCToastMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCToastMessage.h; sourceTree = "<group>"; };
 		6DD044B916DFAAE400136668 /* PCToastMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCToastMessage.m; sourceTree = "<group>"; };
 		6DD044BD16DFC0E500136668 /* todo.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = todo.txt; sourceTree = "<group>"; };
-		6DE8A1B016E6789B00EF48F8 /* Default-Landscape@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-Landscape@2x~ipad.png"; path = "Resources/Default-Landscape@2x~ipad.png"; sourceTree = "<group>"; };
-		6DE8A1B116E6789B00EF48F8 /* Default-Landscape~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-Landscape~ipad.png"; path = "Resources/Default-Landscape~ipad.png"; sourceTree = "<group>"; };
 		6DE8A1B216E6789B00EF48F8 /* Icon-Small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-Small.png"; path = "Resources/Icon-Small.png"; sourceTree = "<group>"; };
 		6DE8A1B316E6789B00EF48F8 /* Icon-Small@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-Small@2x.png"; path = "Resources/Icon-Small@2x.png"; sourceTree = "<group>"; };
 		6DE8A1B416E6789B00EF48F8 /* Icon-Small~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-Small~ipad.png"; path = "Resources/Icon-Small~ipad.png"; sourceTree = "<group>"; };
@@ -475,6 +490,22 @@
 		6DE8A1C716E6867700EF48F8 /* iTunesArtwork@2x */ = {isa = PBXFileReference; lastKnownFileType = file; name = "iTunesArtwork@2x"; path = "Resources/iTunesArtwork@2x"; sourceTree = "<group>"; };
 		6DE8A1CA16E68B0B00EF48F8 /* Icon-Settings.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-Settings.png"; path = "Resources/Icon-Settings.png"; sourceTree = "<group>"; };
 		6DE8A1CB16E68B0B00EF48F8 /* Icon-Settings@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-Settings@2x.png"; path = "Resources/Icon-Settings@2x.png"; sourceTree = "<group>"; };
+		6DE8D2BE16FC6A2800F76997 /* StimulusCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StimulusCategory.h; sourceTree = "<group>"; };
+		6DE8D2BF16FC6A2800F76997 /* StimulusCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StimulusCategory.m; sourceTree = "<group>"; };
+		6DE8D2C116FC6A5900F76997 /* StimulusBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StimulusBlock.h; sourceTree = "<group>"; };
+		6DE8D2C216FC6A5900F76997 /* StimulusBlock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StimulusBlock.m; sourceTree = "<group>"; };
+		6DE8D2C716FC6E5500F76997 /* StimulusPack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StimulusPack.h; sourceTree = "<group>"; };
+		6DE8D2C816FC6E5500F76997 /* StimulusPack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StimulusPack.m; sourceTree = "<group>"; };
+		6DE8D2CA16FC780100F76997 /* StimulusList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StimulusList.h; sourceTree = "<group>"; };
+		6DE8D2CB16FC780100F76997 /* StimulusList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StimulusList.m; sourceTree = "<group>"; };
+		6DE8D2D016FCA10200F76997 /* TrainCatProgram.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrainCatProgram.h; sourceTree = "<group>"; };
+		6DE8D2D116FCA10200F76997 /* TrainCatProgram.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrainCatProgram.m; sourceTree = "<group>"; };
+		6DE8D2D316FCA22100F76997 /* TrainCatSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrainCatSession.h; sourceTree = "<group>"; };
+		6DE8D2D416FCA22100F76997 /* TrainCatSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrainCatSession.m; sourceTree = "<group>"; };
+		6DE8D2D916FCA50400F76997 /* RangeArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RangeArray.h; sourceTree = "<group>"; };
+		6DE8D2DA16FCA50400F76997 /* RangeArray.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RangeArray.m; sourceTree = "<group>"; };
+		6DE8D2DC16FCA79700F76997 /* NSMutableArray+Shuffling.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableArray+Shuffling.h"; sourceTree = "<group>"; };
+		6DE8D2DD16FCA79700F76997 /* NSMutableArray+Shuffling.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableArray+Shuffling.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -558,13 +589,16 @@
 		6D2E5FB516C3897100C51C9D /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				6D665A5416E7C40A00541724 /* dropbox-logo.jpg */,
+				6D665A5E16E7E32400541724 /* Default-Landscape@2x~ipad.jpg */,
+				6D665A5F16E7E32400541724 /* Default-Landscape~ipad.jpg */,
+				6D665A5A16E7E1E800541724 /* Background.jpg */,
+				6D665A5B16E7E1E800541724 /* Background@2x.jpg */,
 				6D665A4C16E6D31600541724 /* test */,
 				6DE8A1CA16E68B0B00EF48F8 /* Icon-Settings.png */,
 				6DE8A1CB16E68B0B00EF48F8 /* Icon-Settings@2x.png */,
 				6DE8A1C616E6867700EF48F8 /* iTunesArtwork */,
 				6DE8A1C716E6867700EF48F8 /* iTunesArtwork@2x */,
-				6DE8A1B016E6789B00EF48F8 /* Default-Landscape@2x~ipad.png */,
-				6DE8A1B116E6789B00EF48F8 /* Default-Landscape~ipad.png */,
 				6DE8A1B216E6789B00EF48F8 /* Icon-Small.png */,
 				6DE8A1B316E6789B00EF48F8 /* Icon-Small@2x.png */,
 				6DE8A1B416E6789B00EF48F8 /* Icon-Small~ipad.png */,
@@ -580,6 +614,7 @@
 		6D2E5FCF16C3897100C51C9D /* libs */ = {
 			isa = PBXGroup;
 			children = (
+				6DE8D2D816FCA4DD00F76997 /* Utils */,
 				6D665A5616E7CDF800541724 /* ControlExtensions */,
 				6DD044B516DFA76300136668 /* Toast */,
 				6D4ADE4E16DD584F0077E1D7 /* CocosUIKit */,
@@ -989,14 +1024,9 @@
 		6DBC380616D02AB200A4C492 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				6D665A5416E7C40A00541724 /* dropbox-logo.jpg */,
-				6DCCC5CF16DE5EA400B11E13 /* TrainCat.xcdatamodeld */,
-				6D665A4916E699A000541724 /* Participant.h */,
-				6D665A4A16E699A000541724 /* Participant.m */,
-				6D4ADE8516DE451C0077E1D7 /* Block.h */,
-				6D4ADE8616DE451C0077E1D7 /* Block.m */,
-				6D4ADE8216DE451B0077E1D7 /* Session.h */,
-				6D4ADE8316DE451B0077E1D7 /* Session.m */,
+				6DE8D2D716FCA35600F76997 /* Core Data */,
+				6DE8D2D616FCA2C000F76997 /* TrainCat Program */,
+				6DE8D2BD16FC69FC00F76997 /* TrainCat Stimulus */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -1074,6 +1104,59 @@
 			name = "System Information";
 			sourceTree = "<group>";
 		};
+		6DE8D2BD16FC69FC00F76997 /* TrainCat Stimulus */ = {
+			isa = PBXGroup;
+			children = (
+				6DE8D2BE16FC6A2800F76997 /* StimulusCategory.h */,
+				6DE8D2BF16FC6A2800F76997 /* StimulusCategory.m */,
+				6DE8D2C116FC6A5900F76997 /* StimulusBlock.h */,
+				6DE8D2C216FC6A5900F76997 /* StimulusBlock.m */,
+				6DE8D2C716FC6E5500F76997 /* StimulusPack.h */,
+				6DE8D2C816FC6E5500F76997 /* StimulusPack.m */,
+				6DE8D2CA16FC780100F76997 /* StimulusList.h */,
+				6DE8D2CB16FC780100F76997 /* StimulusList.m */,
+			);
+			name = "TrainCat Stimulus";
+			sourceTree = "<group>";
+		};
+		6DE8D2D616FCA2C000F76997 /* TrainCat Program */ = {
+			isa = PBXGroup;
+			children = (
+				6DE8D2D316FCA22100F76997 /* TrainCatSession.h */,
+				6DE8D2D416FCA22100F76997 /* TrainCatSession.m */,
+				6DE8D2D016FCA10200F76997 /* TrainCatProgram.h */,
+				6DE8D2D116FCA10200F76997 /* TrainCatProgram.m */,
+			);
+			name = "TrainCat Program";
+			sourceTree = "<group>";
+		};
+		6DE8D2D716FCA35600F76997 /* Core Data */ = {
+			isa = PBXGroup;
+			children = (
+				6DCCC5CF16DE5EA400B11E13 /* TrainCat.xcdatamodeld */,
+				6D665A4916E699A000541724 /* Participant.h */,
+				6D665A4A16E699A000541724 /* Participant.m */,
+				6D4ADE8516DE451C0077E1D7 /* Block.h */,
+				6D4ADE8616DE451C0077E1D7 /* Block.m */,
+				6D4ADE8216DE451B0077E1D7 /* Session.h */,
+				6D4ADE8316DE451B0077E1D7 /* Session.m */,
+				6D5AAE1216FC55A70066FF80 /* Participant+Validation.h */,
+				6D5AAE1316FC55A70066FF80 /* Participant+Validation.m */,
+			);
+			name = "Core Data";
+			sourceTree = "<group>";
+		};
+		6DE8D2D816FCA4DD00F76997 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				6DE8D2D916FCA50400F76997 /* RangeArray.h */,
+				6DE8D2DA16FCA50400F76997 /* RangeArray.m */,
+				6DE8D2DC16FCA79700F76997 /* NSMutableArray+Shuffling.h */,
+				6DE8D2DD16FCA79700F76997 /* NSMutableArray+Shuffling.m */,
+			);
+			name = Utils;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1126,8 +1209,6 @@
 			files = (
 				6D2E610C16C3897300C51C9D /* ChangeLog in Resources */,
 				6D805F8216CD0F3B00DC2096 /* MainStoryboard.storyboard in Resources */,
-				6DE8A1BB16E6789B00EF48F8 /* Default-Landscape@2x~ipad.png in Resources */,
-				6DE8A1BC16E6789B00EF48F8 /* Default-Landscape~ipad.png in Resources */,
 				6DE8A1BD16E6789B00EF48F8 /* Icon-Small.png in Resources */,
 				6DE8A1BE16E6789B00EF48F8 /* Icon-Small@2x.png in Resources */,
 				6DE8A1BF16E6789B00EF48F8 /* Icon-Small~ipad.png in Resources */,
@@ -1142,6 +1223,10 @@
 				6D665A4F16E6D32800541724 /* exemplar_A_Left.jpg in Resources */,
 				6D665A5016E6D32800541724 /* exemplar_A_Right.jpg in Resources */,
 				6D665A5516E7C40A00541724 /* dropbox-logo.jpg in Resources */,
+				6D665A5C16E7E1E800541724 /* Background.jpg in Resources */,
+				6D665A5D16E7E1E800541724 /* Background@2x.jpg in Resources */,
+				6D665A6016E7E32400541724 /* Default-Landscape@2x~ipad.jpg in Resources */,
+				6D665A6116E7E32400541724 /* Default-Landscape~ipad.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1275,6 +1360,15 @@
 				6D665A4B16E699A000541724 /* Participant.m in Sources */,
 				6D665A5316E7AEE900541724 /* SessionManager.m in Sources */,
 				6D665A5916E7CE9700541724 /* NumericTextField.m in Sources */,
+				6D5AAE1416FC55A70066FF80 /* Participant+Validation.m in Sources */,
+				6DE8D2C016FC6A2800F76997 /* StimulusCategory.m in Sources */,
+				6DE8D2C316FC6A5900F76997 /* StimulusBlock.m in Sources */,
+				6DE8D2C916FC6E5500F76997 /* StimulusPack.m in Sources */,
+				6DE8D2CC16FC780100F76997 /* StimulusList.m in Sources */,
+				6DE8D2D216FCA10200F76997 /* TrainCatProgram.m in Sources */,
+				6DE8D2D516FCA22100F76997 /* TrainCatSession.m in Sources */,
+				6DE8D2DB16FCA50400F76997 /* RangeArray.m in Sources */,
+				6DE8D2DE16FCA79700F76997 /* NSMutableArray+Shuffling.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
