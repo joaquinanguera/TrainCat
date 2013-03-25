@@ -2,19 +2,22 @@
 //  Participant.h
 //  TrainCat
 //
-//  Created by Alankar Misra on 06/03/13.
+//  Created by Alankar Misra on 23/03/13.
 //
 //
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class Session;
+@class GameState, Session;
 
 @interface Participant : NSManagedObject
 
 @property (nonatomic) int32_t pid;
+@property (nonatomic, retain) id program;
+@property (nonatomic, retain) id state;
 @property (nonatomic, retain) NSOrderedSet *sessions;
+@property (nonatomic, retain) GameState *gameState;
 @end
 
 @interface Participant (CoreDataGeneratedAccessors)

@@ -24,7 +24,6 @@
     return self;
 }
 
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -49,7 +48,7 @@
         // glView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         // Assign the view to the director.
         director.view = glView;
-        
+
         // Initialize other director settings.
         [director setAnimationInterval:1.0f/60.0f];
         [director enableRetinaDisplay:YES];

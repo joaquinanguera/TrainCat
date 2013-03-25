@@ -7,6 +7,7 @@
 //
 
 #import "AddParticipantViewController.h"
+#import "Participant+Extension.h"
 
 @interface AddParticipantViewController ()
 @property (weak, nonatomic) IBOutlet UITextField *pidField;

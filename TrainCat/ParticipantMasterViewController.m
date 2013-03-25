@@ -8,7 +8,7 @@
 
 #import "ParticipantMasterViewController.h"
 #import "AppDelegate.h"
-#import "Participant+Validation.h"
+#import "Participant+Extension.h"
 #import "SessionManager.h"
 
 @interface ParticipantMasterViewController ()
@@ -89,7 +89,7 @@
         // Replace this implementation with code to handle the error appropriately.
         // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
         UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"Failed to update participant"
-                                                          message:[error domain] 
+                                                          message:[error domain]
                                                          delegate:nil
                                                 cancelButtonTitle:@"OK"
                                                 otherButtonTitles:nil];
@@ -217,7 +217,7 @@
     
     // Edit the section name key path and cache name if appropriate.
     // nil for section name key path means "no sections".
-    NSFetchedResultsController *aFetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:self.managedObjectContext sectionNameKeyPath:nil cacheName:@"Participant"];
+    NSFetchedResultsController *aFetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:self.managedObjectContext sectionNameKeyPath:nil cacheName:nil]; // @"Participant" TODO: Cache this when you're done testing
     aFetchedResultsController.delegate = self;
     _fetchedResultsController = aFetchedResultsController;
     

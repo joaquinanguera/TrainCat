@@ -10,6 +10,6 @@
 
 @interface StimulusPack : NSObject
 
-+(NSArray *)categories;
++(NSArray *)sessions;
 
 @end
