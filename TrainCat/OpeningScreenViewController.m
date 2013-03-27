@@ -30,7 +30,7 @@
 }
 
 -(void)viewDidAppear:(BOOL)animated {
-    [self performSegueWithIdentifier:@"beginGame" sender:self];
+    //[self performSegueWithIdentifier:@"beginGame" sender:self];
 }
 
 - (void)didReceiveMemoryWarning

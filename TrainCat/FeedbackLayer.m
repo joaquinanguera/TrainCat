@@ -20,7 +20,7 @@
     if(self = [super init]) {
         CGSize winSize = [CCDirector sharedDirector].winSize;
         self.label = [CCLabelTTF labelWithString:@"" fontName:@"Marker Felt" fontSize:64];
-        self.label.color = ccc3(90, 90, 90);
+        self.label.color = ccc3(0, 0, 0);
         self.label.position = ccp( winSize.width /2 , winSize.height/2 );
         [self addChild:self.label];
         

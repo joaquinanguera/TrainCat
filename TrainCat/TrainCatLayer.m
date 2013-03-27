@@ -30,9 +30,15 @@
 @property (nonatomic, strong) Participant *participant;
 @property (nonatomic, strong) NSArray *program;
 @property (nonatomic, strong) StimulusLayer *stim;
-@property (nonatomic, assign) int correctResponse; // RESPONSE_LEFT, RESPONSE_RIGHT
+@property (nonatomic, strong) GameState *gs;
 @property (nonatomic, strong) ResponseLayer *response;
 @property (nonatomic, strong) FeedbackLayer *feedback;
+@property (nonatomic, assign) int correctResponse; // RESPONSE_LEFT, RESPONSE_RIGHT
+
+
+@property (nonatomic, strong) NSArray *stimuli;
+@property (nonatomic, strong) NSString *exemplarLeft;
+@property (nonatomic, strong) NSString *exemplarRight;
 @end
 
 // HelloWorldLayer implementation
@@ -59,7 +65,9 @@
 -(id) init
 {
 	if( (self=[super initWithColor:ccc4(255, 255, 255, 255)]) ) { // ccc4(220, 220, 220, 255)
+        self.gs = self.participant.gameState;
         self.program = [NSKeyedUnarchiver unarchiveObjectWithData:self.participant.program];
+        
         self.stim = [[StimulusLayer alloc] init];
         self.stim.delegate = self;
         
@@ -75,27 +83,70 @@
         [self addChild:self.response];
         [self addChild:self.feedback];
         
-        [self beginGame];
+        [self scheduleOnce:@selector(beginGame) delay:500.0/1000.0];
 	}
 	return self;
 }
 
+-(void)onExit {
+    [self saveState];
+}
+
 -(void)beginGame {
-    // TODO: Test if the game is already over
-    // Stimulus, Response, Grade, Feedback
-    [self showStimulus];
+    [self clearState];
+    [self updateStimulus];
+}
+
+-(void)clearState {
+    self.gs.sessionID = 0;
+    self.gs.blockID = 0;
+    self.gs.listID = 0;
+    self.gs.trialCount = 0;
+    [self saveState];
+}
+
+-(void)updateStimulus { 
+    BOOL willShowStimlus = YES;
+    NSArray *sessions = [StimulusPack sessions];
+    StimulusSession *session = self.program[self.gs.sessionID];
+    StimulusCategory *category = sessions[session.categoryID];
+    
+    if(self.gs.trialCount >= MAX_TRIALS_PER_STIMULUS_BLOCK) {
+        self.gs.trialCount = 0;
+        self.gs.listID = 0;
+        self.gs.blockID++;
+        if(self.gs.blockID >= (category.blocks.count-1)) { // Blocks exhausted. We need a new session. You might want to call some other screen here. Remember to save state first
+            NSLog(@"Session Complete!");
+            //willShowStimlus = NO;
+            self.gs.blockID = 0;
+            self.gs.sessionID++;
+            if(self.gs.sessionID >= sessions.count) { // Sessions/Categories exhausted. Show Game Over! screen. Remember to save state first
+                willShowStimlus = NO;
+                NSLog(@"Game Over!");
+            } else {
+                session = self.program[self.gs.sessionID];
+                category = sessions[session.categoryID];
+            }
+        }
+    }
+        
+    [self saveState];
+    [self printGameState];
+    
+    if(willShowStimlus) {
+        self.exemplarLeft = category.exemplarLeft;
+        self.exemplarRight = category.exemplarRight;
+        StimulusBlock *block = category.blocks[self.gs.blockID];
+        StimulusList *list = block.lists[self.gs.listID];
+        self.stimuli = list.stimuli;
+        [self showStimulus];
+    }
 }
 
 -(void)showStimulus {
-    GameState *gs = self.participant.gameState;
-    NSArray *sessions = [StimulusPack sessions];
-    StimulusSession *session = self.program[gs.sessionID];
-    StimulusCategory *category = sessions[session.categoryID];
-    StimulusBlock *block = category.blocks[gs.blockID];
-    StimulusList *list = block.lists[gs.listID];
-    NSString *morph = list.stimuli[arc4random() % list.stimuli.count];
+    NSString *morph = self.stimuli[arc4random() % self.stimuli.count];
     [self setCorrectResponseFromMorphName:morph];
-    [self.stim showStimulusWithExemplarLeftPath:category.exemplarLeft exemplarRightPath:category.exemplarRight morphPath:morph];
+    [self.stim showStimulusWithExemplarLeftPath:self.exemplarLeft exemplarRightPath:self.exemplarRight morphPath:morph];
 }
 
 -(void)setCorrectResponseFromMorphName:(NSString *)morph {
@@ -118,8 +169,10 @@
 }
 
 -(void)stimulusDidFinish {
-    self.response.visible = YES;
-    [self.response getResponse];
+    //self.response.visible = YES;
+    //[self.response getResponse];
+    // Debug
+    [self feedbackDidFinish];
 }
 
 
@@ -143,7 +196,6 @@
             break;
             
     }
-    
     [self.feedback clear];
     self.feedback.visible = YES;
     [self.feedback showFeedback:gradeCode];
@@ -151,7 +203,8 @@
 
 -(void)feedbackDidFinish {
     self.feedback.visible = NO;
-    [self showStimulus]; 
+    self.gs.trialCount++;
+    [self updateStimulus];
 }
 
 -(void)saveState {
@@ -165,7 +218,8 @@
                                                 cancelButtonTitle:@"OK"
                                                 otherButtonTitles:nil];
         [message show];
-    }    
+    }
+    NSLog(@"Saved state.");
 }
 
 -(Participant *)participant {

@@ -34,24 +34,24 @@
         exemplar.visible = NO;
         
         CCSprite *el = [CCSprite spriteWithFile:exemplarLeftPath];
-        el.position = ccp(centerX - el.contentSize.width/2 - STIMULUS_PADDING, centerY + el.contentSize.height/2);
+        el.position = ccp(centerX - el.contentSize.width/2 - STIMULUS_PADDING, centerY);
         [exemplar addChild:el];
         
         CCSprite *elBar = [SpriteUtils blankSpriteWithSize:CGSizeMake(el.contentSize.width, 25.0f)];
         elBar.color = ccc3(178, 127, 178);
-        elBar.position = ccp(centerX - elBar.contentSize.width/2 -  STIMULUS_PADDING, centerY - elBar.contentSize.height/2);
+        elBar.position = ccp(centerX - elBar.contentSize.width/2 -  STIMULUS_PADDING, centerY - elBar.contentSize.height/2 - el.contentSize.height/2);
         [exemplar addChild:elBar];
         
         CCSprite *er = [CCSprite spriteWithFile:exemplarRightPath];
-        er.position = ccp(centerX + er.contentSize.width/2 + STIMULUS_PADDING, centerY + er.contentSize.height/2);
+        er.position = ccp(centerX + er.contentSize.width/2 + STIMULUS_PADDING, centerY);
         [exemplar addChild:er];
         
         CCSprite *erBar = [SpriteUtils blankSpriteWithSize:CGSizeMake(er.contentSize.width, 25.0f)];
         erBar.color = ccc3(127, 191, 127);
-        erBar.position = ccp(centerX + erBar.contentSize.width/2 + STIMULUS_PADDING, centerY - erBar.contentSize.height/2);
+        erBar.position = ccp(centerX + erBar.contentSize.width/2 + STIMULUS_PADDING, centerY - erBar.contentSize.height/2 - er.contentSize.height/2);
         [exemplar addChild:erBar];
         
-        [self addChild:exemplar z:0 tag:1];
+        [self addChild:exemplar z:0 tag:EXEMPLAR_TAG];
     } else {
         exemplar = [self getChildByTag:EXEMPLAR_TAG];
     }

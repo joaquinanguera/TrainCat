@@ -685,7 +685,6 @@
 		6DE8E11116FE181700F76997 /* 1E_key_75.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 6DE8DD1316FE181100F76997 /* 1E_key_75.jpg */; };
 		6DE8E11216FE181700F76997 /* 1E_key_75_f.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 6DE8DD1416FE181100F76997 /* 1E_key_75_f.jpg */; };
 		6DE8E11316FE181700F76997 /* 20_vessel_40.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 6DE8DD1516FE181100F76997 /* 20_vessel_40.jpg */; };
-		6DE8E11416FE181700F76997 /* 20_vessel_40_d.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 6DE8DD1616FE181100F76997 /* 20_vessel_40_d.jpg */; };
 		6DE8E11516FE181700F76997 /* 20_vessel_41.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 6DE8DD1716FE181100F76997 /* 20_vessel_41.jpg */; };
 		6DE8E11616FE181700F76997 /* 20_vessel_42.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 6DE8DD1816FE181100F76997 /* 20_vessel_42.jpg */; };
 		6DE8E11716FE181700F76997 /* 20_vessel_54.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 6DE8DD1916FE181100F76997 /* 20_vessel_54.jpg */; };
@@ -2062,7 +2061,6 @@
 		6DE8DD1316FE181100F76997 /* 1E_key_75.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 1E_key_75.jpg; sourceTree = "<group>"; };
 		6DE8DD1416FE181100F76997 /* 1E_key_75_f.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 1E_key_75_f.jpg; sourceTree = "<group>"; };
 		6DE8DD1516FE181100F76997 /* 20_vessel_40.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 20_vessel_40.jpg; sourceTree = "<group>"; };
-		6DE8DD1616FE181100F76997 /* 20_vessel_40_d.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 20_vessel_40_d.jpg; sourceTree = "<group>"; };
 		6DE8DD1716FE181100F76997 /* 20_vessel_41.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 20_vessel_41.jpg; sourceTree = "<group>"; };
 		6DE8DD1816FE181100F76997 /* 20_vessel_42.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 20_vessel_42.jpg; sourceTree = "<group>"; };
 		6DE8DD1916FE181100F76997 /* 20_vessel_54.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 20_vessel_54.jpg; sourceTree = "<group>"; };
@@ -3775,7 +3773,6 @@
 				6DE8DD1316FE181100F76997 /* 1E_key_75.jpg */,
 				6DE8DD1416FE181100F76997 /* 1E_key_75_f.jpg */,
 				6DE8DD1516FE181100F76997 /* 20_vessel_40.jpg */,
-				6DE8DD1616FE181100F76997 /* 20_vessel_40_d.jpg */,
 				6DE8DD1716FE181100F76997 /* 20_vessel_41.jpg */,
 				6DE8DD1816FE181100F76997 /* 20_vessel_42.jpg */,
 				6DE8DD1916FE181100F76997 /* 20_vessel_54.jpg */,
@@ -4871,7 +4868,6 @@
 				6DE8E11116FE181700F76997 /* 1E_key_75.jpg in Resources */,
 				6DE8E11216FE181700F76997 /* 1E_key_75_f.jpg in Resources */,
 				6DE8E11316FE181700F76997 /* 20_vessel_40.jpg in Resources */,
-				6DE8E11416FE181700F76997 /* 20_vessel_40_d.jpg in Resources */,
 				6DE8E11516FE181700F76997 /* 20_vessel_41.jpg in Resources */,
 				6DE8E11616FE181700F76997 /* 20_vessel_42.jpg in Resources */,
 				6DE8E11716FE181700F76997 /* 20_vessel_54.jpg in Resources */,

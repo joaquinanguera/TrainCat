@@ -9,7 +9,7 @@
 #ifndef TrainCat_constants_h
 #define TrainCat_constants_h
 
-#define MAX_STIMULUS_BLOCKS 6
+#define MAX_TRIALS_PER_STIMULUS_BLOCK 5
 
 // Stimulus related constants
 #define EXEMPLAR_TAG 1
