@@ -7,6 +7,7 @@
 
 
 // Import the interfaces
+#import "constants.h"
 #import "TrainCatLayer.h"
 #import "AppDelegate.h"
 #import "Participant+Extension.h"
@@ -18,13 +19,20 @@
 #import "RangeArray.h"
 #import "NSMutableArray+Shuffling.h"
 #import "StimulusSession.h"
+#import "StimulusLayer.h"
 #import "GameState.h"
+#import "ResponseLayer.h"
+#import "FeedbackLayer.h"
 
 #pragma mark - HelloWorldLayer
 @interface TrainCatLayer()
 @property (nonatomic, strong) NSManagedObjectContext *moc;
 @property (nonatomic, strong) Participant *participant;
 @property (nonatomic, strong) NSArray *program;
+@property (nonatomic, strong) StimulusLayer *stim;
+@property (nonatomic, assign) int correctResponse; // RESPONSE_LEFT, RESPONSE_RIGHT
+@property (nonatomic, strong) ResponseLayer *response;
+@property (nonatomic, strong) FeedbackLayer *feedback;
 @end
 
 // HelloWorldLayer implementation
@@ -37,10 +45,11 @@
 	CCScene *scene = [CCScene node];
 	
 	// 'layer' is an autorelease object.
-	TrainCatLayer *layer = [TrainCatLayer node];
+	TrainCatLayer *gameLayer = [TrainCatLayer node];
 	
 	// add layer as a child to scene
-	[scene addChild: layer];
+	[scene addChild: gameLayer];
+    //[scene addChild:self.stim];
 	
 	// return the scene
 	return scene;
@@ -49,58 +58,100 @@
 // on "init" you need to initialize your instance
 -(id) init
 {
-	// always call "super" init
-	// Apple recommends to re-assign "self" with the "super's" return value
 	if( (self=[super initWithColor:ccc4(255, 255, 255, 255)]) ) { // ccc4(220, 220, 220, 255)
-        if(self.participant) {
-            self.program = [NSKeyedUnarchiver unarchiveObjectWithData:self.participant.program];
-            [self beginGame];
-        } else {
-            NSLog(@"Insert a participant with ID 0 and restart");
-        }
+        self.program = [NSKeyedUnarchiver unarchiveObjectWithData:self.participant.program];
+        self.stim = [[StimulusLayer alloc] init];
+        self.stim.delegate = self;
+        
+        self.response = [[ResponseLayer alloc] init];
+        self.response.delegate = self;
+        self.response.visible = NO;
+        
+        self.feedback = [[FeedbackLayer alloc] init];
+        self.feedback.delegate = self;
+        self.feedback.visible = NO;
+        
+        [self addChild:self.stim];
+        [self addChild:self.response];
+        [self addChild:self.feedback];
+        
+        [self beginGame];
 	}
 	return self;
 }
 
-
 -(void)beginGame {
     // TODO: Test if the game is already over
+    // Stimulus, Response, Grade, Feedback
+    [self showStimulus];
+}
+
+-(void)showStimulus {
     GameState *gs = self.participant.gameState;
     NSArray *sessions = [StimulusPack sessions];
     StimulusSession *session = self.program[gs.sessionID];
     StimulusCategory *category = sessions[session.categoryID];
     StimulusBlock *block = category.blocks[gs.blockID];
     StimulusList *list = block.lists[gs.listID];
-    NSArray *stimuli = list.stimuli;
+    NSString *morph = list.stimuli[arc4random() % list.stimuli.count];
+    [self setCorrectResponseFromMorphName:morph];
+    [self.stim showStimulusWithExemplarLeftPath:category.exemplarLeft exemplarRightPath:category.exemplarRight morphPath:morph];
+}
+
+-(void)setCorrectResponseFromMorphName:(NSString *)morph {
+    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\d+" options:nil error:nil];
+    NSArray *matches = [regex matchesInString:morph options:0 range:NSMakeRange(0, [morph length])];
+    if(matches.count) {
+        NSTextCheckingResult *match = [matches lastObject];
+        NSRange matchRange = [match range];
+        NSString *stimTag = [morph substringWithRange:matchRange];
+        self.correctResponse = ([stimTag integerValue] <= 50) ? RESPONSE_LEFT :RESPONSE_RIGHT;
+        NSLog(@"%@ - %d", stimTag, self.correctResponse);
+    } else {
+        UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"Fatal error"
+                                                          message:@"Stimulus label is invalid. Contact the developer."
+                                                         delegate:nil
+                                                cancelButtonTitle:@"OK"
+                                                otherButtonTitles:nil];
+        [message show];        
+    }
+}
+
+-(void)stimulusDidFinish {
+    self.response.visible = YES;
+    [self.response getResponse];
+}
+
+
+-(void)didRespond:(NSInteger)responseTag {
+    self.response.visible = NO;
+    [self grade:responseTag];
+}
+
+-(void)grade:(NSInteger)responseTag {
+    int gradeCode;
     
-    CGSize winSize = [CCDirector sharedDirector].winSize;
-    //int minY = monster.contentSize.height/2;
-    //int maxY = winSize.height - monster.contentSize.height/2;
-    //int rangeY = maxY - minY;
-    //int actualY = (arc4random() % rangeY) + minY;
+    switch(responseTag) {
+        case RESPONSE_LEFT:
+            gradeCode = self.correctResponse == RESPONSE_LEFT ? GRADE_CORRECT : GRADE_INCORRECT;
+            break;
+        case RESPONSE_RIGHT:
+            gradeCode = self.correctResponse == RESPONSE_RIGHT ? GRADE_CORRECT : GRADE_INCORRECT;
+            break;
+        default:
+            gradeCode = GRADE_RESPONSE_SKIPPED;
+            break;
+            
+    }
     
-    
-    
-    // Fixation
-    
-    // Exemplar
-    CCSprite *el = [CCSprite spriteWithFile:category.exemplarLeft];
-    el.position = ccp(300, 600);
-    [self addChild:el];
-    
-    CCSprite *er = [CCSprite spriteWithFile:category.exemplarRight];
-    er.position = ccp(700, 600);
-    [self addChild:er];
-    
-    
-    // Mask
-    
-    // Morph
-    
-    // Response
-    
-    // Feedback
-    
+    [self.feedback clear];
+    self.feedback.visible = YES;
+    [self.feedback showFeedback:gradeCode];
+}
+
+-(void)feedbackDidFinish {
+    self.feedback.visible = NO;
+    [self showStimulus]; 
 }
 
 -(void)saveState {
@@ -117,11 +168,6 @@
     }    
 }
 
--(void)printGameState {
-    GameState *gs = self.participant.gameState;
-    NSLog(@"GameState = [CategoryID:%d, BlockID:%d, ListID:%d, TrialCount:%d]", gs.sessionID, gs.blockID, gs.listID, gs.trialCount);
-}
-
 -(Participant *)participant {
     if(!_participant) {
         NSEntityDescription *entityDescription = [NSEntityDescription entityForName:@"Participant" inManagedObjectContext:self.moc];
@@ -134,9 +180,19 @@
         NSError *error;
         NSArray *array = [self.moc executeFetchRequest:request error:&error];
         if(array == nil) {
-            // Deal with the error
+            UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"There was an error reading the Participant database. Contact the developer."
+                                                              message:[error domain] /* , [error userInfo] */
+                                                             delegate:nil
+                                                    cancelButtonTitle:@"OK"
+                                                    otherButtonTitles:nil];
+            [message show];
         } else if(!array.count) {
-            // Insert a default participant
+            _participant = [NSEntityDescription
+             insertNewObjectForEntityForName:@"Participant"
+             inManagedObjectContext:self.moc];
+            _participant.pid = 0;
+            [self saveState];
+            
         } else {
             _participant = array[0];
         }
@@ -145,28 +201,19 @@
     return _participant;
 }
 
+#pragma mark Debug functions
+
+-(void)printGameState {
+    GameState *gs = self.participant.gameState;
+    NSLog(@"GameState = [CategoryID:%d, BlockID:%d, ListID:%d, TrialCount:%d]", gs.sessionID, gs.blockID, gs.listID, gs.trialCount);
+}
+
+
 -(void)printStimulusPack {
     NSArray *stim = [StimulusPack sessions];
     for(StimulusCategory *cat in stim) {
         NSLog(@"%@", cat);
-    }    
-}
-
-
-#pragma mark GameKit delegate
-
--(void) achievementViewControllerDidFinish:(GKAchievementViewController *)viewController
-{
-	AppController *app = (AppController*) [[UIApplication sharedApplication] delegate];
-    [[app navController] dismissViewControllerAnimated:YES completion:NULL];
-	//[[app navController] dismissModalViewControllerAnimated:YES];
-}
-
--(void) leaderboardViewControllerDidFinish:(GKLeaderboardViewController *)viewController
-{
-	AppController *app = (AppController*) [[UIApplication sharedApplication] delegate];
-    [[app navController] dismissViewControllerAnimated:YES completion:NULL];
-	//[[app navController] dismissModalViewControllerAnimated:YES];
+    }
 }
 
 -(NSManagedObjectContext *) moc {
@@ -179,13 +226,28 @@
 
 @end
 
+/*
+ 
+ #pragma mark GameKit delegate
+ 
+ -(void) achievementViewControllerDidFinish:(GKAchievementViewController *)viewController
+ {
+ AppController *app = (AppController*) [[UIApplication sharedApplication] delegate];
+ [[app navController] dismissViewControllerAnimated:YES completion:NULL];
+ //[[app navController] dismissModalViewControllerAnimated:YES];
+ }
+ 
+ -(void) leaderboardViewControllerDidFinish:(GKLeaderboardViewController *)viewController
+ {
+ AppController *app = (AppController*) [[UIApplication sharedApplication] delegate];
+ [[app navController] dismissViewControllerAnimated:YES completion:NULL];
+ //[[app navController] dismissModalViewControllerAnimated:YES];
+ }
+
+*/
+
 
 //-(id) init {
-    //CCSprite *sprite = [CCSprite spriteWithFile:@"Icon.png"];
-    //sprite.position = ccp(300, 300);
-    //[self addChild:sprite];
-    //[self printStimulusPack];
-    //[self makeTrainCatProgram];
     /*
      // create and initialize a Label
      CCLabelTTF *label = [CCLabelTTF labelWithString:@"Hello World" fontName:@"Marker Felt" fontSize:64];

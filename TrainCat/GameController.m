@@ -27,7 +27,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    NSLog(@"viewDidLoad");
     
     CCDirector *director = [CCDirector sharedDirector];
     
@@ -37,6 +36,7 @@
         CGRect horizontalBounds = CGRectMake(bounds.origin.x, bounds.origin.y, bounds.size.height, bounds.size.width);
         
         // Create the OpenGL view that Cocos2D will render to.
+        
         CCGLView *glView = [CCGLView viewWithFrame:horizontalBounds
                                        pixelFormat:kEAGLColorFormatRGB565
                                        depthFormat:0
