@@ -19,7 +19,7 @@
 -(id)init {
     if(self = [super init]) {
         CGSize winSize = [CCDirector sharedDirector].winSize;
-        self.label = [CCLabelTTF labelWithString:@"" fontName:@"Marker Felt" fontSize:64];
+        self.label = [CCLabelTTF labelWithString:@"" fontName:@"DevanagariSangamMN-Bold" fontSize:64];
         self.label.color = ccc3(0, 0, 0);
         self.label.position = ccp( winSize.width /2 , winSize.height/2 );
         [self addChild:self.label];
@@ -33,14 +33,14 @@
     return self;
 }
 
--(void)showFeedback:(int)gradeCode {
+-(void)showFeedback:(GradeType)gradeCode {
     NSArray *ra;
     switch(gradeCode) {
-        case GRADE_CORRECT:
+        case GradeTypeCorrect:
             ra = [self.class rightAnswer];
             self.label.string = ra[arc4random() % ra.count];
             break;
-        case GRADE_INCORRECT:
+        case GradeTypeIncorrect:
             self.label.string = @"Incorrect! :(";
             break;
         default:

@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "cocos2d.h"
+#import "constants.h"
 
 @protocol FeedbackLayerDelegate
 
@@ -20,6 +21,6 @@
 @property (nonatomic, weak) id <FeedbackLayerDelegate> delegate;
 
 -(void) clear;
--(void)showFeedback:(int)gradeCode;
+-(void)showFeedback:(GradeType)gradeCode;
     
 @end

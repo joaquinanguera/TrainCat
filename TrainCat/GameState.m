@@ -2,7 +2,7 @@
 //  GameState.m
 //  TrainCat
 //
-//  Created by Alankar Misra on 23/03/13.
+//  Created by Alankar Misra on 29/03/13.
 //
 //
 
@@ -12,9 +12,9 @@
 
 @implementation GameState
 
-@dynamic sessionID;
-@dynamic blockID;
-@dynamic listID;
+@dynamic blockId;
+@dynamic listId;
+@dynamic sessionId;
 @dynamic trialCount;
 @dynamic participant;
 

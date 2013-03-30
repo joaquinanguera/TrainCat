@@ -2,7 +2,7 @@
 //  GameState.h
 //  TrainCat
 //
-//  Created by Alankar Misra on 23/03/13.
+//  Created by Alankar Misra on 29/03/13.
 //
 //
 
@@ -13,9 +13,9 @@
 
 @interface GameState : NSManagedObject
 
-@property (nonatomic) int16_t sessionID;
-@property (nonatomic) int16_t blockID;
-@property (nonatomic) int16_t listID;
+@property (nonatomic) int16_t blockId;
+@property (nonatomic) int16_t listId;
+@property (nonatomic) int16_t sessionId;
 @property (nonatomic) int16_t trialCount;
 @property (nonatomic, retain) Participant *participant;
 

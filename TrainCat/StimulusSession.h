@@ -10,10 +10,10 @@
 
 @interface StimulusSession : NSObject <NSCoding>
 
-@property (nonatomic, assign) NSInteger categoryID;
+@property (nonatomic, assign) NSInteger categoryId;
 @property (nonatomic, strong) NSMutableArray *blocks; // blockIDs (NSNumbers)
 
--(id)initWithCategoryID:(NSInteger)categoryID;
--(id)initWithCategoryID:(NSInteger)categoryID blocks:(NSMutableArray*)blocks;
+-(id)initWithCategoryId:(NSInteger)categoryId;
+-(id)initWithCategoryId:(NSInteger)categoryId blocks:(NSMutableArray*)blocks;
 
 @end

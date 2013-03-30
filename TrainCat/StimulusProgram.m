@@ -28,9 +28,9 @@
     NSMutableArray *blocks = [NSMutableArray arrayWithObjects:zero,zero,zero,one,one,one, nil];
     
     NSMutableArray *program = [[NSMutableArray alloc] initWithCapacity:10];
-    for(NSNumber *catID in categorySequence) {
+    for(NSNumber *catId in categorySequence) {
         [blocks shuffle];
-        [program addObject:[[StimulusSession alloc] initWithCategoryID:[catID integerValue] blocks:[blocks mutableCopy]]];
+        [program addObject:[[StimulusSession alloc] initWithCategoryId:[catId integerValue] blocks:[blocks mutableCopy]]];
     }
     return program;
 }
@@ -38,7 +38,7 @@
 +(NSArray *)createPractice {
     NSMutableArray *blocks = [NSMutableArray arrayWithObjects:[NSNumber numberWithInt:0], nil];
     NSMutableArray *program = [[NSMutableArray alloc] initWithCapacity:1];
-    [program addObject:[[StimulusSession alloc] initWithCategoryID:0 blocks:[blocks mutableCopy]]];
+    [program addObject:[[StimulusSession alloc] initWithCategoryId:0 blocks:[blocks mutableCopy]]];
     return program;
 }
 

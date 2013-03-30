@@ -10,33 +10,33 @@
 
 @implementation StimulusSession
 
--(id)initWithCategoryID:(NSInteger)categoryID {
-    return [self initWithCategoryID:categoryID blocks:[[NSMutableArray alloc] init]];
+-(id)initWithCategoryId:(NSInteger)categoryId {
+    return [self initWithCategoryId:categoryId blocks:[[NSMutableArray alloc] init]];
 }
 
--(id)initWithCategoryID:(NSInteger)categoryID blocks:(NSMutableArray*)blocks {
+-(id)initWithCategoryId:(NSInteger)categoryId blocks:(NSMutableArray*)blocks {
     self = [super init];
     if(self) {
-        self.categoryID = categoryID;
+        self.categoryId = categoryId;
         self.blocks = blocks;
     }
     return self;
 }
 
 -(NSString *) description {
-    return [NSString stringWithFormat:@"Category %d: (%@)", self.categoryID, [self.blocks componentsJoinedByString:@","]];
+    return [NSString stringWithFormat:@"Category %d: (%@)", self.categoryId, [self.blocks componentsJoinedByString:@","]];
 }
 
 - (id)initWithCoder:(NSCoder *)decoder {
     if (self = [super init]) {
-        self.categoryID = [decoder decodeIntegerForKey:@"categoryID"];
+        self.categoryId = [decoder decodeIntegerForKey:@"categoryId"];
         self.blocks = [decoder decodeObjectForKey:@"blocks"];
     }
     return self;
 }
 
 - (void)encodeWithCoder:(NSCoder *)encoder {
-    [encoder encodeInteger:self.categoryID forKey:@"categoryID"];
+    [encoder encodeInteger:self.categoryId forKey:@"categoryId"];
     [encoder encodeObject:self.blocks forKey:@"blocks"];
 }
 

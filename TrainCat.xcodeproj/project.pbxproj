@@ -123,8 +123,6 @@
 		6D2E613416C3897300C51C9D /* IntroLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D2E613316C3897300C51C9D /* IntroLayer.m */; };
 		6D3675FA16DA87AC004FB5FE /* TestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D3675F916DA87AC004FB5FE /* TestViewController.m */; };
 		6D4ADE4C16DD56650077E1D7 /* DSDropbox.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D4ADE4B16DD56650077E1D7 /* DSDropbox.m */; };
-		6D4ADE8416DE451B0077E1D7 /* Session.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D4ADE8316DE451B0077E1D7 /* Session.m */; };
-		6D4ADE8716DE451C0077E1D7 /* Block.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D4ADE8616DE451C0077E1D7 /* Block.m */; };
 		6D5AAE1416FC55A70066FF80 /* Participant+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D5AAE1316FC55A70066FF80 /* Participant+Extension.m */; };
 		6D665A5316E7AEE900541724 /* SessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D665A5216E7AEE900541724 /* SessionManager.m */; };
 		6D665A5516E7C40A00541724 /* dropbox-logo.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 6D665A5416E7C40A00541724 /* dropbox-logo.jpg */; };
@@ -142,6 +140,8 @@
 		6D805F9116CD38C000DC2096 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D805F9016CD38C000DC2096 /* SystemConfiguration.framework */; };
 		6D805F9416CD39FF00DC2096 /* DropboxTestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D805F9316CD39FF00DC2096 /* DropboxTestViewController.m */; };
 		6DAC8FFC16D2C01C00BD0312 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DAC8FFB16D2C01C00BD0312 /* CoreData.framework */; };
+		6DC0F48B170455A60084A1C3 /* Session+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DC0F48A170455A60084A1C3 /* Session+Extension.m */; };
+		6DC0F48D17046E790084A1C3 /* Button-NewSession.png in Resources */ = {isa = PBXBuildFile; fileRef = 6DC0F48C17046E790084A1C3 /* Button-NewSession.png */; };
 		6DCCC5D116DE5EA400B11E13 /* TrainCat.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6DCCC5CF16DE5EA400B11E13 /* TrainCat.xcdatamodeld */; };
 		6DCCC5D416DE7E5E00B11E13 /* ParticipantMasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DCCC5D316DE7E5E00B11E13 /* ParticipantMasterViewController.m */; };
 		6DCCC5DE16DF4E6600B11E13 /* PopoverViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DCCC5DD16DF4E6600B11E13 /* PopoverViewController.m */; };
@@ -151,6 +151,10 @@
 		6DD044AB16DF96C700136668 /* InfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DD044AA16DF96C700136668 /* InfoViewController.m */; };
 		6DD044B416DFA75900136668 /* Toast+UIView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DD044B316DFA75900136668 /* Toast+UIView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		6DD044BA16DFAAE400136668 /* PCToastMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DD044B916DFAAE400136668 /* PCToastMessage.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		6DE538A61705E2CA00F9C001 /* Participant.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DE538A51705E2CA00F9C001 /* Participant.m */; };
+		6DE538A91705E2CB00F9C001 /* GameState.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DE538A81705E2CB00F9C001 /* GameState.m */; };
+		6DE538C61706356500F9C001 /* Session.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DE538C51706356400F9C001 /* Session.m */; };
+		6DE538C91706379E00F9C001 /* Trial.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DE538C81706379E00F9C001 /* Trial.m */; };
 		6DE8A1BD16E6789B00EF48F8 /* Icon-Small.png in Resources */ = {isa = PBXBuildFile; fileRef = 6DE8A1B216E6789B00EF48F8 /* Icon-Small.png */; };
 		6DE8A1BE16E6789B00EF48F8 /* Icon-Small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6DE8A1B316E6789B00EF48F8 /* Icon-Small@2x.png */; };
 		6DE8A1BF16E6789B00EF48F8 /* Icon-Small~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 6DE8A1B416E6789B00EF48F8 /* Icon-Small~ipad.png */; };
@@ -170,8 +174,6 @@
 		6DE8D2DB16FCA50400F76997 /* RangeArray.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DE8D2DA16FCA50400F76997 /* RangeArray.m */; };
 		6DE8D2DE16FCA79700F76997 /* NSMutableArray+Shuffling.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DE8D2DD16FCA79700F76997 /* NSMutableArray+Shuffling.m */; };
 		6DE8D2F416FDD11000F76997 /* StimulusProgram.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DE8D2F316FDD11000F76997 /* StimulusProgram.m */; };
-		6DE8DB0D16FDE8CA00F76997 /* GameState.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DE8DB0C16FDE8C900F76997 /* GameState.m */; };
-		6DE8DB1016FDE8CA00F76997 /* Participant.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DE8DB0F16FDE8CA00F76997 /* Participant.m */; };
 		6DE8DB1216FE174C00F76997 /* fixation.png in Resources */ = {isa = PBXBuildFile; fileRef = 6DE8DB1116FE174C00F76997 /* fixation.png */; };
 		6DE8DF1416FE181700F76997 /* 10_vessel_40.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 6DE8DB1616FE180D00F76997 /* 10_vessel_40.jpg */; };
 		6DE8DF1516FE181700F76997 /* 10_vessel_40_d.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 6DE8DB1716FE180E00F76997 /* 10_vessel_40_d.jpg */; };
@@ -1206,7 +1208,6 @@
 		6DE8E32717019AFD00F76997 /* exemplar_D_Right.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 6DE8E31B17019AFD00F76997 /* exemplar_D_Right.jpg */; };
 		6DE8E32817019AFD00F76997 /* exemplar_E_Left.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 6DE8E31C17019AFD00F76997 /* exemplar_E_Left.jpg */; };
 		6DE8E32917019AFD00F76997 /* exemplar_E_Right.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 6DE8E31D17019AFD00F76997 /* exemplar_E_Right.jpg */; };
-		6DE8E32B1701A76D00F76997 /* blank.png in Resources */ = {isa = PBXBuildFile; fileRef = 6DE8E32A1701A76D00F76997 /* blank.png */; };
 		6DE8E32E1701CF2400F76997 /* ResponseLeft.png in Resources */ = {isa = PBXBuildFile; fileRef = 6DE8E32C1701CF2400F76997 /* ResponseLeft.png */; };
 		6DE8E32F1701CF2400F76997 /* ResponseRight.png in Resources */ = {isa = PBXBuildFile; fileRef = 6DE8E32D1701CF2400F76997 /* ResponseRight.png */; };
 		6DE8E33B1701FA4800F76997 /* StimulusLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DE8E33A1701FA4800F76997 /* StimulusLayer.m */; };
@@ -1214,6 +1215,10 @@
 		6DE8E3411702056600F76997 /* ResponseLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DE8E3401702056600F76997 /* ResponseLayer.m */; };
 		6DE8E34417023D5900F76997 /* FeedbackLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DE8E34317023D5800F76997 /* FeedbackLayer.m */; };
 		6DE8E4EB1703256900F76997 /* OpeningScreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DE8E4EA1703256700F76997 /* OpeningScreenViewController.m */; };
+		6DE8E4EE170385C800F76997 /* GameOverLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DE8E4ED170385C700F76997 /* GameOverLayer.m */; };
+		6DE8E4F1170385DC00F76997 /* SessionCompleteLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DE8E4F0170385DB00F76997 /* SessionCompleteLayer.m */; };
+		6DE8E4F417042FE000F76997 /* HUDLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DE8E4F317042FDF00F76997 /* HUDLayer.m */; };
+		6DE98DD017071FEF0008953B /* TrainCatPracticeLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DE98DCF17071FEF0008953B /* TrainCatPracticeLayer.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -1471,10 +1476,6 @@
 		6D3675F916DA87AC004FB5FE /* TestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestViewController.m; sourceTree = "<group>"; };
 		6D4ADE4A16DD56650077E1D7 /* DSDropbox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DSDropbox.h; sourceTree = "<group>"; };
 		6D4ADE4B16DD56650077E1D7 /* DSDropbox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DSDropbox.m; sourceTree = "<group>"; };
-		6D4ADE8216DE451B0077E1D7 /* Session.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Session.h; sourceTree = "<group>"; };
-		6D4ADE8316DE451B0077E1D7 /* Session.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Session.m; sourceTree = "<group>"; };
-		6D4ADE8516DE451C0077E1D7 /* Block.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Block.h; sourceTree = "<group>"; };
-		6D4ADE8616DE451C0077E1D7 /* Block.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Block.m; sourceTree = "<group>"; };
 		6D5AAE1216FC55A70066FF80 /* Participant+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Participant+Extension.h"; sourceTree = "<group>"; };
 		6D5AAE1316FC55A70066FF80 /* Participant+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Participant+Extension.m"; sourceTree = "<group>"; };
 		6D665A5116E7AEE900541724 /* SessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SessionManager.h; sourceTree = "<group>"; };
@@ -1498,6 +1499,9 @@
 		6D805F9216CD39FF00DC2096 /* DropboxTestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DropboxTestViewController.h; sourceTree = "<group>"; };
 		6D805F9316CD39FF00DC2096 /* DropboxTestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DropboxTestViewController.m; sourceTree = "<group>"; };
 		6DAC8FFB16D2C01C00BD0312 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		6DC0F489170455A60084A1C3 /* Session+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Session+Extension.h"; sourceTree = "<group>"; };
+		6DC0F48A170455A60084A1C3 /* Session+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Session+Extension.m"; sourceTree = "<group>"; };
+		6DC0F48C17046E790084A1C3 /* Button-NewSession.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Button-NewSession.png"; path = "Resources/Button-NewSession.png"; sourceTree = "<group>"; };
 		6DCCC5D016DE5EA400B11E13 /* TrainCat 1.0.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "TrainCat 1.0.xcdatamodel"; sourceTree = "<group>"; };
 		6DCCC5D216DE7E5E00B11E13 /* ParticipantMasterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParticipantMasterViewController.h; sourceTree = "<group>"; };
 		6DCCC5D316DE7E5E00B11E13 /* ParticipantMasterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParticipantMasterViewController.m; sourceTree = "<group>"; };
@@ -1516,6 +1520,14 @@
 		6DD044B816DFAAE400136668 /* PCToastMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCToastMessage.h; sourceTree = "<group>"; };
 		6DD044B916DFAAE400136668 /* PCToastMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCToastMessage.m; sourceTree = "<group>"; };
 		6DD044BD16DFC0E500136668 /* todo.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = todo.txt; sourceTree = "<group>"; };
+		6DE538A41705E2CA00F9C001 /* Participant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Participant.h; sourceTree = "<group>"; };
+		6DE538A51705E2CA00F9C001 /* Participant.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Participant.m; sourceTree = "<group>"; };
+		6DE538A71705E2CB00F9C001 /* GameState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameState.h; sourceTree = "<group>"; };
+		6DE538A81705E2CB00F9C001 /* GameState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameState.m; sourceTree = "<group>"; };
+		6DE538C41706356400F9C001 /* Session.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Session.h; sourceTree = "<group>"; };
+		6DE538C51706356400F9C001 /* Session.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Session.m; sourceTree = "<group>"; };
+		6DE538C71706379E00F9C001 /* Trial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Trial.h; sourceTree = "<group>"; };
+		6DE538C81706379E00F9C001 /* Trial.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Trial.m; sourceTree = "<group>"; };
 		6DE8A1B216E6789B00EF48F8 /* Icon-Small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-Small.png"; path = "Resources/Icon-Small.png"; sourceTree = "<group>"; };
 		6DE8A1B316E6789B00EF48F8 /* Icon-Small@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-Small@2x.png"; path = "Resources/Icon-Small@2x.png"; sourceTree = "<group>"; };
 		6DE8A1B416E6789B00EF48F8 /* Icon-Small~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-Small~ipad.png"; path = "Resources/Icon-Small~ipad.png"; sourceTree = "<group>"; };
@@ -1544,10 +1556,6 @@
 		6DE8D2F216FDD11000F76997 /* StimulusProgram.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StimulusProgram.h; sourceTree = "<group>"; };
 		6DE8D2F316FDD11000F76997 /* StimulusProgram.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StimulusProgram.m; sourceTree = "<group>"; };
 		6DE8D2F616FDD2EE00F76997 /* constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = constants.h; sourceTree = "<group>"; };
-		6DE8DB0B16FDE8C900F76997 /* GameState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameState.h; sourceTree = "<group>"; };
-		6DE8DB0C16FDE8C900F76997 /* GameState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameState.m; sourceTree = "<group>"; };
-		6DE8DB0E16FDE8CA00F76997 /* Participant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Participant.h; sourceTree = "<group>"; };
-		6DE8DB0F16FDE8CA00F76997 /* Participant.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Participant.m; sourceTree = "<group>"; };
 		6DE8DB1116FE174C00F76997 /* fixation.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = fixation.png; path = Resources/fixation.png; sourceTree = "<group>"; };
 		6DE8DB1616FE180D00F76997 /* 10_vessel_40.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 10_vessel_40.jpg; sourceTree = "<group>"; };
 		6DE8DB1716FE180E00F76997 /* 10_vessel_40_d.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 10_vessel_40_d.jpg; sourceTree = "<group>"; };
@@ -2582,7 +2590,6 @@
 		6DE8E31B17019AFD00F76997 /* exemplar_D_Right.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = exemplar_D_Right.jpg; sourceTree = "<group>"; };
 		6DE8E31C17019AFD00F76997 /* exemplar_E_Left.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = exemplar_E_Left.jpg; sourceTree = "<group>"; };
 		6DE8E31D17019AFD00F76997 /* exemplar_E_Right.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = exemplar_E_Right.jpg; sourceTree = "<group>"; };
-		6DE8E32A1701A76D00F76997 /* blank.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blank.png; sourceTree = "<group>"; };
 		6DE8E32C1701CF2400F76997 /* ResponseLeft.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ResponseLeft.png; path = Resources/ResponseLeft.png; sourceTree = "<group>"; };
 		6DE8E32D1701CF2400F76997 /* ResponseRight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ResponseRight.png; path = Resources/ResponseRight.png; sourceTree = "<group>"; };
 		6DE8E3391701FA4800F76997 /* StimulusLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StimulusLayer.h; sourceTree = "<group>"; };
@@ -2595,6 +2602,14 @@
 		6DE8E34317023D5800F76997 /* FeedbackLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedbackLayer.m; sourceTree = "<group>"; };
 		6DE8E4E91703256700F76997 /* OpeningScreenViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpeningScreenViewController.h; sourceTree = "<group>"; };
 		6DE8E4EA1703256700F76997 /* OpeningScreenViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OpeningScreenViewController.m; sourceTree = "<group>"; };
+		6DE8E4EC170385C600F76997 /* GameOverLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameOverLayer.h; sourceTree = "<group>"; };
+		6DE8E4ED170385C700F76997 /* GameOverLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameOverLayer.m; sourceTree = "<group>"; };
+		6DE8E4EF170385DA00F76997 /* SessionCompleteLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SessionCompleteLayer.h; sourceTree = "<group>"; };
+		6DE8E4F0170385DB00F76997 /* SessionCompleteLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SessionCompleteLayer.m; sourceTree = "<group>"; };
+		6DE8E4F217042FDE00F76997 /* HUDLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HUDLayer.h; sourceTree = "<group>"; };
+		6DE8E4F317042FDF00F76997 /* HUDLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HUDLayer.m; sourceTree = "<group>"; };
+		6DE98DCE17071FEF0008953B /* TrainCatPracticeLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrainCatPracticeLayer.h; sourceTree = "<group>"; };
+		6DE98DCF17071FEF0008953B /* TrainCatPracticeLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrainCatPracticeLayer.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -2679,6 +2694,7 @@
 		6D2E5FB516C3897100C51C9D /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				6DC0F48C17046E790084A1C3 /* Button-NewSession.png */,
 				6DE8E32C1701CF2400F76997 /* ResponseLeft.png */,
 				6DE8E32D1701CF2400F76997 /* ResponseRight.png */,
 				6DE8DB1516FE180D00F76997 /* Stimulus */,
@@ -3079,6 +3095,8 @@
 				6D805F8716CD14E300DC2096 /* GameController.m */,
 				6D2E612F16C3897300C51C9D /* TrainCatLayer.h */,
 				6D2E613016C3897300C51C9D /* TrainCatLayer.m */,
+				6DE98DCE17071FEF0008953B /* TrainCatPracticeLayer.h */,
+				6DE98DCF17071FEF0008953B /* TrainCatPracticeLayer.m */,
 				6DE8E3391701FA4800F76997 /* StimulusLayer.h */,
 				6DE8E33A1701FA4800F76997 /* StimulusLayer.m */,
 				6DE8E33F1702056500F76997 /* ResponseLayer.h */,
@@ -3087,6 +3105,12 @@
 				6DE8E34317023D5800F76997 /* FeedbackLayer.m */,
 				6DE8E4E91703256700F76997 /* OpeningScreenViewController.h */,
 				6DE8E4EA1703256700F76997 /* OpeningScreenViewController.m */,
+				6DE8E4EC170385C600F76997 /* GameOverLayer.h */,
+				6DE8E4ED170385C700F76997 /* GameOverLayer.m */,
+				6DE8E4EF170385DA00F76997 /* SessionCompleteLayer.h */,
+				6DE8E4F0170385DB00F76997 /* SessionCompleteLayer.m */,
+				6DE8E4F217042FDE00F76997 /* HUDLayer.h */,
+				6DE8E4F317042FDF00F76997 /* HUDLayer.m */,
 			);
 			name = Game;
 			sourceTree = "<group>";
@@ -3136,7 +3160,7 @@
 			children = (
 				6DD044BE16DFC15700136668 /* System Information */,
 				6DD044A816DF91FF00136668 /* Dropbox */,
-				6DCCC5DB16DEC01B00B11E13 /* Participant Manager */,
+				6DCCC5DB16DEC01B00B11E13 /* Participant */,
 				6D4ADE5016DD59CC0077E1D7 /* Experiments */,
 				6D4ADE4F16DD58920077E1D7 /* Game */,
 			);
@@ -3151,7 +3175,7 @@
 			name = Storyboards;
 			sourceTree = "<group>";
 		};
-		6DCCC5DB16DEC01B00B11E13 /* Participant Manager */ = {
+		6DCCC5DB16DEC01B00B11E13 /* Participant */ = {
 			isa = PBXGroup;
 			children = (
 				6DCCC5D216DE7E5E00B11E13 /* ParticipantMasterViewController.h */,
@@ -3163,7 +3187,7 @@
 				6D665A5116E7AEE900541724 /* SessionManager.h */,
 				6D665A5216E7AEE900541724 /* SessionManager.m */,
 			);
-			name = "Participant Manager";
+			name = Participant;
 			sourceTree = "<group>";
 		};
 		6DD044A816DF91FF00136668 /* Dropbox */ = {
@@ -3217,17 +3241,19 @@
 		6DE8D2D716FCA35600F76997 /* Core Data */ = {
 			isa = PBXGroup;
 			children = (
-				6DE8DB0E16FDE8CA00F76997 /* Participant.h */,
-				6DE8DB0F16FDE8CA00F76997 /* Participant.m */,
-				6DE8DB0B16FDE8C900F76997 /* GameState.h */,
-				6DE8DB0C16FDE8C900F76997 /* GameState.m */,
+				6DE538A41705E2CA00F9C001 /* Participant.h */,
+				6DE538A51705E2CA00F9C001 /* Participant.m */,
+				6DE538A71705E2CB00F9C001 /* GameState.h */,
+				6DE538A81705E2CB00F9C001 /* GameState.m */,
 				6DCCC5CF16DE5EA400B11E13 /* TrainCat.xcdatamodeld */,
-				6D4ADE8516DE451C0077E1D7 /* Block.h */,
-				6D4ADE8616DE451C0077E1D7 /* Block.m */,
-				6D4ADE8216DE451B0077E1D7 /* Session.h */,
-				6D4ADE8316DE451B0077E1D7 /* Session.m */,
+				6DE538C71706379E00F9C001 /* Trial.h */,
+				6DE538C81706379E00F9C001 /* Trial.m */,
+				6DE538C41706356400F9C001 /* Session.h */,
+				6DE538C51706356400F9C001 /* Session.m */,
 				6D5AAE1216FC55A70066FF80 /* Participant+Extension.h */,
 				6D5AAE1316FC55A70066FF80 /* Participant+Extension.m */,
+				6DC0F489170455A60084A1C3 /* Session+Extension.h */,
+				6DC0F48A170455A60084A1C3 /* Session+Extension.m */,
 			);
 			name = "Core Data";
 			sourceTree = "<group>";
@@ -3248,7 +3274,6 @@
 		6DE8DB1516FE180D00F76997 /* Stimulus */ = {
 			isa = PBXGroup;
 			children = (
-				6DE8E32A1701A76D00F76997 /* blank.png */,
 				6DE8E31217019AFD00F76997 /* exemplar_0_left.jpg */,
 				6DE8E31317019AFD00F76997 /* exemplar_0_right.jpg */,
 				6DE8E31417019AFD00F76997 /* exemplar_A_Left.jpg */,
@@ -5389,9 +5414,9 @@
 				6DE8E32717019AFD00F76997 /* exemplar_D_Right.jpg in Resources */,
 				6DE8E32817019AFD00F76997 /* exemplar_E_Left.jpg in Resources */,
 				6DE8E32917019AFD00F76997 /* exemplar_E_Right.jpg in Resources */,
-				6DE8E32B1701A76D00F76997 /* blank.png in Resources */,
 				6DE8E32E1701CF2400F76997 /* ResponseLeft.png in Resources */,
 				6DE8E32F1701CF2400F76997 /* ResponseRight.png in Resources */,
+				6DC0F48D17046E790084A1C3 /* Button-NewSession.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5511,8 +5536,6 @@
 				6D805F9416CD39FF00DC2096 /* DropboxTestViewController.m in Sources */,
 				6D3675FA16DA87AC004FB5FE /* TestViewController.m in Sources */,
 				6D4ADE4C16DD56650077E1D7 /* DSDropbox.m in Sources */,
-				6D4ADE8416DE451B0077E1D7 /* Session.m in Sources */,
-				6D4ADE8716DE451C0077E1D7 /* Block.m in Sources */,
 				6DCCC5D116DE5EA400B11E13 /* TrainCat.xcdatamodeld in Sources */,
 				6DCCC5D416DE7E5E00B11E13 /* ParticipantMasterViewController.m in Sources */,
 				6DCCC5DE16DF4E6600B11E13 /* PopoverViewController.m in Sources */,
@@ -5533,13 +5556,20 @@
 				6DE8D2DB16FCA50400F76997 /* RangeArray.m in Sources */,
 				6DE8D2DE16FCA79700F76997 /* NSMutableArray+Shuffling.m in Sources */,
 				6DE8D2F416FDD11000F76997 /* StimulusProgram.m in Sources */,
-				6DE8DB0D16FDE8CA00F76997 /* GameState.m in Sources */,
-				6DE8DB1016FDE8CA00F76997 /* Participant.m in Sources */,
 				6DE8E33B1701FA4800F76997 /* StimulusLayer.m in Sources */,
 				6DE8E33E1701FEAA00F76997 /* SpriteUtils.m in Sources */,
 				6DE8E3411702056600F76997 /* ResponseLayer.m in Sources */,
 				6DE8E34417023D5900F76997 /* FeedbackLayer.m in Sources */,
 				6DE8E4EB1703256900F76997 /* OpeningScreenViewController.m in Sources */,
+				6DE8E4EE170385C800F76997 /* GameOverLayer.m in Sources */,
+				6DE8E4F1170385DC00F76997 /* SessionCompleteLayer.m in Sources */,
+				6DE8E4F417042FE000F76997 /* HUDLayer.m in Sources */,
+				6DC0F48B170455A60084A1C3 /* Session+Extension.m in Sources */,
+				6DE538A61705E2CA00F9C001 /* Participant.m in Sources */,
+				6DE538A91705E2CB00F9C001 /* GameState.m in Sources */,
+				6DE538C61706356500F9C001 /* Session.m in Sources */,
+				6DE538C91706379E00F9C001 /* Trial.m in Sources */,
+				6DE98DD017071FEF0008953B /* TrainCatPracticeLayer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

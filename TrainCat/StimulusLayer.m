@@ -13,101 +13,114 @@
 #import "SpriteUtils.h"
 #import "constants.h"
 
-
 @interface StimulusLayer()
-@property (nonatomic, strong) CCSprite *fixation;
 @property (nonatomic, copy) NSString *exemplarLeftPath; // Determines if cache is invalid
 @end
 
 @implementation StimulusLayer
 
--(void)showStimulusWithExemplarLeftPath:(NSString *)exemplarLeftPath exemplarRightPath:(NSString *)exemplarRightPath morphPath:(NSString *)morphPath {
+-(id)init {
+    if(self = [super init]) {
+        CGSize winSize = [CCDirector sharedDirector].winSize;
+        CCSprite *fixation = [CCSprite spriteWithFile:@"fixation.png"];
+        fixation.tag = StimulusTypeFixation;
+        fixation.position = ccp(winSize.width/2, winSize.height/2);
+        fixation.opacity = 0;
+        [self addChild:fixation z:StimulusZIndexFixation];
+        
+        CCSprite *exemplarMask = [SpriteUtils blankSpriteWithSize:winSize];
+        exemplarMask.tag = StimulusTypeMask;
+        exemplarMask.position = ccp(winSize.width/2, winSize.height/2);
+        [self addChild:exemplarMask z:StimulusZIndexMask];
+    }
+    return self;
+}
+
+-(void)showStimulusWithExemplarLeftPath:(NSString *)exemplarLeftPath exemplarRightPath:(NSString *)exemplarRightPath morphLabel:(NSString *)morphLabel {
     CGSize winSize = [CCDirector sharedDirector].winSize;
     CGFloat centerX = winSize.width/2;
     CGFloat centerY = winSize.height/2;
     
     CCNode *exemplar;
+    
     if(exemplarLeftPath && ![exemplarLeftPath isEqualToString:self.exemplarLeftPath]) {
-        [self removeChildByTag:EXEMPLAR_TAG cleanup:YES]; // Remove exemplar and all it's children.
-        // Exemplar
-        exemplar = [CCNode node];
-        exemplar.visible = NO;
-        
+        [self removeChildByTag:StimulusTypeExemplar cleanup:YES];
+                
+        // Create
+        exemplar = [SpriteUtils blankSpriteWithSize:winSize];
+        exemplar.position = ccp(centerX, centerY);
+        exemplar.tag = StimulusTypeExemplar;
+
         CCSprite *el = [CCSprite spriteWithFile:exemplarLeftPath];
-        el.position = ccp(centerX - el.contentSize.width/2 - STIMULUS_PADDING, centerY);
-        [exemplar addChild:el];
-        
-        CCSprite *elBar = [SpriteUtils blankSpriteWithSize:CGSizeMake(el.contentSize.width, 25.0f)];
-        elBar.color = ccc3(178, 127, 178);
-        elBar.position = ccp(centerX - elBar.contentSize.width/2 -  STIMULUS_PADDING, centerY - elBar.contentSize.height/2 - el.contentSize.height/2);
-        [exemplar addChild:elBar];
-        
         CCSprite *er = [CCSprite spriteWithFile:exemplarRightPath];
-        er.position = ccp(centerX + er.contentSize.width/2 + STIMULUS_PADDING, centerY);
-        [exemplar addChild:er];
         
-        CCSprite *erBar = [SpriteUtils blankSpriteWithSize:CGSizeMake(er.contentSize.width, 25.0f)];
+        CGFloat maxHeight = max(el.contentSize.height, er.contentSize.height);
+        CGFloat maxWidth = max(el.contentSize.width, er.contentSize.width);
+        
+        CCSprite *elBar = [SpriteUtils blankSpriteWithSize:CGSizeMake(maxWidth, 25.0)];
+        elBar.color = ccc3(178, 127, 178);
+        CCSprite *erBar = [SpriteUtils blankSpriteWithSize:CGSizeMake(maxWidth, 25.0)];
         erBar.color = ccc3(127, 191, 127);
-        erBar.position = ccp(centerX + erBar.contentSize.width/2 + STIMULUS_PADDING, centerY - erBar.contentSize.height/2 - er.contentSize.height/2);
+        
+        
+        // Position
+        el.position = ccp(winSize.width/4.0, centerY - (maxHeight - el.contentSize.height)/2.0);
+        elBar.position = ccp(winSize.width/4.0, el.position.y - el.contentSize.height/2 - elBar.contentSize.height/2.0 - STIMULUS_BAR_PADDING_TOP);
+        er.position = ccp(winSize.width*3.0/4.0, centerY - (maxHeight - er.contentSize.height)/2.0);
+        erBar.position = ccp(winSize.width*3.0/4.0, er.position.y - er.contentSize.height/2 - erBar.contentSize.height/2.0 - STIMULUS_BAR_PADDING_TOP);
+        
+        // Add
+        [exemplar addChild:el];
+        [exemplar addChild:elBar];
+        [exemplar addChild:er];
         [exemplar addChild:erBar];
         
-        [self addChild:exemplar z:0 tag:EXEMPLAR_TAG];
+        [self addChild:exemplar z:StimulusZIndexExemplar];
     } else {
-        exemplar = [self getChildByTag:EXEMPLAR_TAG];
+        exemplar = [self getChildByTag:StimulusTypeExemplar];
     }
     
     
     // Morph
-    CCSprite *morph = [CCSprite spriteWithFile:morphPath];
+    CCSprite *morph = [CCSprite spriteWithFile:morphLabel];
+    morph.tag = StimulusTypeMorph;
     morph.position = ccp(centerX, centerY);
-    morph.visible = NO;
-    [self addChild:morph z:0 tag:MORPH_TAG];
+    morph.opacity = 0;
+    [self addChild:morph z:StimulusZIndexMorph];
     
     id actionShowFixation = [CCSequence actions:
-                             [CCShow action],
+                             [CCFadeIn actionWithDuration:FADE_DURATION],
                              [CCDelayTime actionWithDuration:FIXATION_DURATION_MAX],
-                             [CCHide action],
+                             [CCFadeOut actionWithDuration:FADE_DURATION],
                              nil];
-    CCTargetedAction *actionFixation = [CCTargetedAction actionWithTarget:self.fixation action:actionShowFixation];
+    CCTargetedAction *actionFixation = [CCTargetedAction actionWithTarget:[self getChildByTag:StimulusTypeFixation] action:actionShowFixation];
     
     
     id actionShowExemplar = [CCSequence actions:
-                             [CCShow action],
+                             [CCFadeOut actionWithDuration:FADE_DURATION],
                              [CCDelayTime actionWithDuration:EXEMPLAR_DURATION],
-                             [CCHide action],
+                             [CCFadeIn actionWithDuration:FADE_DURATION],
                              nil];
-    CCTargetedAction *actionExemplar = [CCTargetedAction actionWithTarget:exemplar action:actionShowExemplar];
-    
+    CCTargetedAction *actionExemplar = [CCTargetedAction actionWithTarget:[self getChildByTag:StimulusTypeMask] action:actionShowExemplar];
     
     id actionShowMorph = [CCSequence actions:
                           [CCDelayTime actionWithDuration:MASK_DURATION],
-                          [CCShow action],
+                          [CCFadeIn actionWithDuration:FADE_DURATION],
                           [CCDelayTime actionWithDuration:MORPH_DURATION],
-                          [CCHide action],
+                          [CCFadeOut actionWithDuration:FADE_DURATION],
                           [CCDelayTime actionWithDuration:MASK_DURATION],
                           [CCCallFunc actionWithTarget:self selector:@selector(finished)],
                           nil];
-    CCTargetedAction *actionMorph = [CCTargetedAction actionWithTarget:morph action:actionShowMorph];
+    CCTargetedAction *actionMorph = [CCTargetedAction actionWithTarget:[self getChildByTag:StimulusTypeMorph] action:actionShowMorph];
     
     CCSequence *stimAction = [CCSequence actions:actionFixation, actionExemplar, actionMorph, nil];
     [self runAction:stimAction];
 }
 
 -(void)finished {    
-    [self removeChildByTag:MORPH_TAG cleanup:YES]; // Remove morph.
+    [self removeChildByTag:StimulusTypeMorph cleanup:YES]; // Remove morph.
     // Do not remove fixation
     if(self.delegate) [self.delegate stimulusDidFinish];
-}
-
--(CCSprite *)fixation {
-    if(!_fixation) {
-        CGSize winSize = [CCDirector sharedDirector].winSize;
-        _fixation = [CCSprite spriteWithFile:@"fixation.png"];
-        _fixation.position = ccp(winSize.width/2, winSize.height/2);
-        _fixation.visible = NO;
-        [self addChild:_fixation];
-    }
-    return _fixation;
 }
 
 

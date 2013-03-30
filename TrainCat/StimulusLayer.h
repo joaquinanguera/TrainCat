@@ -19,6 +19,6 @@
 @interface StimulusLayer : CCLayer
 
 @property (nonatomic, weak) id <StimulusLayerDelegate> delegate;
--(void)showStimulusWithExemplarLeftPath:(NSString *)exemplarLeftPath exemplarRightPath:(NSString *)exemplarRightPath morphPath:(NSString *)morphPath;
+-(void)showStimulusWithExemplarLeftPath:(NSString *)exemplarLeftPath exemplarRightPath:(NSString *)exemplarRightPath morphLabel:(NSString *)morphLabel;
 
 @end

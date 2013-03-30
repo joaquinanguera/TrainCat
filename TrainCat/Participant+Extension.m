@@ -32,7 +32,7 @@
             error = [[NSError alloc] initWithDomain:errorMessage code:0x4 userInfo:nil];
         } else if(idCount > 1){ // idCount will be 2 in case of duplicates cause we created the new duplicate object in the current managed object context
             NSLog(@"%d", idCount);
-            error = [[NSError alloc] initWithDomain:@"Duplicate Participant ID" code:0x8 userInfo:nil];
+            error = [[NSError alloc] initWithDomain:@"Duplicate Participant Id" code:0x8 userInfo:nil];
         }
     }
     if (error!= NULL) {
@@ -51,5 +51,18 @@
     self.gameState = gs;
     self.program = [NSKeyedArchiver archivedDataWithRootObject:[StimulusProgram create]];
 }
+
+- (void)addSessionsObject:(Session *)value {
+    NSMutableOrderedSet* tempSet = [NSMutableOrderedSet orderedSetWithOrderedSet:self.sessions];
+    [tempSet addObject:value];
+    self.sessions = tempSet;
+}
+
+- (void)addTrialsObject:(Trial *)value {
+    NSMutableOrderedSet* tempSet = [NSMutableOrderedSet orderedSetWithOrderedSet:self.trials];
+    [tempSet addObject:value];
+    self.trials = tempSet;
+}
+
 
 @end

@@ -8,11 +8,11 @@
 
 #import <Foundation/Foundation.h>
 #import "cocos2d.h"
+#import "constants.h"
 
 @protocol ResponseLayerDelegate
 
-// responseTag = RESPONSE_UNKNOWN, RESPONSE_LEFT or RESPONSE_RIGHT 
--(void)didRespond:(NSInteger)responseTag;
+-(void)didRespond:(ResponseType)response;
 
 @end
 

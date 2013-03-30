@@ -2,20 +2,19 @@
 //  Session.m
 //  TrainCat
 //
-//  Created by Alankar Misra on 27/02/13.
+//  Created by Alankar Misra on 30/03/13.
 //
 //
 
 #import "Session.h"
-#import "Block.h"
 #import "Participant.h"
 
 
 @implementation Session
 
-@dynamic startTime;
+@dynamic sid;
 @dynamic endTime;
+@dynamic startTime;
 @dynamic participant;
-@dynamic blocks;
 
 @end

@@ -51,7 +51,7 @@
 - (IBAction)didSave:(UIBarButtonItem *)sender {
     if([[self.pidField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] isEqualToString:@""]) {
         UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"Failed to create new participant"
-                                                          message:@"Participant ID cannot be blank"
+                                                          message:@"Participant Id cannot be blank"
                                                          delegate:nil
                                                 cancelButtonTitle:@"OK"
                                                 otherButtonTitles:nil];

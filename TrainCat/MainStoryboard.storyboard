@@ -430,6 +430,53 @@
         <image name="System_Preferences_icon.png" width="512" height="512"/>
         <image name="dropbox-logo.jpg" width="352" height="353"/>
     </resources>
+    <classes>
+        <class className="AddParticipantViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/AddParticipantViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="didCancel:" candidateClass="UIBarButtonItem"/>
+                <relationship kind="action" name="didSave:" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="autoLoginField" candidateClass="UISwitch"/>
+                <relationship kind="outlet" name="pidField" candidateClass="UITextField"/>
+            </relationships>
+        </class>
+        <class className="DropboxViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/DropboxViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="didClickAuthorize:"/>
+                <relationship kind="action" name="didClickUnlink:"/>
+            </relationships>
+        </class>
+        <class className="GameController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/GameController.h"/>
+        </class>
+        <class className="InfoViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/InfoViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="lblCurrentPid" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="lblDropboxAuthenticated" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="NumericTextField" superclassName="UITextField">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/NumericTextField.h"/>
+        </class>
+        <class className="OpeningScreenViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/OpeningScreenViewController.h"/>
+        </class>
+        <class className="ParticipantDetailViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ParticipantDetailViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="loggedInField" candidateClass="UISwitch"/>
+                <relationship kind="outlet" name="pidField" candidateClass="UITextField"/>
+            </relationships>
+        </class>
+        <class className="ParticipantMasterViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ParticipantMasterViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
+            </relationships>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar" statusBarStyle="blackTranslucent"/>
         <simulatedOrientationMetrics key="orientation"/>
