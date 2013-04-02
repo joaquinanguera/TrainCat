@@ -10,6 +10,7 @@
 #import "AppDelegate.h"
 #import "Participant+Extension.h"
 #import "SessionManager.h"
+#import "constants.h"
 
 @interface ParticipantMasterViewController ()
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
@@ -295,7 +296,7 @@
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {
     Participant *participant = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    cell.textLabel.text = [NSString stringWithFormat:@"%04d", participant.pid];    
+    cell.textLabel.text = (participant.pid == DEMO_PARTICIPANT_ID) ? @"Demotron" : [NSString stringWithFormat:@"%04d", participant.pid];
 }
 
 

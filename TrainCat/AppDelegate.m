@@ -10,6 +10,8 @@
 #import "cocos2d.h"
 #import "AppDelegate.h"
 #import "IntroLayer.h"
+#import "constants.h"
+#import "Participant+Extension.h"
 
 @implementation AppController
 
@@ -20,8 +22,17 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
-{
+{    
+    [self configureDropbox];
+    [self configureCocos];
+    [self configureDemo];
     
+	return YES;
+}
+
+#pragma mark Configuration Functions
+
+-(void)configureDropbox {
     // The account manager stores all the account info. Create this when your app launches
     DBAccountManager* accountMgr =
     [[DBAccountManager alloc] initWithAppKey:@"ev7wggh9l3s2vy7" secret:@"bgoed4lggdhkuke"];
@@ -31,9 +42,18 @@
     if (account) {
         DBFilesystem *filesystem = [[DBFilesystem alloc] initWithAccount:account];
         [DBFilesystem setSharedFilesystem:filesystem];
-    }
-    
-	return YES;
+    }    
+}
+
+-(void)configureCocos {
+    CCFileUtils *sharedFileUtils = [CCFileUtils sharedFileUtils];
+    sharedFileUtils.iPadSuffix = @"";
+    sharedFileUtils.iPadRetinaDisplaySuffix = sharedFileUtils.iPhoneRetinaDisplaySuffix;
+    //sharedFileUtils.enableFallbackSuffixes = YES;
+}
+
+-(void)configureDemo {
+    //[self resetDemoParticipant]; // Let the relevant view call resetDemoParticipant lazily.
 }
 
 - (BOOL)application:(UIApplication *)app openURL:(NSURL *)url

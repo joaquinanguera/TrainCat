@@ -9,9 +9,18 @@
 // Import the interfaces
 #import "IntroLayer.h"
 #import "TrainCatLayer.h"
-
+#import "cocos2d.h"
+#import "SimpleAudioEngine.h"
+#import "TrainCatLayer.h"
 
 #pragma mark - IntroLayer
+
+typedef NS_ENUM(NSInteger, MainMenuButtonActionType) {
+    MainMenuButtonActionTypePlay,
+    MainMenuButtonActionTypePractice,
+    MainMenuButtonActionTypeSettings
+};
+
 
 // HelloWorldLayer implementation
 @implementation IntroLayer
@@ -32,33 +41,62 @@
 	return scene;
 }
 
-// 
+-(id)init {
+    if( (self=[super initWithColor:ccc4(255, 255, 255, 255)]) ) {
+        [[SimpleAudioEngine sharedEngine] playBackgroundMusic:@"POL-slums-of-rage-short.wav"]; // Currently throwing an error
+    }
+    return self;
+}
+
 -(void) onEnter
 {
 	[super onEnter];
-
-	// ask director for the window size
-	CGSize size = [[CCDirector sharedDirector] winSize];
-
-	CCSprite *background;
-	
-	if( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone ) {
-		background = [CCSprite spriteWithFile:@"Default.png"];
-		background.rotation = 90;
-	} else {
-		background = [CCSprite spriteWithFile:@"Default-Landscape~ipad.png"];
-	}
-	background.position = ccp(size.width/2, size.height/2);
-
-	// add the label as a child to this Layer
-	[self addChild: background];
-	
-	// In one second transition to the new scene
-	//[self scheduleOnce:@selector(makeTransition:) delay:1];
+    [self makeMenu];
 }
 
--(void) makeTransition:(ccTime)dt
-{
-	[[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:1.0 scene:[TrainCatLayer scene] withColor:ccWHITE]];
+-(void)makeMenu {
+	CGSize winSize = [[CCDirector sharedDirector] winSize];
+    
+    // TODO: Ensure that we have at least ONE currently logged in user (other than Demo)
+    CCMenuItemImage *btnPlay = [CCMenuItemImage itemWithNormalImage:@"buttonPlayNormal.png" selectedImage:@"buttonPlaySelected.png" target:self selector:@selector(didRespond:)];
+    btnPlay.tag = MainMenuButtonActionTypePlay;
+    
+    CCMenuItemImage *btnPractice = [CCMenuItemImage itemWithNormalImage:@"buttonPracticeNormal.png" selectedImage:@"buttonPracticeSelected.png" target:self selector:@selector(didRespond:)];
+    btnPractice.tag = MainMenuButtonActionTypePractice;
+    
+    CCMenuItemImage *btnSettings = [CCMenuItemImage itemWithNormalImage:@"buttonSettingsNormal.png" selectedImage:@"buttonSettingsSelected.png" target:self selector:@selector(didRespond:)];
+    btnSettings.tag = MainMenuButtonActionTypeSettings;
+    
+    CCMenu *mnu = [CCMenu menuWithItems:btnPlay,btnPractice,btnSettings,nil];
+    [mnu alignItemsVerticallyWithPadding:30];
+    mnu.position = ccp(winSize.width/2, winSize.height/2);
+    
+    [self addChild:mnu];    
 }
+
+
+-(void)didRespond:(CCMenuItem *)menuItem {
+    switch(menuItem.tag) {
+        case MainMenuButtonActionTypePlay:
+            [[CCDirector sharedDirector] replaceScene:[CCTransitionZoomFlipX transitionWithDuration:0.5 scene:[TrainCatLayer sceneWithPracticeSetting:NO]]];
+            break;
+        case MainMenuButtonActionTypePractice:
+            NSLog(@"Switching to practice mode.");
+            [[CCDirector sharedDirector] replaceScene:[CCTransitionZoomFlipX transitionWithDuration:0.5 scene:[TrainCatLayer sceneWithPracticeSetting:YES]]];
+            break;
+        case MainMenuButtonActionTypeSettings:
+            //[[CCDirector sharedDirector] replaceScene:[CCTransitionZoomFlipX transitionWithDuration:0.5 scene:[TrainCatLayer sceneW]]];
+            break;
+        default:
+            NSLog(@"Unrecognized tag %d", menuItem.tag);
+            break;
+    }
+    
+}
+
+-(void)onExit {
+    [[SimpleAudioEngine sharedEngine] stopBackgroundMusic];
+    [super onExit];
+}
+
 @end

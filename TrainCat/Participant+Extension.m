@@ -11,13 +11,14 @@
 #import "AppDelegate.h"
 #import "GameState.h"
 #import "StimulusProgram.h"
+#import "constants.h"
 
 @implementation Participant (Extension)
 
 - (BOOL)validatePid:(id *)ioValue error:(NSError **)outError {
     NSError *error = NULL;
     int32_t pid = [*ioValue integerValue];
-    if(pid < 0 || pid >= 9999) {
+    if((pid != DEMO_PARTICIPANT_ID) && (pid < 0 || pid >= 9999)) { 
         NSString *errorMessage = [NSString stringWithFormat:@"%04d out of bounds. Valid participant numbers range from 0001 to 9999.", pid];
         error = [[NSError alloc] initWithDomain:errorMessage code:0x2 userInfo:nil];
     } else { // duplicate?
@@ -63,6 +64,57 @@
     [tempSet addObject:value];
     self.trials = tempSet;
 }
+
++(Participant *)dummyParticipant {
+    Participant *participant = [self participantWithId:DEMO_PARTICIPANT_ID mustExist:NO];
+    AppController *delegate = ((AppController *)[[UIApplication sharedApplication] delegate]);
+    if(participant) {
+        [delegate.managedObjectContext deleteObject:participant];
+    }
+
+    // Create a new demo participant
+    participant = [NSEntityDescription
+                   insertNewObjectForEntityForName:@"Participant"
+                   inManagedObjectContext:delegate.managedObjectContext];
+    participant.pid = DEMO_PARTICIPANT_ID;
+    participant.program = [NSKeyedArchiver archivedDataWithRootObject:[StimulusProgram createPractice]];
+    [delegate saveContext];
+
+    return participant;
+}
+
++(Participant *)participantWithId:(int)pid mustExist:(BOOL)mustExist {
+    Participant *participant;
+    AppController *delegate = ((AppController *)[[UIApplication sharedApplication] delegate]);    
+    NSEntityDescription *entityDescription = [NSEntityDescription entityForName:@"Participant" inManagedObjectContext:delegate.managedObjectContext];
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    [request setEntity:entityDescription];
+    
+    NSNumber *opid = [NSNumber numberWithInt:pid];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"pid=%@", opid];
+    [request setPredicate:predicate];
+    NSError *error;
+    NSArray *array = [delegate.managedObjectContext executeFetchRequest:request error:&error];
+    if(array == nil) {
+        UIAlertView *message = [[UIAlertView alloc] initWithTitle:[error domain] /* , [error userInfo] */
+                                                          message:@"There was an error reading the Participant database. Contact the developer."
+                                                         delegate:nil
+                                                cancelButtonTitle:@"OK"
+                                                otherButtonTitles:nil];
+        [message show];
+    } else if(!array.count && mustExist) {
+        UIAlertView *message = [[UIAlertView alloc] initWithTitle:[error domain] 
+                                                          message:[NSString stringWithFormat:@"Could not find participant with id %d. Contact the developer.", pid]
+                                                         delegate:nil
+                                                cancelButtonTitle:@"OK"
+                                                otherButtonTitles:nil];
+        [message show];
+    } else {
+        participant = array[0];
+    }
+    return participant;
+}
+
 
 
 @end

@@ -11,4 +11,6 @@
 
 @interface HUDLayer : CCLayer
 
+@property (nonatomic, copy) NSString *participantName;
+
 @end

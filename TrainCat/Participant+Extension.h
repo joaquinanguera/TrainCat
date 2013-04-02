@@ -10,6 +10,9 @@
 
 @interface Participant (Extension)
 
++(Participant *)dummyParticipant;
++(Participant *)participantWithId:(int)pid mustExist:(BOOL)mustExist;
+
 - (BOOL)validatePid:(id *)ioValue error:(NSError **)outError;
 
 @end

@@ -36,7 +36,7 @@
         label.position = ccp(winSize.width/2.0,winSize.height/2.0);
         [self addChild:label];
         
-        CCMenuItemImage *btnNewSessionImage = [CCMenuItemImage itemWithNormalImage:@"Button-NewSession.png" selectedImage:@"Button-NewSession.png" target:self selector:@selector(didTapNewSession)];
+        CCMenuItemImage *btnNewSessionImage = [CCMenuItemImage itemWithNormalImage:@"buttonNewSessionNormal.png" selectedImage:@"buttonNewSessionSelected.png" target:self selector:@selector(didTapNewSession)];
         CCMenu *btnNewSession = [CCMenu menuWithItems:btnNewSessionImage,nil];
         btnNewSession.position = ccp(winSize.width/2.0,label.position.y - label.contentSize.height/2 - btnNewSessionImage.contentSize.height/2 - 50);
         [self addChild:btnNewSession];
@@ -47,7 +47,7 @@
 }
 
 -(void)didTapNewSession {
-    [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:1.0 scene:[TrainCatLayer scene] withColor:ccWHITE]];
+    [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:1.0 scene:[TrainCatLayer sceneWithPracticeSetting:NO] withColor:ccWHITE]];
 }
 
 @end

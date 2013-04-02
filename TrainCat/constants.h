@@ -10,9 +10,14 @@
 #define TrainCat_constants_h
 
 #define MAX_TRIALS_PER_STIMULUS_BLOCK 36
+#define MAX_TRIALS_PER_PRACTICE_BLOCK 6
 
 #define STIMULUS_PADDING 15.0
 #define STIMULUS_BAR_PADDING_TOP 40.0
+
+#define DEMO_PARTICIPANT_ID -1
+
+#define START_MENU_TAG 1
 
 // Durations in seconds
 #define FIXATION_DURATION_MIN 1.0

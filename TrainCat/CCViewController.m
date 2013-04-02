@@ -25,7 +25,7 @@
 //
 
 #import "CCViewController.h"
-
+#import "SimpleAudioEngine.h"
 
 @implementation CCViewController
 
@@ -155,6 +155,7 @@
 
 - (void)applicationWillResignActive:(NSNotification *)notification
 {
+    [[SimpleAudioEngine sharedEngine] stopBackgroundMusic];
     [[CCDirector sharedDirector] pause];
 }
 

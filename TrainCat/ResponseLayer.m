@@ -18,20 +18,21 @@
 
 @implementation ResponseLayer
 
+#define RESPONSE_LAYER_BUTTON_PADDING 15
+
 -(id)init {
     if(self = [super init]) {
         CGSize winSize = [CCDirector sharedDirector].winSize;
-        CGFloat centerY = winSize.height/2;
         
-        CCMenuItemImage *lbItem = [CCMenuItemImage itemWithNormalImage:@"ResponseLeft.png" selectedImage:@"ResponseLeft.png" target:self selector:@selector(didRespond:)];
+        CCMenuItemImage *lbItem = [CCMenuItemImage itemWithNormalImage:@"buttonRespondLeftNormal.png" selectedImage:@"buttonRespondLeftSelected.png" target:self selector:@selector(didRespond:)];
         lbItem.tag = ResponseTypeLeft;
         CCMenu *lb = [CCMenu menuWithItems:lbItem,nil];
-        lb.position = ccp(lbItem.contentSize.width/2 + 100, centerY);
+        lb.position = ccp(lbItem.contentSize.width/2 + RESPONSE_LAYER_BUTTON_PADDING, winSize.height/3.0);
         
-        CCMenuItemImage *rbItem = [CCMenuItemImage itemWithNormalImage:@"ResponseRight.png" selectedImage:@"ResponseRight.png" target:self selector:@selector(didRespond:)];
+        CCMenuItemImage *rbItem = [CCMenuItemImage itemWithNormalImage:@"buttonRespondRightNormal.png" selectedImage:@"buttonRespondRightSelected.png" target:self selector:@selector(didRespond:)];
         rbItem.tag = ResponseTypeRight;
         CCMenu *rb = [CCMenu menuWithItems:rbItem,nil];        
-        rb.position = ccp(winSize.width-rbItem.contentSize.width/2-100, centerY);
+        rb.position = ccp(winSize.width-rbItem.contentSize.width/2-RESPONSE_LAYER_BUTTON_PADDING, winSize.height/3.0);
         
         //lb.visible = NO;
         //rb.visible = NO;
@@ -40,7 +41,7 @@
         id action = [CCEaseElasticOut actionWithAction:move period:0.3f]; */
         self.getResponseAction = [CCSequence actions:
                                   [CCDelayTime actionWithDuration:RESPONSE_DURATION],
-                                  [CCCallFunc actionWithTarget:self selector:@selector(skippedResponse)],
+                                  [CCCallFunc actionWithTarget:self selector:@selector(didSkipResponse)],
                                   nil];        
         
         [self addChild:lb];
@@ -50,12 +51,11 @@
     return self;
 }
 
--(void)getResponse {
-    
+-(void)getResponse {    
     [self runAction:self.getResponseAction];
 }
 
--(void)skippedResponse {
+-(void)didSkipResponse {
     if(self.delegate) [self.delegate didRespond:ResponseTypeNoResponse];
 }
 

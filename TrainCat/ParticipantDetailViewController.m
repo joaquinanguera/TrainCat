@@ -8,6 +8,7 @@
 
 #import "ParticipantDetailViewController.h"
 #import "SessionManager.h"
+#import "constants.h"
 
 @interface ParticipantDetailViewController ()
 @property (weak, nonatomic) IBOutlet UITextField *pidField;
@@ -32,7 +33,7 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     self.navigationItem.rightBarButtonItem = self.editButtonItem;
-    self.pidField.text = [NSString stringWithFormat:@"%04d", self.participant.pid];
+    self.pidField.text = (self.participant.pid == DEMO_PARTICIPANT_ID) ? @"Demotron" : [NSString stringWithFormat:@"%04d", self.participant.pid];
     self.loggedInField.on = [SessionManager isLoggedIn:self.participant.pid];
     [self disableControls];
 }
@@ -40,6 +41,7 @@
 -(void)setEditing:(BOOL)editing animated:(BOOL)animated {
     [super setEditing:editing animated:animated];
     if(editing) {
+        // TODO: Ensure that DemoTron doesn't get edited
         self.pidField.borderStyle = UITextBorderStyleRoundedRect;
         self.pidField.userInteractionEnabled = YES;
         self.loggedInField.userInteractionEnabled = YES;

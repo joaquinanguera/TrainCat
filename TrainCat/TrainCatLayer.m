@@ -1,5 +1,5 @@
 //
-//  HelloWorldLayer.m
+//  TrainCatLayer.m
 //  TrainCat
 //
 //  Created by Alankar Misra on 07/02/13.
@@ -10,27 +10,40 @@
 #import "constants.h"
 #import "TrainCatLayer.h"
 #import "AppDelegate.h"
+
+// Core data
 #import "Participant+Extension.h"
 #import "Session+Extension.h"
-#import "AppDelegate.h"
+#import "GameState.h"
+#import "Trial.h"
+
+// Game Data
 #import "StimulusPack.h"
+#import "StimulusSession.h"
 #import "StimulusCategory.h"
 #import "StimulusBlock.h"
 #import "StimulusList.h"
-#import "RangeArray.h"
-#import "NSMutableArray+Shuffling.h"
-#import "StimulusSession.h"
+
+// UI Layers
+#import "HUDLayer.h"
 #import "StimulusLayer.h"
-#import "GameState.h"
 #import "ResponseLayer.h"
 #import "FeedbackLayer.h"
-#import "HUDLayer.h"
 #import "SessionCompleteLayer.h"
 #import "GameOverLayer.h"
-#import "Trial.h"
 
-#pragma mark - HelloWorldLayer
+// Utils 
+#import "RangeArray.h"
+#import "NSMutableArray+Shuffling.h"
+#import "ArrayUtils.h"
+#import "ActionLib.h"
+#import "Logger.h"
+#import "SessionManager.h"
+
+
+#pragma mark - TrainCatLayer
 @interface TrainCatLayer()
+
 @property (nonatomic, strong) NSManagedObjectContext *moc;
 
 @property (nonatomic, strong) StimulusLayer *stim;
@@ -47,6 +60,11 @@
 @property (nonatomic, readonly, strong) NSArray *stimuli;
 @property (nonatomic, strong) NSString *morphLabel;
 @property (nonatomic, strong) Trial *trial;
+@property (nonatomic, assign) int maxTrials;
+
+@property (nonatomic, assign) BOOL isPractice;
+
+//@property (nonatomic, strong) NSArray *aiResponse;
 
 @end
 
@@ -54,63 +72,93 @@
 @implementation TrainCatLayer
 
 // Helper class method that creates a Scene with the TrainCatLayer as the only child.
-+(CCScene *) scene
++(CCScene *) sceneWithPracticeSetting:(BOOL)isPractice
 {
 	// 'scene' is an autorelease object.
 	CCScene *scene = [CCScene node];
 	
 	// 'layer' is an autorelease object.
-	TrainCatLayer *gameLayer = [TrainCatLayer node];
-	
+	TrainCatLayer *gameLayer = [[TrainCatLayer alloc] initWithPracticeSetting:isPractice];
+    
 	// add layer as a child to scene
 	[scene addChild: gameLayer];
-    //[scene addChild:self.stim];
 	
 	// return the scene
 	return scene;
 }
 
+
 // on "init" you need to initialize your instance
--(id) init
-{
+-(id)initWithPracticeSetting:(BOOL)isPractice {
 	if( (self=[super initWithColor:ccc4(255, 255, 255, 255)]) ) { // ccc4(220, 220, 220, 255)
+        self.isPractice = isPractice;
+        self.maxTrials = isPractice ? MAX_TRIALS_PER_PRACTICE_BLOCK : MAX_TRIALS_PER_STIMULUS_BLOCK;
         self.gs = self.participant.gameState;
-        
         self.program = [NSKeyedUnarchiver unarchiveObjectWithData:self.participant.program];
         
-        self.stim = [[StimulusLayer alloc] init];
-        self.stim.delegate = self;
+        [self setSubviews];
+        [self setStartButton];
+        [Logger printProgramForParticipant:self.participant];
         
-        self.response = [[ResponseLayer alloc] init];
-        self.response.delegate = self;
-        self.response.visible = NO;
-        
-        self.feedback = [[FeedbackLayer alloc] init];
-        self.feedback.delegate = self;
-        self.feedback.visible = NO;
-        
-        self.hud = [[HUDLayer alloc] init];
-        
-        [self addChild:self.stim];
-        [self addChild:self.response];
-        [self addChild:self.feedback];
-        [self addChild:self.hud];
-        
-        [self performSelector:@selector(beginGame) withObject:nil afterDelay:2.0];
+        /*
+         self.aiResponse = [ArrayUtils aiYesNoResponsesWithTrialCount:self.maxTrials*2 expectedAccuracyPercentage:0.5];
+         NSLog(@"Responses = [%@]", [self.aiResponse componentsJoinedByString:@","]);
+         */
 	}
 	return self;
 }
 
+-(id) init
+{
+    return [self initWithPracticeSetting:NO];
+}
+
+-(void)setSubviews {
+    // Note: We could do this in the 'sceneWithPracticeSetting' but this layer is useless by itself
+    // so we construct the other layers in init.
+    self.stim = [StimulusLayer node];
+    self.stim.delegate = self;
+    
+    self.response = [ResponseLayer node];
+    self.response.delegate = self;
+    self.response.visible = NO;
+    
+    self.feedback = [FeedbackLayer node];
+    self.feedback.delegate = self;
+    self.feedback.visible = NO;
+    
+    self.hud = [HUDLayer node];
+    [self addChild:self.stim];
+    [self addChild:self.response];
+    [self addChild:self.feedback];
+    [self addChild:self.hud];    
+}
+
+-(void)setStartButton {
+    CCMenuItemImage *btnStart = [CCMenuItemImage itemWithNormalImage:@"buttonStartNormal.png" selectedImage:@"buttonStartSelected.png" target:self selector:@selector(beginGame)];
+    CCMenu *mnu = [CCMenu menuWithItems:btnStart,nil];
+    mnu.tag = START_MENU_TAG;
+    CGSize winSize = [[CCDirector sharedDirector] winSize];
+    mnu.position = ccp(winSize.width/2, winSize.height/2);
+    [self addChild:mnu];
+    [btnStart runAction:[ActionLib pulse]];    
+}
+
 -(void)beginGame {
-    //[self clearState]; // TODO: Debug
+    CCNode *mnu = [self getChildByTag:START_MENU_TAG];
+    [mnu.children.lastObject stopAllActions];
+    [self removeChild:mnu cleanup:YES];
     [self setupStimulusWithNewSession:YES];
 }
 
 -(void)showStimulus {
     self.morphLabel = self.stimuli[arc4random() % self.stimuli.count];
-    //[self.stim showStimulusWithExemplarLeftPath:self.category.exemplarLeft exemplarRightPath:self.category.exemplarRight morphLabel:self.morphLabel];
-    [self grade:[self getCorrectResponseFromMorphLabel:self.morphLabel]]; // TODO: Debug
-    
+    [self.stim showStimulusWithExemplarLeftPath:self.category.exemplarLeft exemplarRightPath:self.category.exemplarRight morphLabel:self.morphLabel];
+    /*
+    // TODO: Debug code. Remove
+    BOOL airesp = [self.aiResponse[self.trial.trial] boolValue];
+    ResponseType correctResponse = [self getCorrectResponseFromMorphLabel:self.morphLabel];
+    [self grade:airesp ? correctResponse : correctResponse == ResponseTypeLeft ? ResponseTypeRight : ResponseTypeLeft]; */
 }
 
 -(void)stimulusDidFinish {    
@@ -164,29 +212,28 @@
             break;
     }
     
-    [self saveState];
+    [self saveContext];
     
     
     // show feedback
-    //[self.feedback clear];
-    //self.feedback.visible = YES;
-    //[self.feedback showFeedback:gradeCode];
-    [self feedbackDidFinish]; // Debug
+    [self.feedback clear];
+    self.feedback.visible = YES;
+    [self.feedback showFeedback:gradeCode];
 }
 
 -(void)feedbackDidFinish {
-    self.feedback.visible = NO;    
-    [self printGameState];
+    self.feedback.visible = NO;
     [self updateStimulus];
 }
 
 
 -(void)setupStimulusWithNewSession:(BOOL)newSession {
     if([self isGameOver]) {
-        [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:1.0 scene:[GameOverLayer scene] withColor:ccWHITE]];
+        //[[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:1.0 scene:[GameOverLayer scene] withColor:ccWHITE]];
+        [[CCDirector sharedDirector] replaceScene:[CCTransitionZoomFlipX transitionWithDuration:0.5 scene:[GameOverLayer scene]]];
     } else {
         // Did we finish the last block?
-        if(self.gs.trialCount >= MAX_TRIALS_PER_STIMULUS_BLOCK)  {
+        if(self.gs.trialCount >= self.maxTrials)  {
             // If we did finish the last block, is there a new block in the same session?
             if(self.gs.blockId < (self.category.blocks.count-1)) {
                 // If yes, move to the next block
@@ -210,14 +257,14 @@
             session.participant = self.participant; // Do we need to do this?
             [self.participant addSessionsObject:session];
         }
-        [self saveState];
+        [self saveContext];
         [self showStimulus];
     }
 }
 
 -(void)updateStimulus {
     // Are there more trials left?
-    if(self.gs.trialCount < MAX_TRIALS_PER_STIMULUS_BLOCK) {
+    if(self.gs.trialCount < self.maxTrials) {
         // If yes, continue displaying trials
         [self showStimulus];
     } else {
@@ -233,22 +280,25 @@
             // Transition to next screen
             Session *session = self.participant.sessions.lastObject;
             session.endTime = [NSDate date];
-            [self saveState];
+            [self saveContext];
             
+            CCScene *scene;
             // TODO: Debug
             if([self isGameOver]) {
-                [self printAllBlocks];
-                [self printAllSessions];
+                [Logger printAllBlocksForParticipant:self.participant];
+                [Logger printAllSessionsForParticipant:self.participant];
+                scene = [GameOverLayer scene]; 
+            } else {
+                scene = [SessionCompleteLayer scene];
             }
             
-            CCScene *scene = [self isGameOver] ? [GameOverLayer scene] : [SessionCompleteLayer scene];
-            [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:1.0 scene:scene withColor:ccWHITE]];
+            [[CCDirector sharedDirector] replaceScene:[CCTransitionZoomFlipX transitionWithDuration:0.5 scene:scene]];
         }
     }
 }
 
 -(BOOL)isGameOver {
-    return ((self.gs.sessionId >= (self.program.count-1)) && (self.gs.blockId >= (self.category.blocks.count-1)) && (self.gs.trialCount >= MAX_TRIALS_PER_STIMULUS_BLOCK)); // TODO: Debug:
+    return ((self.gs.sessionId >= (self.program.count-1)) && (self.gs.blockId >= (self.category.blocks.count-1)) && (self.gs.trialCount >= self.maxTrials));
 }
 
 -(ResponseType)getCorrectResponseFromMorphLabel:(NSString *)morph {
@@ -273,20 +323,8 @@
     return correctResponse;
 }
 
--(void)saveState {
-    NSError *error = nil;
-    if (![self.moc save:&error]) {
-        // Replace this implementation with code to handle the error appropriately.
-        // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-        NSLog(@"%@", error);
-        UIAlertView *message = [[UIAlertView alloc] initWithTitle:[error domain]
-                                                          message:@"Failed to save the game progress! Contact the developer." /* , [error userInfo] */
-                                                         delegate:nil
-                                                cancelButtonTitle:@"OK"
-                                                otherButtonTitles:nil];
-        [message show];
-    }
-    NSLog(@"Saved state.");
+-(void)saveContext {
+    [((AppController *)[[UIApplication sharedApplication] delegate]) saveContext];    
 }
 
 #pragma mark Properties
@@ -309,33 +347,11 @@
 
 -(Participant *)participant {
     if(!_participant) {
-        NSEntityDescription *entityDescription = [NSEntityDescription entityForName:@"Participant" inManagedObjectContext:self.moc];
-        NSFetchRequest *request = [[NSFetchRequest alloc] init];
-        [request setEntity:entityDescription];
-        
-        NSNumber *pid = [NSNumber numberWithInt:0];
-        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"pid=%@", pid];
-        [request setPredicate:predicate];
-        NSError *error;
-        NSArray *array = [self.moc executeFetchRequest:request error:&error];
-        if(array == nil) {
-            UIAlertView *message = [[UIAlertView alloc] initWithTitle:[error domain] /* , [error userInfo] */
-                                                              message:@"There was an error reading the Participant database. Contact the developer."
-                                                             delegate:nil
-                                                    cancelButtonTitle:@"OK"
-                                                    otherButtonTitles:nil];
-            [message show];
-        } else if(!array.count) {
-            _participant = [NSEntityDescription
-             insertNewObjectForEntityForName:@"Participant"
-             inManagedObjectContext:self.moc];
-            _participant.pid = 0;
-            [self saveState];
-            
+        if(self.isPractice) {
+            _participant = [Participant dummyParticipant];
         } else {
-            _participant = array[0];
+            _participant = [Participant participantWithId:[SessionManager loggedIn] mustExist:YES];
         }
-        
     }
     return _participant;
 }
@@ -349,144 +365,6 @@
 }
 
 
-#pragma mark Debug functions
--(void)printBlock:(int)blockId inCategory:(int)categoryId inSession:(int)sessionId {
-    NSLog(@"%@", [[NSArray arrayWithObjects:@"Session Id", @"Category Id", @"Block Id", @"Trial", @"Exemplars", @"Morph Level", @"Morph Stimulus", @"RT", @"Response", @"Accuracy", nil] componentsJoinedByString:@","]);
-    for(Trial *trial in self.participant.trials) {
-        if(trial.blockId == blockId && trial.sessionId == sessionId && trial.categoryId == categoryId) {
-            NSLog(@"%@", [[NSArray arrayWithObjects:[NSNumber numberWithInt:trial.sessionId], [NSNumber numberWithInt:trial.categoryId], [NSNumber numberWithInt:trial.blockId], [NSNumber numberWithInt:trial.trial], trial.exemplars, [NSNumber numberWithInt:trial.listId], trial.morphLabel, [NSNumber numberWithInt:trial.responseTime], trial.response, trial.accuracy, nil] componentsJoinedByString:@","]);
-        }
-    }
-}
-
--(void)printAllBlocks {
-    int count = 0;
-    NSLog(@"%@", [[NSArray arrayWithObjects:@"<!>", @"#", @"Session Id", @"Category Id", @"Block Id", @"Trial", @"Exemplars", @"Morph Level", @"Morph Stimulus", @"RT", @"Response", @"Accuracy", nil] componentsJoinedByString:@","]);
-    for(Trial *trial in self.participant.trials) {
-        NSLog(@"%@", [[NSArray arrayWithObjects:@"<!>", [NSNumber numberWithInt:++count], [NSNumber numberWithInt:(trial.sessionId+1)], [NSNumber numberWithInt:trial.categoryId], [NSNumber numberWithInt:trial.blockId], [NSNumber numberWithInt:trial.trial], trial.exemplars, [NSNumber numberWithInt:trial.listId], trial.morphLabel, [NSNumber numberWithInt:trial.responseTime], trial.response, trial.accuracy, nil] componentsJoinedByString:@","]);
-
-    }    
-}
-
--(void)printAllSessions {
-    int count = 0;
-    NSLog(@"%@", [[NSArray arrayWithObjects:@"<!>", @"#", @"Session Id", @"startTime", @"endTime", nil] componentsJoinedByString:@","]);
-    for (Session *session in self.participant.sessions) {
-        NSLog(@"%@", [[NSArray arrayWithObjects:@"<!>", [NSNumber numberWithInt:++count], [NSNumber numberWithInt:(session.sid+1)], [self stringFromDate:session.startTime], [self stringFromDate:session.endTime], nil] componentsJoinedByString:@","]);
-    }
-}
-
--(void)clearState {
-    [self.moc deleteObject:self.participant];
-    _participant = nil;
-    self.gs = self.participant.gameState;
-    self.program = [NSKeyedUnarchiver unarchiveObjectWithData:self.participant.program];
-}
-
--(NSString *)stringFromDate:(NSDate *)date {
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    dateFormatter.dateFormat = @"yyyy-MM-dd hh:mm a";
-    NSTimeZone *gmt = [NSTimeZone timeZoneWithAbbreviation:@"GMT+05:30"];
-    [dateFormatter setTimeZone:gmt];
-    return [dateFormatter stringFromDate:date];
-}
-
--(void)printGameState {
-    GameState *gs = self.participant.gameState;
-    NSLog(@"GameState = [Session Id: %d, CategoryID:%d, BlockID:%d, ListID:%d, TrialCount:%d]", gs.sessionId, self.session.categoryId, gs.blockId, gs.listId, gs.trialCount);
-}
-
-
--(void)printStimulusPack {
-    NSArray *stim = [StimulusPack sessions];
-    for(StimulusCategory *cat in stim) {
-        NSLog(@"%@", cat);
-    }
-}
-
-
 @end
 
-/*
- 
- #pragma mark GameKit delegate
- 
- -(void) achievementViewControllerDidFinish:(GKAchievementViewController *)viewController
- {
- AppController *app = (AppController*) [[UIApplication sharedApplication] delegate];
- [[app navController] dismissViewControllerAnimated:YES completion:NULL];
- //[[app navController] dismissModalViewControllerAnimated:YES];
- }
- 
- -(void) leaderboardViewControllerDidFinish:(GKLeaderboardViewController *)viewController
- {
- AppController *app = (AppController*) [[UIApplication sharedApplication] delegate];
- [[app navController] dismissViewControllerAnimated:YES completion:NULL];
- //[[app navController] dismissModalViewControllerAnimated:YES];
- }
 
-*/
-
-
-//-(id) init {
-    /*
-     // create and initialize a Label
-     CCLabelTTF *label = [CCLabelTTF labelWithString:@"Hello World" fontName:@"Marker Felt" fontSize:64];
-     
-     // ask director for the window size
-     CGSize size = [[CCDirector sharedDirector] winSize];
-     
-     // position the label on the center of the screen
-     label.position =  ccp( size.width /2 , size.height/2 );
-     
-     // add the label as a child to this Layer
-     [self addChild: label];
-     
-     
-     
-     //
-     // Leaderboards and Achievements
-     //
-     
-     // Default font size will be 28 points.
-     [CCMenuItemFont setFontSize:28];
-     
-     // Achievement Menu Item using blocks
-     CCMenuItem *itemAchievement = [CCMenuItemFont itemWithString:@"Achievements" block:^(id sender) {
-     
-     
-     GKAchievementViewController *achivementViewController = [[GKAchievementViewController alloc] init];
-     achivementViewController.achievementDelegate = self;
-     
-     AppController *app = (AppController*) [[UIApplication sharedApplication] delegate];
-     
-     [[app navController] presentModalViewController:achivementViewController animated:YES];
-     
-     [achivementViewController release];
-     }
-     ];
-     
-     // Leaderboard Menu Item using blocks
-     CCMenuItem *itemLeaderboard = [CCMenuItemFont itemWithString:@"Leaderboard" block:^(id sender) {
-     
-     
-     GKLeaderboardViewController *leaderboardViewController = [[GKLeaderboardViewController alloc] init];
-     leaderboardViewController.leaderboardDelegate = self;
-     
-     AppController *app = (AppController*) [[UIApplication sharedApplication] delegate];
-     
-     [[app navController] presentModalViewController:leaderboardViewController animated:YES];
-     
-     [leaderboardViewController release];
-     }
-     ];
-     
-     CCMenu *menu = [CCMenu menuWithItems:itemAchievement, itemLeaderboard, nil];
-     
-     [menu alignItemsHorizontallyWithPadding:20];
-     [menu setPosition:ccp( size.width/2, size.height/2 - 50)];
-     
-     // Add the menu to the layer
-     [self addChild:menu];
-     */
-//}

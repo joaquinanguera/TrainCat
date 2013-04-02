@@ -12,6 +12,7 @@
 #import "StimulusList.h"
 #import "SpriteUtils.h"
 #import "constants.h"
+#import "SimpleAudioEngine.h"
 
 @interface StimulusLayer()
 @property (nonatomic, copy) NSString *exemplarLeftPath; // Determines if cache is invalid
@@ -32,6 +33,7 @@
         exemplarMask.tag = StimulusTypeMask;
         exemplarMask.position = ccp(winSize.width/2, winSize.height/2);
         [self addChild:exemplarMask z:StimulusZIndexMask];
+        
     }
     return self;
 }

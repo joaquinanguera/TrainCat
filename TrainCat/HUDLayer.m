@@ -8,6 +8,11 @@
 
 #import "HUDLayer.h"
 
+@interface HUDLayer()
+
+@property (nonatomic, strong) CCLabelTTF *label;
+
+@end
 
 @implementation HUDLayer
 
@@ -17,13 +22,19 @@
 {
     if(self = [super init]) {
         CGSize winSize = [CCDirector sharedDirector].winSize;
-        CCLabelTTF *label = [CCLabelTTF labelWithString:@"[ Demo Mode ]" fontName:@"DevanagariSangamMN-Bold" fontSize:18];
-        label.color = ccc3(0, 0, 0);
-        label.position = ccp(label.contentSize.width/2.0 + PADDING, winSize.height - label.contentSize.height/2 - PADDING );
-        [self addChild:label];
+        self.label = [CCLabelTTF labelWithString:@"" fontName:@"DevanagariSangamMN-Bold" fontSize:18];
+        self.label.color = ccc3(0, 0, 0);
+        self.label.position = ccp(self.label.contentSize.width/2.0 + PADDING, winSize.height - self.label.contentSize.height/2 - PADDING );
+        [self addChild:self.label];
     }
     
     return self;
+}
+
+-(void)setParticipantName:(NSString *)participantName {
+    CGSize winSize = [CCDirector sharedDirector].winSize;
+    self.label.string = participantName;
+    self.label.position = ccp(self.label.contentSize.width/2.0 + PADDING, winSize.height - self.label.contentSize.height/2 - PADDING );
 }
 
 @end
