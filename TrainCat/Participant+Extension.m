@@ -6,15 +6,16 @@
 //
 //
 
+#import "constants.h"
 #import "Participant+Extension.h"
 #import "AppDelegate.h"
 #import "GameState.h"
 #import "StimulusProgram.h"
 #import "Session+Extension.h"
-#import "NSMutableArray+Extension.h"
+#import "Block+Extension.h"
 #import "Trial.h"
-#import "constants.h"
 #import "ArrayUtils.h"
+#import "NSMutableArray+Extension.h"
 
 @implementation Participant (Extension)
 
@@ -112,76 +113,109 @@
     self.program = [NSKeyedArchiver archivedDataWithRootObject:[StimulusProgram create]];
 }
 
-- (void)addSessionsObject:(SessionLog *)value {
+- (void)addSessionLogsObject:(SessionLog *)value {
+    NSMutableOrderedSet* tempSet = [NSMutableOrderedSet orderedSetWithOrderedSet:self.sessionLogs];
+    [tempSet addObject:value];
+    self.sessionLogs = tempSet;
+}
+
+- (void)addSessionsObject:(Session *)value {
     NSMutableOrderedSet* tempSet = [NSMutableOrderedSet orderedSetWithOrderedSet:self.sessions];
     [tempSet addObject:value];
     self.sessions = tempSet;
 }
 
-- (void)addTrialsObject:(Trial *)value {
-    NSMutableOrderedSet* tempSet = [NSMutableOrderedSet orderedSetWithOrderedSet:self.trials];
-    [tempSet addObject:value];
-    self.trials = tempSet;
-}
-
 -(NSArray *)performanceData {
-    NSMutableArray *correct = [[NSMutableArray alloc] initWithCapacity:MAX_STIMULUS_LEVEL];
-    [correct ensureCount:MAX_STIMULUS_LEVEL];
     
     NSMutableArray *blockPerf = [[NSMutableArray alloc] initWithCapacity:MAX_STIMULUS_BLOCKS];
     [blockPerf ensureCount:MAX_STIMULUS_BLOCKS];
     
     NSMutableArray *sessionPerf = [[NSMutableArray alloc] init]; // Average level achieved in each session
-    
-    // *For each trial
-    if(self.trials && self.trials.count) {
-        for(Trial *trial in self.trials) {
-            // - Was the response correct?
-            if([trial.accuracy isEqualToString:@"Correct"]) {
-                // - Increment the number of corrects at this level
-                [correct incrementNumberAtIndex:trial.listId];
-                // - Did you get two corrects at any level?
-                NSUInteger lvl = [correct indexOfObjectIdenticalTo:[NSNumber numberWithInt:2]];
-                if(lvl != NSNotFound) {
-                    // - If you got two corrects at any level
-                    // Set that as the level achieved in this block (overwriting previous values)
-                    NSLog(@"Block %d: Moving level from %@ to %d for correct array: %@", trial.blockId, blockPerf[trial.blockId], lvl+1, [correct componentsJoinedByString:@","]);
-                    blockPerf[trial.blockId] = [NSNumber numberWithUnsignedInteger:(lvl+1)];
-                    // Zero out the correct counts so we can start evaluating again
-                    [correct zeroOut];
-                }
-                // - If you did not get two corrects at any level, move along.
-            }
-            // - If the response was incorrect, move along
-            
-            // Did we finish a block?
-            BOOL isGameOver = (trial == self.trials.lastObject);
-            BOOL isBlockComplete = trial.trial >= MAX_TRIALS_PER_STIMULUS_BLOCK;
-            
-            if(isBlockComplete || isGameOver) {
-                // We finished a block
-                // Zero out the correct counts so we can start evaluating again
-                [correct zeroOut];
-                
-                // Did we finish a session?
-                BOOL isSessionComplete = trial.blockId >= (MAX_STIMULUS_BLOCKS-1);
-                if(isSessionComplete || isGameOver) {
-                    // We finished a session
-                    // Average the blocks and save the result in the sessions block
-                    [sessionPerf addObject:[NSNumber numberWithDouble:[blockPerf sum]/(trial.blockId+1)]];
-                    // Zero out the block performance data so we can start over for a new session
-                    NSLog(@"Block Perf for Session %d: %@", trial.sessionId, [blockPerf componentsJoinedByString:@","]);
-                    [blockPerf zeroOut];
-                }
-            }
-            
-            // - If there are more trials in this block, keep evaluating
+    for(Session *session in self.sessions) {
+        double blockGradeSum = 0.0;
+        for(Block *block in session.blocks) {
+            blockGradeSum += [self gradeBlock:block];
         }
+        [sessionPerf addObject:[NSNumber numberWithDouble:(blockGradeSum/session.blocks.count)]];
     }
-    
-    NSLog(@"Perf = %@", [sessionPerf componentsJoinedByString:@","]);    
     return sessionPerf;
 }
+
+-(int)gradeBlock:(Block *)block {
+    int highestLevelAchieved = 0;
+    
+    NSMutableArray *correct = [[NSMutableArray alloc] initWithCapacity:MAX_STIMULUS_LEVEL];
+    [correct ensureCount:MAX_STIMULUS_LEVEL];
+    
+    for(Trial *trial in block.trials) {
+        if([trial.accuracy isEqualToString:@"Correct"]) {
+            // - Increment the number of corrects at this level
+            [correct incrementNumberAtIndex:trial.listId];
+            // - Did you get two corrects at any level?
+            NSUInteger lvl = [correct indexOfObjectIdenticalTo:[NSNumber numberWithInt:2]];
+            if(lvl != NSNotFound) {
+                // - If you got two corrects at any level
+                // Set that as the level achieved in this block (overwriting previous values)
+                NSLog(@"Block %d: Moving level from %d to %d for correct array: %@", block.bid, highestLevelAchieved, lvl+1, [correct componentsJoinedByString:@","]);
+                highestLevelAchieved = (lvl+1);
+                // Zero out the correct counts so we can start evaluating again
+                [correct zeroOut];
+            }
+            // - If you did not get two corrects at any level, move along.
+        }        
+    }
+    
+    return highestLevelAchieved;
+}
+
+/*
+ // *For each trial
+ if(self.trials && self.trials.count) {
+ for(Trial *trial in self.trials) {
+ // - Was the response correct?
+ if([trial.accuracy isEqualToString:@"Correct"]) {
+ // - Increment the number of corrects at this level
+ [correct incrementNumberAtIndex:trial.listId];
+ // - Did you get two corrects at any level?
+ NSUInteger lvl = [correct indexOfObjectIdenticalTo:[NSNumber numberWithInt:2]];
+ if(lvl != NSNotFound) {
+ // - If you got two corrects at any level
+ // Set that as the level achieved in this block (overwriting previous values)
+ NSLog(@"Block %d: Moving level from %@ to %d for correct array: %@", trial.blockId, blockPerf[trial.blockId], lvl+1, [correct componentsJoinedByString:@","]);
+ blockPerf[trial.blockId] = [NSNumber numberWithUnsignedInteger:(lvl+1)];
+ // Zero out the correct counts so we can start evaluating again
+ [correct zeroOut];
+ }
+ // - If you did not get two corrects at any level, move along.
+ }
+ // - If the response was incorrect, move along
+ 
+ // Did we finish a block?
+ BOOL isGameOver = (trial == self.trials.lastObject);
+ BOOL isBlockComplete = trial.trial >= MAX_TRIALS_PER_STIMULUS_BLOCK;
+ 
+ if(isBlockComplete || isGameOver) {
+ // We finished a block
+ // Zero out the correct counts so we can start evaluating again
+ [correct zeroOut];
+ 
+ // Did we finish a session?
+ BOOL isSessionComplete = trial.blockId >= (MAX_STIMULUS_BLOCKS-1);
+ if(isSessionComplete || isGameOver) {
+ // We finished a session
+ // Average the blocks and save the result in the sessions block
+ [sessionPerf addObject:[NSNumber numberWithDouble:[blockPerf sum]/(trial.blockId+1)]];
+ // Zero out the block performance data so we can start over for a new session
+ NSLog(@"Block Perf for Session %d: %@", trial.sessionId, [blockPerf componentsJoinedByString:@","]);
+ [blockPerf zeroOut];
+ }
+ }
+ 
+ // - If there are more trials in this block, keep evaluating
+ }
+ }
+ 
+ NSLog(@"Perf = %@", [sessionPerf componentsJoinedByString:@","]);    */
 
 
 @end

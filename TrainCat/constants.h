@@ -9,11 +9,15 @@
 #ifndef TrainCat_constants_h
 #define TrainCat_constants_h
 
-#define DEBUG_MODE 1
+#define DDEBUG 1
+#define DEBUG_SIMULATION_WAIT_TIME 2
 
 // Commonly used references
 #define APP_DELEGATE ((AppController *)[[UIApplication sharedApplication] delegate])
 #define MOC ((AppController *)[[UIApplication sharedApplication] delegate]).managedObjectContext
+
+
+#define BACKGROUND_COLOR ccc4(144, 217, 232, 255)
 
 #define MAX_TRIALS_PER_STIMULUS_BLOCK 36
 #define MAX_TRIALS_PER_PRACTICE_BLOCK 6

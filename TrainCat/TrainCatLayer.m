@@ -13,9 +13,12 @@
 
 // Core data
 #import "Participant+Extension.h"
+#import "SessionLog+Extension.h"
 #import "Session+Extension.h"
+#import "Block+Extension.h"
 #import "GameState.h"
 #import "Trial.h"
+
 
 // Game Data
 #import "StimulusPack.h"
@@ -64,7 +67,7 @@
 
 @property (nonatomic, assign) BOOL isPractice;
 
-#ifdef DEBUG
+#ifdef DDEBUG
 @property (nonatomic, strong) NSArray *aiResponse;
 @property (nonatomic, assign) int aiResponseIndex;
 #endif
@@ -100,19 +103,15 @@
         self.gs = self.participant.gameState;
         self.program = [NSKeyedUnarchiver unarchiveObjectWithData:self.participant.program];
         
+        [self startSessionLog];
         [self setSubviews];
         
-        /*
-        [Logger printProgramForParticipant:self.participant];
-        [Logger printAllBlocksForParticipant:self.participant];
-        NSLog(@"%@", [self.participant performanceData]);
-        */
-        #ifndef DEBUG
+        #ifndef DDEBUG
          [self setStartButton];
         #else
-         self.aiResponse = [ArrayUtils aiYesNoResponsesWithTrialCount:self.maxTrials*6 expectedAccuracyPercentage:1.0];
+         self.aiResponse = [ArrayUtils aiYesNoResponsesWithTrialCount:self.maxTrials expectedAccuracyPercentage:1.0];
          NSLog(@"Responses = [%@]", [self.aiResponse componentsJoinedByString:@","]);
-         [self performSelector:@selector(beginGame) withObject:nil afterDelay:4.0];
+         [self performSelector:@selector(beginGame) withObject:nil afterDelay:DEBUG_SIMULATION_WAIT_TIME];
         #endif
 	}
 	return self;
@@ -121,6 +120,18 @@
 -(id) init
 {
     return [self initWithPracticeSetting:NO];
+}
+
+-(void)startSessionLog {
+    SessionLog *session = [NSEntityDescription insertNewObjectForEntityForName:@"SessionLog" inManagedObjectContext:self.moc];
+    session.sid = self.gs.sessionId;
+    session.participant = self.participant; // Do we need to do this?
+    [self.participant addSessionLogsObject:session];
+}
+
+-(void)endSessionLog {
+    SessionLog *session = self.participant.sessionLogs.lastObject;
+    session.endTime = [NSDate date];
 }
 
 -(void)setSubviews {
@@ -158,13 +169,13 @@
     CCNode *mnu = [self getChildByTag:START_MENU_TAG];
     [mnu.children.lastObject stopAllActions];
     [self removeChild:mnu cleanup:YES];
-    [self setupStimulusWithNewSession:YES];
+    [self setupStimulus];
 }
 
 -(void)showStimulus {
     [self.stim clear];
     self.morphLabel = self.stimuli[arc4random() % self.stimuli.count];
-#ifndef DEBUG
+#ifndef DDEBUG
     [self.stim showStimulusWithExemplarLeftPath:self.category.exemplarLeft exemplarRightPath:self.category.exemplarRight morphLabel:self.morphLabel];
 #else
     BOOL airesp = [self.aiResponse[self.aiResponseIndex] boolValue];
@@ -190,14 +201,10 @@
     
     // log trial
     self.gs.trialCount++;
-    Trial *trial = [NSEntityDescription insertNewObjectForEntityForName:@"Trial" inManagedObjectContext:self.moc];
-    trial.participant = self.participant;
-    trial.sessionId = self.gs.sessionId;
-    trial.blockId = self.gs.blockId;
-    trial.blockName = self.block.name;
+    Trial *trial = [self createTrial];
     trial.listId = self.gs.listId; 
     trial.trial = self.gs.trialCount; 
-    trial.categoryId = self.session.categoryId; // TODO: This needs to be the category name
+    trial.categoryId = self.session.categoryId; 
     trial.exemplars = [NSString stringWithFormat:@"%@ / %@", self.category.exemplarLeft, self.category.exemplarRight];
     trial.morphLabel = self.morphLabel;
     trial.responseTime = responseTime;
@@ -229,10 +236,11 @@
             break;
     }
     
+    [self endSessionLog];
     [self saveContext];
     
     //NSLog(@"%@", trial);
-#ifndef DEBUG
+#ifndef DDEBUG
     [self.feedback clear];
     self.feedback.visible = YES;
     [self.feedback showFeedback:gradeCode];
@@ -241,13 +249,49 @@
 #endif
 }
 
+-(Trial *)createTrial {
+    Session *session;
+    Block *block;
+    
+    if((self.gs.sessionId+1) > self.participant.sessions.count) {
+        if((self.gs.sessionId+1 - self.participant.sessions.count)!=1) {
+            NSLog(@"Game state says we should have %d sessions. We have only %d.", self.gs.sessionId+1, self.participant.sessions.count);
+            abort();
+        }
+        session = [NSEntityDescription insertNewObjectForEntityForName:@"Session" inManagedObjectContext:self.moc];
+        session.sid = self.gs.sessionId;
+        session.participant = self.participant;
+        [self.participant addSessionsObject:session];
+    } else {
+        session = [self.participant.sessions lastObject];
+    }
+
+    if((self.gs.blockId+1) > session.blocks.count) {
+        if((self.gs.blockId+1 - session.blocks.count)!=1) {
+            NSLog(@"Game state says we should have %d blocks. We have only %d.", self.gs.blockId+1, session.blocks.count);
+            abort();
+        }
+        block = [NSEntityDescription insertNewObjectForEntityForName:@"Block" inManagedObjectContext:self.moc];
+        block.bid = [self.session.blocks[self.gs.blockId] intValue]; // This is the block ID as per the Stimulus pack (0..5). 
+        block.session = session;
+        [session addBlocksObject:block];
+    } else {
+        block = [session.blocks lastObject];
+    }
+    
+    Trial *trial = [NSEntityDescription insertNewObjectForEntityForName:@"Trial" inManagedObjectContext:self.moc];
+    trial.block = block;
+    [block addTrialsObject:trial];
+    return trial;
+}
+
 -(void)feedbackDidFinish {
     self.feedback.visible = NO;
     [self updateStimulus];
 }
 
 
--(void)setupStimulusWithNewSession:(BOOL)newSession {
+-(void)setupStimulus {
     if([self isGameOver]) {
         [[CCDirector sharedDirector] replaceScene:[CCTransitionZoomFlipX transitionWithDuration:0.5 scene:[GameOverLayer scene]]];
     } else {
@@ -270,12 +314,6 @@
             }
         }
         
-        if(newSession) {
-            SessionLog *session = [NSEntityDescription insertNewObjectForEntityForName:@"SessionLog" inManagedObjectContext:self.moc];
-            session.sid = self.gs.sessionId;
-            session.participant = self.participant; // Do we need to do this?
-            [self.participant addSessionsObject:session];
-        }
         [self saveContext];
         [self showStimulus];
     }
@@ -289,17 +327,13 @@
     } else {
         // If no more trials are pending
         // Transition to next screen
-        SessionLog *session = self.participant.sessions.lastObject;
-        session.endTime = [NSDate date];
-        [self saveContext];
-        
         CCScene *scene;
         if([self isGameOver]) {
-#ifdef DEBUG
-            [Logger printAllBlocksForParticipant:self.participant];
-            [Logger printAllSessionsForParticipant:self.participant];
+#ifdef DDEBUG
+            [Logger printBlocksForParticipant:self.participant];
+            [Logger printSessionLogsForParticipant:self.participant];
             NSLog(@"Perf = %@", [[self.participant performanceData] componentsJoinedByString:@","]);
-            [Participant clearStateForParticipantWithId:[SessionManager loggedIn]];
+            //[Participant clearStateForParticipantWithId:[SessionManager loggedIn]];
 #endif
             scene = [GameOverLayer scene]; 
         } else if([self isSessionComplete]){

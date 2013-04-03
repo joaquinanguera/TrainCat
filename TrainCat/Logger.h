@@ -10,8 +10,8 @@
 #import "Participant+Extension.h"
 
 @interface Logger : NSObject
-+(void)printAllBlocksForParticipant:(Participant *)participant;
-+(void)printAllSessionsForParticipant:(Participant *)participant;
++(void)printBlocksForParticipant:(Participant *)participant;
++(void)printSessionLogsForParticipant:(Participant *)participant;
 +(void)printProgramForParticipant:(Participant *)participant;
 +(NSString *)stringFromDate:(NSDate *)date;
 +(void)printStimulusPack;

@@ -2,17 +2,19 @@
 //  Session+Extension.m
 //  TrainCat
 //
-//  Created by Alankar Misra on 28/03/13.
+//  Created by Alankar Misra on 03/04/13.
 //
 //
 
 #import "Session+Extension.h"
 
-@implementation SessionLog (Extension)
+@implementation Session (Extension)
 
--(void)awakeFromInsert {
-    [super awakeFromInsert];
-    self.startTime = self.endTime = [NSDate date];
+- (void)addBlocksObject:(Block *)value {
+    NSMutableOrderedSet* tempSet = [NSMutableOrderedSet orderedSetWithOrderedSet:self.blocks];
+    [tempSet addObject:value];
+    self.blocks = tempSet;
 }
+
 
 @end

@@ -1,8 +1,8 @@
 //
-//  Session.h
+//  SessionLog.h
 //  TrainCat
 //
-//  Created by Alankar Misra on 30/03/13.
+//  Created by Alankar Misra on 03/04/13.
 //
 //
 
@@ -13,8 +13,8 @@
 
 @interface SessionLog : NSManagedObject
 
-@property (nonatomic) int16_t sid;
 @property (nonatomic, retain) NSDate * endTime;
+@property (nonatomic) int16_t sid;
 @property (nonatomic, retain) NSDate * startTime;
 @property (nonatomic, retain) Participant *participant;
 

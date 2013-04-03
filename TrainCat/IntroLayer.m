@@ -45,7 +45,7 @@ typedef NS_ENUM(NSInteger, MainMenuButtonActionType) {
 }
 
 -(id)init {
-    if( (self=[super initWithColor:ccc4(56, 191, 218, 255)]) ) {
+    if( (self=[super initWithColor:BACKGROUND_COLOR]) ) {
         [[SimpleAudioEngine sharedEngine] playBackgroundMusic:@"POL-slums-of-rage-short.wav"]; // Currently throwing an error
     }
     return self;
@@ -83,8 +83,8 @@ typedef NS_ENUM(NSInteger, MainMenuButtonActionType) {
     
     switch(menuItem.tag) {
         case MainMenuButtonActionTypePlay:
-#ifdef DEBUG
-            [Participant clearStateForParticipantWithId:[SessionManager loggedIn]];
+#ifdef DDEBUG
+            //[Participant clearStateForParticipantWithId:[SessionManager loggedIn]];
             
 #endif
             [[CCDirector sharedDirector] replaceScene:[CCTransitionZoomFlipX transitionWithDuration:0.5 scene:[TrainCatLayer sceneWithPracticeSetting:NO]]];

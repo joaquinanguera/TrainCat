@@ -68,7 +68,7 @@
 
 - (IBAction)didTapSendReport {
     [Logger printProgramForParticipant:self.participant];
-    [Logger printAllSessionsForParticipant:self.participant];
-    [Logger printAllBlocksForParticipant:self.participant];
+    [Logger printSessionLogsForParticipant:self.participant];
+    [Logger printBlocksForParticipant:self.participant];
 }
 @end

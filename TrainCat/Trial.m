@@ -7,22 +7,19 @@
 //
 
 #import "Trial.h"
-#import "Participant.h"
+#import "Block.h"
 
 
 @implementation Trial
 
 @dynamic accuracy;
-@dynamic blockId;
 @dynamic categoryId;
 @dynamic exemplars;
 @dynamic listId;
 @dynamic morphLabel;
 @dynamic response;
 @dynamic responseTime;
-@dynamic sessionId;
 @dynamic trial;
-@dynamic blockName;
-@dynamic participant;
+@dynamic block;
 
 @end

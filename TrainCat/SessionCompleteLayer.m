@@ -41,8 +41,8 @@
         btnNewSession.position = ccp(winSize.width/2.0,label.position.y - label.contentSize.height/2 - btnNewSessionImage.contentSize.height/2 - 50);
         [self addChild:btnNewSession];
     }
-#ifdef DEBUG
-    [self performSelector:@selector(didTapNewSession) withObject:nil afterDelay:4.0];
+#ifdef DDEBUG
+    [self performSelector:@selector(didTapNewSession) withObject:nil afterDelay:DEBUG_SIMULATION_WAIT_TIME];
 #endif
     return self;
 }

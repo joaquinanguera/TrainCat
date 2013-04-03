@@ -40,8 +40,8 @@
         [self addChild:btnContinue];
     }
     
-#ifdef DEBUG
-    [self performSelector:@selector(didTapContinue) withObject:nil afterDelay:4.0];
+#ifdef DDEBUG
+    [self performSelector:@selector(didTapContinue) withObject:nil afterDelay:DEBUG_SIMULATION_WAIT_TIME];
 #endif
     return self;
 }

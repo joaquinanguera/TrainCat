@@ -2,14 +2,13 @@
 //  Participant.m
 //  TrainCat
 //
-//  Created by Alankar Misra on 29/03/13.
+//  Created by Alankar Misra on 03/04/13.
 //
 //
 
 #import "Participant.h"
 #import "GameState.h"
 #import "SessionLog.h"
-#import "Trial.h"
 
 
 @implementation Participant
@@ -18,7 +17,7 @@
 @dynamic program;
 @dynamic state;
 @dynamic gameState;
+@dynamic sessionLogs;
 @dynamic sessions;
-@dynamic trials;
 
 @end

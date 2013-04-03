@@ -1,13 +1,13 @@
 //
-//  Session+Extension.h
+//  Block+Extension.h
 //  TrainCat
 //
 //  Created by Alankar Misra on 03/04/13.
 //
 //
 
-#import "Session.h"
+#import "Block.h"
 
-@interface Session (Extension)
+@interface Block (Extension)
 
 @end

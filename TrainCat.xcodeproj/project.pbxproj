@@ -132,12 +132,19 @@
 		6D5AAE1416FC55A70066FF80 /* Participant+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D5AAE1316FC55A70066FF80 /* Participant+Extension.m */; };
 		6D665A5316E7AEE900541724 /* SessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D665A5216E7AEE900541724 /* SessionManager.m */; };
 		6D665A5916E7CE9700541724 /* NumericTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D665A5816E7CE9700541724 /* NumericTextField.m */; };
-		6D72B72C170C135200096ABE /* Trial.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D72B72B170C135200096ABE /* Trial.m */; };
 		6D72B72F170C3AF600096ABE /* BlockCompleteLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D72B72E170C3AF600096ABE /* BlockCompleteLayer.m */; };
 		6D72B734170C3E8500096ABE /* buttonContinueNormal-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = 6D72B730170C3E8500096ABE /* buttonContinueNormal-hd.png */; };
 		6D72B735170C3E8500096ABE /* buttonContinueNormal.png in Resources */ = {isa = PBXBuildFile; fileRef = 6D72B731170C3E8500096ABE /* buttonContinueNormal.png */; };
 		6D72B736170C3E8500096ABE /* buttonContinueSelected-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = 6D72B732170C3E8500096ABE /* buttonContinueSelected-hd.png */; };
 		6D72B737170C3E8500096ABE /* buttonContinueSelected.png in Resources */ = {isa = PBXBuildFile; fileRef = 6D72B733170C3E8500096ABE /* buttonContinueSelected.png */; };
+		6D72B740170C65CD00096ABE /* Trial.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D72B73F170C65CD00096ABE /* Trial.m */; };
+		6D72B743170C65CE00096ABE /* Participant.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D72B742170C65CE00096ABE /* Participant.m */; };
+		6D72B746170C65CF00096ABE /* Session.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D72B745170C65CF00096ABE /* Session.m */; };
+		6D72B749170C65D000096ABE /* GameState.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D72B748170C65D000096ABE /* GameState.m */; };
+		6D72B74C170C65D000096ABE /* Block.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D72B74B170C65D000096ABE /* Block.m */; };
+		6D72B752170C663200096ABE /* SessionLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D72B751170C663200096ABE /* SessionLog.m */; };
+		6D72B755170C69BA00096ABE /* Block+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D72B754170C69B900096ABE /* Block+Extension.m */; };
+		6D72B758170C69EE00096ABE /* Session+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D72B757170C69EE00096ABE /* Session+Extension.m */; };
 		6D805F8216CD0F3B00DC2096 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6D805F8116CD0F3B00DC2096 /* MainStoryboard.storyboard */; };
 		6D805F8516CD144500DC2096 /* CCViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D805F8416CD144500DC2096 /* CCViewController.m */; };
 		6D805F8816CD14E300DC2096 /* GameController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D805F8716CD14E300DC2096 /* GameController.m */; };
@@ -147,7 +154,7 @@
 		6D805F9116CD38C000DC2096 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D805F9016CD38C000DC2096 /* SystemConfiguration.framework */; };
 		6D805F9416CD39FF00DC2096 /* DropboxTestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D805F9316CD39FF00DC2096 /* DropboxTestViewController.m */; };
 		6DAC8FFC16D2C01C00BD0312 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DAC8FFB16D2C01C00BD0312 /* CoreData.framework */; };
-		6DC0F48B170455A60084A1C3 /* Session+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DC0F48A170455A60084A1C3 /* Session+Extension.m */; };
+		6DC0F48B170455A60084A1C3 /* SessionLog+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DC0F48A170455A60084A1C3 /* SessionLog+Extension.m */; };
 		6DCCC5D116DE5EA400B11E13 /* TrainCat.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6DCCC5CF16DE5EA400B11E13 /* TrainCat.xcdatamodeld */; };
 		6DCCC5D416DE7E5E00B11E13 /* ParticipantMasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DCCC5D316DE7E5E00B11E13 /* ParticipantMasterViewController.m */; };
 		6DCCC5DE16DF4E6600B11E13 /* PopoverViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DCCC5DD16DF4E6600B11E13 /* PopoverViewController.m */; };
@@ -170,9 +177,6 @@
 		6DD31B0F170A2A2300141CFA /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 6DD31B09170A2A2300141CFA /* LICENSE */; };
 		6DD31B11170A2A2300141CFA /* PCLineChartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DD31B0C170A2A2300141CFA /* PCLineChartView.m */; };
 		6DD31B12170A2A2300141CFA /* PCPieChart.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DD31B0E170A2A2300141CFA /* PCPieChart.m */; };
-		6DE538A61705E2CA00F9C001 /* Participant.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DE538A51705E2CA00F9C001 /* Participant.m */; };
-		6DE538A91705E2CB00F9C001 /* GameState.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DE538A81705E2CB00F9C001 /* GameState.m */; };
-		6DE538C61706356500F9C001 /* SessionLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DE538C51706356400F9C001 /* SessionLog.m */; };
 		6DE8D2C016FC6A2800F76997 /* StimulusCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DE8D2BF16FC6A2800F76997 /* StimulusCategory.m */; };
 		6DE8D2C316FC6A5900F76997 /* StimulusBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DE8D2C216FC6A5900F76997 /* StimulusBlock.m */; };
 		6DE8D2C916FC6E5500F76997 /* StimulusPack.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DE8D2C816FC6E5500F76997 /* StimulusPack.m */; };
@@ -2544,14 +2548,28 @@
 		6D665A5216E7AEE900541724 /* SessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SessionManager.m; sourceTree = "<group>"; };
 		6D665A5716E7CE9700541724 /* NumericTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NumericTextField.h; sourceTree = "<group>"; };
 		6D665A5816E7CE9700541724 /* NumericTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NumericTextField.m; sourceTree = "<group>"; };
-		6D72B72A170C135200096ABE /* Trial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Trial.h; sourceTree = "<group>"; };
-		6D72B72B170C135200096ABE /* Trial.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Trial.m; sourceTree = "<group>"; };
 		6D72B72D170C3AF500096ABE /* BlockCompleteLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlockCompleteLayer.h; sourceTree = "<group>"; };
 		6D72B72E170C3AF600096ABE /* BlockCompleteLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlockCompleteLayer.m; sourceTree = "<group>"; };
 		6D72B730170C3E8500096ABE /* buttonContinueNormal-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "buttonContinueNormal-hd.png"; sourceTree = "<group>"; };
 		6D72B731170C3E8500096ABE /* buttonContinueNormal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = buttonContinueNormal.png; sourceTree = "<group>"; };
 		6D72B732170C3E8500096ABE /* buttonContinueSelected-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "buttonContinueSelected-hd.png"; sourceTree = "<group>"; };
 		6D72B733170C3E8500096ABE /* buttonContinueSelected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = buttonContinueSelected.png; sourceTree = "<group>"; };
+		6D72B73E170C65CD00096ABE /* Trial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Trial.h; sourceTree = "<group>"; };
+		6D72B73F170C65CD00096ABE /* Trial.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Trial.m; sourceTree = "<group>"; };
+		6D72B741170C65CE00096ABE /* Participant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Participant.h; sourceTree = "<group>"; };
+		6D72B742170C65CE00096ABE /* Participant.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Participant.m; sourceTree = "<group>"; };
+		6D72B744170C65CF00096ABE /* Session.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Session.h; sourceTree = "<group>"; };
+		6D72B745170C65CF00096ABE /* Session.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Session.m; sourceTree = "<group>"; };
+		6D72B747170C65CF00096ABE /* GameState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameState.h; sourceTree = "<group>"; };
+		6D72B748170C65D000096ABE /* GameState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameState.m; sourceTree = "<group>"; };
+		6D72B74A170C65D000096ABE /* Block.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Block.h; sourceTree = "<group>"; };
+		6D72B74B170C65D000096ABE /* Block.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Block.m; sourceTree = "<group>"; };
+		6D72B750170C663200096ABE /* SessionLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SessionLog.h; sourceTree = "<group>"; };
+		6D72B751170C663200096ABE /* SessionLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SessionLog.m; sourceTree = "<group>"; };
+		6D72B753170C69B900096ABE /* Block+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Block+Extension.h"; sourceTree = "<group>"; };
+		6D72B754170C69B900096ABE /* Block+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Block+Extension.m"; sourceTree = "<group>"; };
+		6D72B756170C69ED00096ABE /* Session+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Session+Extension.h"; sourceTree = "<group>"; };
+		6D72B757170C69EE00096ABE /* Session+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Session+Extension.m"; sourceTree = "<group>"; };
 		6D805F8116CD0F3B00DC2096 /* MainStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MainStoryboard.storyboard; sourceTree = "<group>"; };
 		6D805F8316CD144500DC2096 /* CCViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCViewController.h; sourceTree = "<group>"; };
 		6D805F8416CD144500DC2096 /* CCViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCViewController.m; sourceTree = "<group>"; };
@@ -2564,8 +2582,8 @@
 		6D805F9216CD39FF00DC2096 /* DropboxTestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DropboxTestViewController.h; sourceTree = "<group>"; };
 		6D805F9316CD39FF00DC2096 /* DropboxTestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DropboxTestViewController.m; sourceTree = "<group>"; };
 		6DAC8FFB16D2C01C00BD0312 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
-		6DC0F489170455A60084A1C3 /* Session+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Session+Extension.h"; sourceTree = "<group>"; };
-		6DC0F48A170455A60084A1C3 /* Session+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Session+Extension.m"; sourceTree = "<group>"; };
+		6DC0F489170455A60084A1C3 /* SessionLog+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SessionLog+Extension.h"; sourceTree = "<group>"; };
+		6DC0F48A170455A60084A1C3 /* SessionLog+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SessionLog+Extension.m"; sourceTree = "<group>"; };
 		6DCCC5D016DE5EA400B11E13 /* TrainCat 1.0.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "TrainCat 1.0.xcdatamodel"; sourceTree = "<group>"; };
 		6DCCC5D216DE7E5E00B11E13 /* ParticipantMasterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParticipantMasterViewController.h; sourceTree = "<group>"; };
 		6DCCC5D316DE7E5E00B11E13 /* ParticipantMasterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParticipantMasterViewController.m; sourceTree = "<group>"; };
@@ -2600,12 +2618,6 @@
 		6DD31B0C170A2A2300141CFA /* PCLineChartView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCLineChartView.m; sourceTree = "<group>"; };
 		6DD31B0D170A2A2300141CFA /* PCPieChart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCPieChart.h; sourceTree = "<group>"; };
 		6DD31B0E170A2A2300141CFA /* PCPieChart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCPieChart.m; sourceTree = "<group>"; };
-		6DE538A41705E2CA00F9C001 /* Participant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Participant.h; sourceTree = "<group>"; };
-		6DE538A51705E2CA00F9C001 /* Participant.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Participant.m; sourceTree = "<group>"; };
-		6DE538A71705E2CB00F9C001 /* GameState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameState.h; sourceTree = "<group>"; };
-		6DE538A81705E2CB00F9C001 /* GameState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameState.m; sourceTree = "<group>"; };
-		6DE538C41706356400F9C001 /* SessionLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SessionLog.h; sourceTree = "<group>"; };
-		6DE538C51706356400F9C001 /* SessionLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SessionLog.m; sourceTree = "<group>"; };
 		6DE8D2BE16FC6A2800F76997 /* StimulusCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StimulusCategory.h; sourceTree = "<group>"; };
 		6DE8D2BF16FC6A2800F76997 /* StimulusCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StimulusCategory.m; sourceTree = "<group>"; };
 		6DE8D2C116FC6A5900F76997 /* StimulusBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StimulusBlock.h; sourceTree = "<group>"; };
@@ -5357,19 +5369,27 @@
 		6DE8D2D716FCA35600F76997 /* Core Data */ = {
 			isa = PBXGroup;
 			children = (
-				6DE538A41705E2CA00F9C001 /* Participant.h */,
-				6DE538A51705E2CA00F9C001 /* Participant.m */,
-				6DE538A71705E2CB00F9C001 /* GameState.h */,
-				6DE538A81705E2CB00F9C001 /* GameState.m */,
 				6DCCC5CF16DE5EA400B11E13 /* TrainCat.xcdatamodeld */,
-				6D72B72A170C135200096ABE /* Trial.h */,
-				6D72B72B170C135200096ABE /* Trial.m */,
-				6DE538C41706356400F9C001 /* SessionLog.h */,
-				6DE538C51706356400F9C001 /* SessionLog.m */,
+				6D72B750170C663200096ABE /* SessionLog.h */,
+				6D72B751170C663200096ABE /* SessionLog.m */,
+				6D72B741170C65CE00096ABE /* Participant.h */,
+				6D72B742170C65CE00096ABE /* Participant.m */,
+				6D72B747170C65CF00096ABE /* GameState.h */,
+				6D72B748170C65D000096ABE /* GameState.m */,
+				6D72B74A170C65D000096ABE /* Block.h */,
+				6D72B74B170C65D000096ABE /* Block.m */,
+				6D72B744170C65CF00096ABE /* Session.h */,
+				6D72B745170C65CF00096ABE /* Session.m */,
+				6D72B73E170C65CD00096ABE /* Trial.h */,
+				6D72B73F170C65CD00096ABE /* Trial.m */,
 				6D5AAE1216FC55A70066FF80 /* Participant+Extension.h */,
 				6D5AAE1316FC55A70066FF80 /* Participant+Extension.m */,
-				6DC0F489170455A60084A1C3 /* Session+Extension.h */,
-				6DC0F48A170455A60084A1C3 /* Session+Extension.m */,
+				6DC0F489170455A60084A1C3 /* SessionLog+Extension.h */,
+				6DC0F48A170455A60084A1C3 /* SessionLog+Extension.m */,
+				6D72B753170C69B900096ABE /* Block+Extension.h */,
+				6D72B754170C69B900096ABE /* Block+Extension.m */,
+				6D72B756170C69ED00096ABE /* Session+Extension.h */,
+				6D72B757170C69EE00096ABE /* Session+Extension.m */,
 			);
 			name = "Core Data";
 			sourceTree = "<group>";
@@ -9841,18 +9861,22 @@
 				6DE8E4EE170385C800F76997 /* GameOverLayer.m in Sources */,
 				6DE8E4F1170385DC00F76997 /* SessionCompleteLayer.m in Sources */,
 				6DE8E4F417042FE000F76997 /* HUDLayer.m in Sources */,
-				6DC0F48B170455A60084A1C3 /* Session+Extension.m in Sources */,
-				6DE538A61705E2CA00F9C001 /* Participant.m in Sources */,
-				6DE538A91705E2CB00F9C001 /* GameState.m in Sources */,
-				6DE538C61706356500F9C001 /* SessionLog.m in Sources */,
+				6DC0F48B170455A60084A1C3 /* SessionLog+Extension.m in Sources */,
 				6DE999CB170997790008953B /* ArrayUtils.m in Sources */,
 				6DD31B03170A216B00141CFA /* ActionLib.m in Sources */,
 				6DD31B11170A2A2300141CFA /* PCLineChartView.m in Sources */,
 				6DD31B12170A2A2300141CFA /* PCPieChart.m in Sources */,
 				6D504EF2170ABBBA005E8C37 /* Logger.m in Sources */,
 				6D504EFD170B1EA9005E8C37 /* PracticeOverLayer.m in Sources */,
-				6D72B72C170C135200096ABE /* Trial.m in Sources */,
 				6D72B72F170C3AF600096ABE /* BlockCompleteLayer.m in Sources */,
+				6D72B740170C65CD00096ABE /* Trial.m in Sources */,
+				6D72B743170C65CE00096ABE /* Participant.m in Sources */,
+				6D72B746170C65CF00096ABE /* Session.m in Sources */,
+				6D72B749170C65D000096ABE /* GameState.m in Sources */,
+				6D72B74C170C65D000096ABE /* Block.m in Sources */,
+				6D72B752170C663200096ABE /* SessionLog.m in Sources */,
+				6D72B755170C69BA00096ABE /* Block+Extension.m in Sources */,
+				6D72B758170C69EE00096ABE /* Session+Extension.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
