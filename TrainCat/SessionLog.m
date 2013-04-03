@@ -6,11 +6,11 @@
 //
 //
 
-#import "Session.h"
+#import "SessionLog.h"
 #import "Participant.h"
 
 
-@implementation Session
+@implementation SessionLog
 
 @dynamic sid;
 @dynamic endTime;

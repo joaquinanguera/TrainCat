@@ -11,7 +11,7 @@
 
 @class Participant;
 
-@interface Session : NSManagedObject
+@interface SessionLog : NSManagedObject
 
 @property (nonatomic) int16_t sid;
 @property (nonatomic, retain) NSDate * endTime;

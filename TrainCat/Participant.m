@@ -8,7 +8,7 @@
 
 #import "Participant.h"
 #import "GameState.h"
-#import "Session.h"
+#import "SessionLog.h"
 #import "Trial.h"
 
 

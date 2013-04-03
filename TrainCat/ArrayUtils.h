@@ -12,5 +12,4 @@
 
 +(NSArray *)aiYesNoResponsesWithTrialCount:(uint)trialCount expectedAccuracyPercentage:(double)accuracyPercentage;
 
-
 @end

@@ -3,7 +3,7 @@
 //  TrainCat
 //
 //  Created by Alankar Misra on 26/03/13.
-//  Copyright 2013 __MyCompanyName__. All rights reserved.
+//  Copyright 2013 Digital Sutras. All rights reserved.
 //
 
 #import "ResponseLayer.h"
@@ -13,6 +13,7 @@
 @interface ResponseLayer()
 
 @property (nonatomic, strong) id getResponseAction;
+@property (nonatomic, strong) NSDate *startTime;
 
 @end
 
@@ -51,17 +52,23 @@
     return self;
 }
 
--(void)getResponse {    
+-(void)getResponse {
+    self.startTime = [NSDate date];
     [self runAction:self.getResponseAction];
 }
 
 -(void)didSkipResponse {
-    if(self.delegate) [self.delegate didRespond:ResponseTypeNoResponse];
+    if(self.delegate) [self.delegate didRespond:ResponseTypeNoResponse responseTime:-[self.startTime timeIntervalSinceNow]];
 }
 
 -(void)didRespond:(CCMenuItem *)menuItem {
+    NSTimeInterval rt = -[self.startTime timeIntervalSinceNow];
     [self stopAllActions];
-    if(self.delegate) [self.delegate didRespond:menuItem.tag];
+    if(self.delegate) [self.delegate didRespond:menuItem.tag responseTime:rt];
+}
+
+-(void)clear {
+    // Do nothing
 }
 
 @end

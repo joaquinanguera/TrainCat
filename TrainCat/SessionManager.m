@@ -8,10 +8,15 @@
 
 #import "SessionManager.h"
 
+@interface SessionManager()
+
+@end
+
 
 @implementation SessionManager
 
 #define LOGIN_KEY @"LOGIN_KEY"
+
 
 +(void)login:(int32_t)pid {
     NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
@@ -33,5 +38,6 @@
     NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
     return [ud integerForKey:LOGIN_KEY];
 }
+
 
 @end

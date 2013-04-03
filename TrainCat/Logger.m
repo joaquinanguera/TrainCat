@@ -24,7 +24,7 @@
     NSLog(@"%@", [[NSArray arrayWithObjects:@"<!>", @"#", @"Session Id", @"Category Name", @"Block Id", @"Trial", @"Exemplars", @"Morph Level", @"Morph Stimulus", @"RT", @"Response", @"Accuracy", nil] componentsJoinedByString:@","]);
     for(Trial *trial in participant.trials) {
         StimulusCategory *category = [StimulusPack sessions][trial.categoryId];
-        NSLog(@"%@", [[NSArray arrayWithObjects:@"<!>", [NSNumber numberWithInt:++count], [NSNumber numberWithInt:(trial.sessionId+1)], category.name, [NSNumber numberWithInt:trial.blockId], [NSNumber numberWithInt:trial.trial], trial.exemplars, [NSNumber numberWithInt:trial.listId], trial.morphLabel, [NSNumber numberWithInt:trial.responseTime], trial.response, trial.accuracy, nil] componentsJoinedByString:@","]);
+        NSLog(@"%@", [[NSArray arrayWithObjects:@"<!>", [NSNumber numberWithInt:++count], [NSNumber numberWithInt:(trial.sessionId+1)], category.name, [NSNumber numberWithInt:trial.blockId], [NSNumber numberWithInt:trial.trial], trial.exemplars, [NSNumber numberWithInt:trial.listId+1], trial.morphLabel, [NSNumber numberWithDouble:trial.responseTime], trial.response, trial.accuracy, nil] componentsJoinedByString:@","]);
         
     }
 }
@@ -32,7 +32,7 @@
 +(void)printAllSessionsForParticipant:(Participant *)participant {
     int count = 0;
     NSLog(@"%@", [[NSArray arrayWithObjects:@"<!>", @"#", @"Session Id", @"startTime", @"endTime", nil] componentsJoinedByString:@","]);
-    for (Session *session in participant.sessions) {
+    for (SessionLog *session in participant.sessions) {
         NSLog(@"%@", [[NSArray arrayWithObjects:@"<!>", [NSNumber numberWithInt:++count], [NSNumber numberWithInt:(session.sid+1)], [self stringFromDate:session.startTime], [self stringFromDate:session.endTime], nil] componentsJoinedByString:@","]);
     }
 }
@@ -53,7 +53,7 @@
 }
 
 +(void)printProgramForParticipant:(Participant *)participant {
-    StimulusProgram *program = [NSKeyedUnarchiver unarchiveObjectWithData:participant.program];
+    NSArray *program = [NSKeyedUnarchiver unarchiveObjectWithData:participant.program];
     for(StimulusSession *session in program) {
          NSLog(@"%@", session);
     }

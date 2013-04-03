@@ -8,7 +8,7 @@
 
 #import "Session+Extension.h"
 
-@implementation Session (Extension)
+@implementation SessionLog (Extension)
 
 -(void)awakeFromInsert {
     [super awakeFromInsert];

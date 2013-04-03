@@ -9,8 +9,16 @@
 #ifndef TrainCat_constants_h
 #define TrainCat_constants_h
 
+#define DEBUG_MODE 1
+
+// Commonly used references
+#define APP_DELEGATE ((AppController *)[[UIApplication sharedApplication] delegate])
+#define MOC ((AppController *)[[UIApplication sharedApplication] delegate]).managedObjectContext
+
 #define MAX_TRIALS_PER_STIMULUS_BLOCK 36
 #define MAX_TRIALS_PER_PRACTICE_BLOCK 6
+#define MAX_STIMULUS_BLOCKS 6
+#define MAX_STIMULUS_LEVEL 10
 
 #define STIMULUS_PADDING 15.0
 #define STIMULUS_BAR_PADDING_TOP 40.0

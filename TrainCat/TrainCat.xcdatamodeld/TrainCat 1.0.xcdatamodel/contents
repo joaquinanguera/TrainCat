@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="2057" systemVersion="12D78" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+<model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="2061" systemVersion="12D78" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="Block" syncable="YES">
+        <attribute name="highestLevelReached" optional="YES" attributeType="Integer 16" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="participant" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Participant" inverseName="blocks" inverseEntity="Participant" syncable="YES"/>
+    </entity>
     <entity name="GameState" representedClassName="GameState" syncable="YES">
         <attribute name="blockId" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="listId" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
@@ -11,11 +16,12 @@
         <attribute name="pid" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="program" optional="YES" attributeType="Transformable" syncable="YES"/>
         <attribute name="state" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <relationship name="blocks" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Block" inverseName="participant" inverseEntity="Block" syncable="YES"/>
         <relationship name="gameState" minCount="1" maxCount="1" deletionRule="Cascade" destinationEntity="GameState" inverseName="participant" inverseEntity="GameState" syncable="YES"/>
-        <relationship name="sessions" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="Session" inverseName="participant" inverseEntity="Session" syncable="YES"/>
+        <relationship name="sessions" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="SessionLog" inverseName="participant" inverseEntity="SessionLog" syncable="YES"/>
         <relationship name="trials" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="Trial" inverseName="participant" inverseEntity="Trial" syncable="YES"/>
     </entity>
-    <entity name="Session" representedClassName="Session" syncable="YES">
+    <entity name="SessionLog" representedClassName="SessionLog" syncable="YES">
         <attribute name="endTime" attributeType="Date" syncable="YES"/>
         <attribute name="sid" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="startTime" attributeType="Date" syncable="YES"/>
@@ -24,20 +30,22 @@
     <entity name="Trial" representedClassName="Trial" syncable="YES">
         <attribute name="accuracy" attributeType="String" regularExpressionString="Correct|Incorrect|No Response" syncable="YES"/>
         <attribute name="blockId" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="blockName" attributeType="String" syncable="YES"/>
         <attribute name="categoryId" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="exemplars" attributeType="String" syncable="YES"/>
         <attribute name="listId" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="morphLabel" attributeType="String" syncable="YES"/>
         <attribute name="response" attributeType="String" regularExpressionString="Left|Right|No Response" syncable="YES"/>
-        <attribute name="responseTime" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="responseTime" attributeType="Double" defaultValueString="0" syncable="YES"/>
         <attribute name="sessionId" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="trial" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <relationship name="participant" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Participant" inverseName="trials" inverseEntity="Participant" syncable="YES"/>
     </entity>
     <elements>
-        <element name="GameState" positionX="0" positionY="0" width="128" height="120"/>
-        <element name="Participant" positionX="0" positionY="0" width="128" height="135"/>
-        <element name="Session" positionX="0" positionY="0" width="128" height="105"/>
-        <element name="Trial" positionX="0" positionY="0" width="128" height="210"/>
+        <element name="Block" positionX="-83" positionY="342" width="128" height="90"/>
+        <element name="GameState" positionX="252" positionY="-99" width="128" height="120"/>
+        <element name="Participant" positionX="-162" positionY="117" width="128" height="150"/>
+        <element name="SessionLog" positionX="223" positionY="-234" width="128" height="105"/>
+        <element name="Trial" positionX="252" positionY="117" width="128" height="225"/>
     </elements>
 </model>

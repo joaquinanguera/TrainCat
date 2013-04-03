@@ -3,11 +3,10 @@
 //  TrainCat
 //
 //  Created by Alankar Misra on 28/03/13.
-//  Copyright 2013 __MyCompanyName__. All rights reserved.
+//  Copyright 2013 Digital Sutras. All rights reserved.
 //
 
 #import "GameOverLayer.h"
-
 
 @implementation GameOverLayer
 

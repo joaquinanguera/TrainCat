@@ -6,8 +6,8 @@
 //
 //
 
-#import "Session.h"
+#import "SessionLog.h"
 
-@interface Session (Extension)
+@interface SessionLog (Extension)
 
 @end

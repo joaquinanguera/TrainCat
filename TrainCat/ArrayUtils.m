@@ -7,7 +7,7 @@
 //
 
 #import "ArrayUtils.h"
-#import "NSMutableArray+Shuffling.h"
+#import "NSMutableArray+Extension.h"
 
 @implementation ArrayUtils
 
@@ -26,5 +26,6 @@
     
     return responses;
 }
+
 
 @end

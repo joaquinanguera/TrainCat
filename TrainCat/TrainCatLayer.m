@@ -30,11 +30,12 @@
 #import "ResponseLayer.h"
 #import "FeedbackLayer.h"
 #import "SessionCompleteLayer.h"
+#import "BlockCompleteLayer.h"
 #import "GameOverLayer.h"
 
 // Utils 
 #import "RangeArray.h"
-#import "NSMutableArray+Shuffling.h"
+#import "NSMutableArray+Extension.h"
 #import "ArrayUtils.h"
 #import "ActionLib.h"
 #import "Logger.h"
@@ -59,12 +60,14 @@
 @property (nonatomic, readonly, strong) StimulusBlock *block;
 @property (nonatomic, readonly, strong) NSArray *stimuli;
 @property (nonatomic, strong) NSString *morphLabel;
-@property (nonatomic, strong) Trial *trial;
 @property (nonatomic, assign) int maxTrials;
 
 @property (nonatomic, assign) BOOL isPractice;
 
-//@property (nonatomic, strong) NSArray *aiResponse;
+#ifdef DEBUG
+@property (nonatomic, strong) NSArray *aiResponse;
+@property (nonatomic, assign) int aiResponseIndex;
+#endif
 
 @end
 
@@ -92,18 +95,25 @@
 -(id)initWithPracticeSetting:(BOOL)isPractice {
 	if( (self=[super initWithColor:ccc4(255, 255, 255, 255)]) ) { // ccc4(220, 220, 220, 255)
         self.isPractice = isPractice;
+        
         self.maxTrials = isPractice ? MAX_TRIALS_PER_PRACTICE_BLOCK : MAX_TRIALS_PER_STIMULUS_BLOCK;
         self.gs = self.participant.gameState;
         self.program = [NSKeyedUnarchiver unarchiveObjectWithData:self.participant.program];
         
         [self setSubviews];
-        [self setStartButton];
-        [Logger printProgramForParticipant:self.participant];
         
         /*
-         self.aiResponse = [ArrayUtils aiYesNoResponsesWithTrialCount:self.maxTrials*2 expectedAccuracyPercentage:0.5];
+        [Logger printProgramForParticipant:self.participant];
+        [Logger printAllBlocksForParticipant:self.participant];
+        NSLog(@"%@", [self.participant performanceData]);
+        */
+        #ifndef DEBUG
+         [self setStartButton];
+        #else
+         self.aiResponse = [ArrayUtils aiYesNoResponsesWithTrialCount:self.maxTrials*6 expectedAccuracyPercentage:1.0];
          NSLog(@"Responses = [%@]", [self.aiResponse componentsJoinedByString:@","]);
-         */
+         [self performSelector:@selector(beginGame) withObject:nil afterDelay:4.0];
+        #endif
 	}
 	return self;
 }
@@ -152,73 +162,83 @@
 }
 
 -(void)showStimulus {
+    [self.stim clear];
     self.morphLabel = self.stimuli[arc4random() % self.stimuli.count];
+#ifndef DEBUG
     [self.stim showStimulusWithExemplarLeftPath:self.category.exemplarLeft exemplarRightPath:self.category.exemplarRight morphLabel:self.morphLabel];
-    /*
-    // TODO: Debug code. Remove
-    BOOL airesp = [self.aiResponse[self.trial.trial] boolValue];
+#else
+    BOOL airesp = [self.aiResponse[self.aiResponseIndex] boolValue];
     ResponseType correctResponse = [self getCorrectResponseFromMorphLabel:self.morphLabel];
-    [self grade:airesp ? correctResponse : correctResponse == ResponseTypeLeft ? ResponseTypeRight : ResponseTypeLeft]; */
+    self.aiResponseIndex++;
+    [self grade:(airesp ? correctResponse : correctResponse == ResponseTypeLeft ? ResponseTypeRight : ResponseTypeLeft) responseTime:0];
+#endif
 }
 
--(void)stimulusDidFinish {    
+-(void)stimulusDidFinish {
+    [self.response clear];
     self.response.visible = YES;
     [self.response getResponse];
 }
 
--(void)didRespond:(ResponseType)response {
+-(void)didRespond:(ResponseType)response responseTime:(NSTimeInterval)responseTime {
     self.response.visible = NO;
-    [self grade:response];
+    [self grade:response responseTime:responseTime];
 }
 
--(void)grade:(ResponseType)response {
+-(void)grade:(ResponseType)response responseTime:(NSTimeInterval)responseTime {
     GradeType gradeCode = (response == [self getCorrectResponseFromMorphLabel:self.morphLabel]) ? GradeTypeCorrect : (response == ResponseTypeNoResponse) ? GradeTypeNoResponse : GradeTypeIncorrect;
     
     // log trial
     self.gs.trialCount++;
-    self.trial = [NSEntityDescription insertNewObjectForEntityForName:@"Trial" inManagedObjectContext:self.moc];
-    self.trial.participant = self.participant;
-    self.trial.sessionId = self.gs.sessionId;
-    self.trial.blockId = self.gs.blockId;
-    self.trial.listId = self.gs.listId+1; // Level is indexed from 1 in the report
-    self.trial.trial = self.gs.trialCount; 
-    self.trial.categoryId = self.session.categoryId;
-    self.trial.exemplars = [NSString stringWithFormat:@"%@ / %@", self.category.exemplarLeft, self.category.exemplarRight];
-    self.trial.morphLabel = self.morphLabel;
+    Trial *trial = [NSEntityDescription insertNewObjectForEntityForName:@"Trial" inManagedObjectContext:self.moc];
+    trial.participant = self.participant;
+    trial.sessionId = self.gs.sessionId;
+    trial.blockId = self.gs.blockId;
+    trial.blockName = self.block.name;
+    trial.listId = self.gs.listId; 
+    trial.trial = self.gs.trialCount; 
+    trial.categoryId = self.session.categoryId; // TODO: This needs to be the category name
+    trial.exemplars = [NSString stringWithFormat:@"%@ / %@", self.category.exemplarLeft, self.category.exemplarRight];
+    trial.morphLabel = self.morphLabel;
+    trial.responseTime = responseTime;
+    
     if(gradeCode == GradeTypeCorrect) self.gs.listId = min(self.block.lists.count-1, self.gs.listId+1);
     else self.gs.listId = max(0, self.gs.listId-2);
     
     switch(response) {
         case ResponseTypeLeft:
-            self.trial.response = @"Left";
+            trial.response = @"Left";
             break;
         case ResponseTypeRight:
-            self.trial.response = @"Right";
+            trial.response = @"Right";
             break;
         case ResponseTypeNoResponse:
-            self.trial.response = @"No Response";
+            trial.response = @"No Response";
             break;
     }
     
     switch(gradeCode) {
         case GradeTypeCorrect:
-            self.trial.accuracy = @"Correct";
+            trial.accuracy = @"Correct";
             break;
         case GradeTypeIncorrect:
-            self.trial.accuracy = @"Incorrect";
+            trial.accuracy = @"Incorrect";
             break;
         case GradeTypeNoResponse:
-            self.trial.accuracy = @"No Response";
+            trial.accuracy = @"No Response";
             break;
     }
     
     [self saveContext];
     
-    
-    // show feedback
+    //NSLog(@"%@", trial);
+#ifndef DEBUG
     [self.feedback clear];
     self.feedback.visible = YES;
     [self.feedback showFeedback:gradeCode];
+#else
+    [self updateStimulus];
+#endif
 }
 
 -(void)feedbackDidFinish {
@@ -229,13 +249,12 @@
 
 -(void)setupStimulusWithNewSession:(BOOL)newSession {
     if([self isGameOver]) {
-        //[[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:1.0 scene:[GameOverLayer scene] withColor:ccWHITE]];
         [[CCDirector sharedDirector] replaceScene:[CCTransitionZoomFlipX transitionWithDuration:0.5 scene:[GameOverLayer scene]]];
     } else {
         // Did we finish the last block?
         if(self.gs.trialCount >= self.maxTrials)  {
             // If we did finish the last block, is there a new block in the same session?
-            if(self.gs.blockId < (self.category.blocks.count-1)) {
+            if(self.gs.blockId < (self.session.blocks.count-1)) {
                 // If yes, move to the next block
                 self.gs.blockId++;
                 self.gs.listId = 0;
@@ -252,7 +271,7 @@
         }
         
         if(newSession) {
-            Session *session = [NSEntityDescription insertNewObjectForEntityForName:@"Session" inManagedObjectContext:self.moc];
+            SessionLog *session = [NSEntityDescription insertNewObjectForEntityForName:@"SessionLog" inManagedObjectContext:self.moc];
             session.sid = self.gs.sessionId;
             session.participant = self.participant; // Do we need to do this?
             [self.participant addSessionsObject:session];
@@ -269,36 +288,36 @@
         [self showStimulus];
     } else {
         // If no more trials are pending
-        // Print the block
-        //[self printBlock:self.gs.blockId inCategory:self.session.categoryId inSession:self.gs.sessionId]; // TODO: Debug
-        // Do we have another block to turn to in this session?
-        if(self.gs.blockId < (self.category.blocks.count-1)) {
-            // If yes, setup stimulus but without creating a new session
-            [self setupStimulusWithNewSession:NO];
+        // Transition to next screen
+        SessionLog *session = self.participant.sessions.lastObject;
+        session.endTime = [NSDate date];
+        [self saveContext];
+        
+        CCScene *scene;
+        if([self isGameOver]) {
+#ifdef DEBUG
+            [Logger printAllBlocksForParticipant:self.participant];
+            [Logger printAllSessionsForParticipant:self.participant];
+            NSLog(@"Perf = %@", [[self.participant performanceData] componentsJoinedByString:@","]);
+            [Participant clearStateForParticipantWithId:[SessionManager loggedIn]];
+#endif
+            scene = [GameOverLayer scene]; 
+        } else if([self isSessionComplete]){
+            scene = [SessionCompleteLayer scene];
         } else {
-            // If no, session is complete
-            // Transition to next screen
-            Session *session = self.participant.sessions.lastObject;
-            session.endTime = [NSDate date];
-            [self saveContext];
-            
-            CCScene *scene;
-            // TODO: Debug
-            if([self isGameOver]) {
-                [Logger printAllBlocksForParticipant:self.participant];
-                [Logger printAllSessionsForParticipant:self.participant];
-                scene = [GameOverLayer scene]; 
-            } else {
-                scene = [SessionCompleteLayer scene];
-            }
-            
-            [[CCDirector sharedDirector] replaceScene:[CCTransitionZoomFlipX transitionWithDuration:0.5 scene:scene]];
+            scene = [BlockCompleteLayer scene];
         }
+        
+        [[CCDirector sharedDirector] replaceScene:[CCTransitionZoomFlipX transitionWithDuration:0.5 scene:scene]];
     }
 }
 
+-(BOOL)isSessionComplete {
+    return ((self.gs.blockId >= (self.session.blocks.count - 1)) /* last block in the session */ && (self.gs.trialCount >= self.maxTrials) /* all trials complete */);
+}
+
 -(BOOL)isGameOver {
-    return ((self.gs.sessionId >= (self.program.count-1)) && (self.gs.blockId >= (self.category.blocks.count-1)) && (self.gs.trialCount >= self.maxTrials));
+    return ((self.gs.sessionId >= (self.program.count-1)) /* last session in the program */ && [self isSessionComplete]);
 }
 
 -(ResponseType)getCorrectResponseFromMorphLabel:(NSString *)morph {
@@ -327,8 +346,9 @@
     [((AppController *)[[UIApplication sharedApplication] delegate]) saveContext];    
 }
 
+
 #pragma mark Properties
--(Session *)session {
+-(SessionLog *)session {
     return self.program[self.gs.sessionId];
 }
 
@@ -337,7 +357,8 @@
 }
 
 -(StimulusBlock *)block {
-    return self.category.blocks[self.gs.blockId];
+    int cBlockId = [self.session.blocks[self.gs.blockId] intValue];
+    return self.category.blocks[cBlockId];
 }
 
 -(NSArray *)stimuli {
@@ -359,7 +380,7 @@
 
 -(NSManagedObjectContext *) moc {
     if(!_moc) {
-        _moc = ((AppController *)[[UIApplication sharedApplication] delegate]).managedObjectContext;
+        _moc = MOC;
     }
     return _moc;
 }

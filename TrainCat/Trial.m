@@ -2,7 +2,7 @@
 //  Trial.m
 //  TrainCat
 //
-//  Created by Alankar Misra on 30/03/13.
+//  Created by Alankar Misra on 03/04/13.
 //
 //
 
@@ -19,9 +19,10 @@
 @dynamic listId;
 @dynamic morphLabel;
 @dynamic response;
+@dynamic responseTime;
 @dynamic sessionId;
 @dynamic trial;
-@dynamic responseTime;
+@dynamic blockName;
 @dynamic participant;
 
 @end

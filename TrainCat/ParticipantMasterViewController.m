@@ -213,8 +213,11 @@
     // Edit the sort key as appropriate.
     NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"pid" ascending:YES];
     NSArray *sortDescriptors = @[sortDescriptor];
-    
     [fetchRequest setSortDescriptors:sortDescriptors];
+    
+    NSNumber *pid = [NSNumber numberWithInt:0];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"pid>=%@", pid];
+    [fetchRequest setPredicate:predicate];
     
     // Edit the section name key path and cache name if appropriate.
     // nil for section name key path means "no sections".
@@ -296,7 +299,7 @@
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {
     Participant *participant = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    cell.textLabel.text = (participant.pid == DEMO_PARTICIPANT_ID) ? @"Demotron" : [NSString stringWithFormat:@"%04d", participant.pid];
+    cell.textLabel.text = [NSString stringWithFormat:@"%04d", participant.pid];
 }
 
 

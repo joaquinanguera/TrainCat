@@ -3,7 +3,7 @@
 //  TrainCat
 //
 //  Created by Alankar Misra on 26/03/13.
-//  Copyright 2013 __MyCompanyName__. All rights reserved.
+//  Copyright 2013 Digital Sutras. All rights reserved.
 //
 
 #import "StimulusLayer.h"
@@ -117,6 +117,10 @@
     
     CCSequence *stimAction = [CCSequence actions:actionFixation, actionExemplar, actionMorph, nil];
     [self runAction:stimAction];
+}
+
+-(void)clear {
+    // Do nothing
 }
 
 -(void)finished {    

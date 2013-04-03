@@ -12,6 +12,9 @@
 #import "cocos2d.h"
 #import "SimpleAudioEngine.h"
 #import "TrainCatLayer.h"
+#import "GameController.h"
+#import "SessionManager.h"
+#import "Participant+Extension.h"
 
 #pragma mark - IntroLayer
 
@@ -42,7 +45,7 @@ typedef NS_ENUM(NSInteger, MainMenuButtonActionType) {
 }
 
 -(id)init {
-    if( (self=[super initWithColor:ccc4(255, 255, 255, 255)]) ) {
+    if( (self=[super initWithColor:ccc4(56, 191, 218, 255)]) ) {
         [[SimpleAudioEngine sharedEngine] playBackgroundMusic:@"POL-slums-of-rage-short.wav"]; // Currently throwing an error
     }
     return self;
@@ -71,13 +74,19 @@ typedef NS_ENUM(NSInteger, MainMenuButtonActionType) {
     [mnu alignItemsVerticallyWithPadding:30];
     mnu.position = ccp(winSize.width/2, winSize.height/2);
     
-    [self addChild:mnu];    
+    [self addChild:mnu];
 }
 
 
--(void)didRespond:(CCMenuItem *)menuItem {
+-(void)didRespond:(CCMenuItem *)menuItem {    
+    GameController *gc;
+    
     switch(menuItem.tag) {
         case MainMenuButtonActionTypePlay:
+#ifdef DEBUG
+            [Participant clearStateForParticipantWithId:[SessionManager loggedIn]];
+            
+#endif
             [[CCDirector sharedDirector] replaceScene:[CCTransitionZoomFlipX transitionWithDuration:0.5 scene:[TrainCatLayer sceneWithPracticeSetting:NO]]];
             break;
         case MainMenuButtonActionTypePractice:
@@ -85,6 +94,9 @@ typedef NS_ENUM(NSInteger, MainMenuButtonActionType) {
             [[CCDirector sharedDirector] replaceScene:[CCTransitionZoomFlipX transitionWithDuration:0.5 scene:[TrainCatLayer sceneWithPracticeSetting:YES]]];
             break;
         case MainMenuButtonActionTypeSettings:
+            gc = (GameController *)([CCDirector sharedDirector].delegate);
+            [gc performSegueWithIdentifier:@"segueToSettingsAuthentication" sender:gc];
+
             //[[CCDirector sharedDirector] replaceScene:[CCTransitionZoomFlipX transitionWithDuration:0.5 scene:[TrainCatLayer sceneW]]];
             break;
         default:

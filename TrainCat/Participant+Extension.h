@@ -12,7 +12,9 @@
 
 +(Participant *)dummyParticipant;
 +(Participant *)participantWithId:(int)pid mustExist:(BOOL)mustExist;
++(Participant *)clearStateForParticipantWithId:(int)pid;
 
 - (BOOL)validatePid:(id *)ioValue error:(NSError **)outError;
+- (NSArray *)performanceData;
 
 @end

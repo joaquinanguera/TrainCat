@@ -7,7 +7,7 @@
 //
 
 #import "StimulusProgram.h"
-#import "NSMutableArray+Shuffling.h"
+#import "NSMutableArray+Extension.h"
 #import "RangeArray.h"
 #import "StimulusSession.h"
 #import "StimulusPack.h"

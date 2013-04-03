@@ -3,7 +3,7 @@
 //  TrainCat
 //
 //  Created by Alankar Misra on 28/03/13.
-//  Copyright 2013 __MyCompanyName__. All rights reserved.
+//  Copyright 2013 Digital Sutras. All rights reserved.
 //
 
 #import "SessionCompleteLayer.h"
@@ -41,8 +41,9 @@
         btnNewSession.position = ccp(winSize.width/2.0,label.position.y - label.contentSize.height/2 - btnNewSessionImage.contentSize.height/2 - 50);
         [self addChild:btnNewSession];
     }
-    
+#ifdef DEBUG
     [self performSelector:@selector(didTapNewSession) withObject:nil afterDelay:4.0];
+#endif
     return self;
 }
 

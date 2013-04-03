@@ -3,7 +3,7 @@
 //  TrainCat
 //
 //  Created by Alankar Misra on 28/03/13.
-//  Copyright 2013 __MyCompanyName__. All rights reserved.
+//  Copyright 2013 Digital Sutras. All rights reserved.
 //
 
 #import "HUDLayer.h"
@@ -35,6 +35,10 @@
     CGSize winSize = [CCDirector sharedDirector].winSize;
     self.label.string = participantName;
     self.label.position = ccp(self.label.contentSize.width/2.0 + PADDING, winSize.height - self.label.contentSize.height/2 - PADDING );
+}
+
+-(void)clear {
+    // Do nothing
 }
 
 @end

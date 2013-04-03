@@ -2,7 +2,7 @@
 //  Trial.h
 //  TrainCat
 //
-//  Created by Alankar Misra on 30/03/13.
+//  Created by Alankar Misra on 03/04/13.
 //
 //
 
@@ -20,9 +20,10 @@
 @property (nonatomic) int16_t listId;
 @property (nonatomic, retain) NSString * morphLabel;
 @property (nonatomic, retain) NSString * response;
+@property (nonatomic) double responseTime;
 @property (nonatomic) int16_t sessionId;
 @property (nonatomic) int16_t trial;
-@property (nonatomic) int16_t responseTime;
+@property (nonatomic, retain) NSString * blockName;
 @property (nonatomic, retain) Participant *participant;
 
 @end

@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class GameState, Session, Trial;
+@class GameState, SessionLog, Trial;
 
 @interface Participant : NSManagedObject
 
@@ -23,14 +23,14 @@
 
 @interface Participant (CoreDataGeneratedAccessors)
 
-- (void)insertObject:(Session *)value inSessionsAtIndex:(NSUInteger)idx;
+- (void)insertObject:(SessionLog *)value inSessionsAtIndex:(NSUInteger)idx;
 - (void)removeObjectFromSessionsAtIndex:(NSUInteger)idx;
 - (void)insertSessions:(NSArray *)value atIndexes:(NSIndexSet *)indexes;
 - (void)removeSessionsAtIndexes:(NSIndexSet *)indexes;
-- (void)replaceObjectInSessionsAtIndex:(NSUInteger)idx withObject:(Session *)value;
+- (void)replaceObjectInSessionsAtIndex:(NSUInteger)idx withObject:(SessionLog *)value;
 - (void)replaceSessionsAtIndexes:(NSIndexSet *)indexes withSessions:(NSArray *)values;
-- (void)addSessionsObject:(Session *)value;
-- (void)removeSessionsObject:(Session *)value;
+- (void)addSessionsObject:(SessionLog *)value;
+- (void)removeSessionsObject:(SessionLog *)value;
 - (void)addSessions:(NSOrderedSet *)values;
 - (void)removeSessions:(NSOrderedSet *)values;
 - (void)insertObject:(Trial *)value inTrialsAtIndex:(NSUInteger)idx;
