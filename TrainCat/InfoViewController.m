@@ -7,8 +7,8 @@
 //
 
 #import "InfoViewController.h"
+#import "NSUserDefaults+Extensions.h"
 #import <Dropbox/Dropbox.h>
-#import "SessionManager.h"
 
 @interface InfoViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *lblCurrentPid;
@@ -29,7 +29,7 @@
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    int32_t pid = [SessionManager loggedIn];
+    int32_t pid = [[NSUserDefaults standardUserDefaults] loggedIn];
     self.lblCurrentPid.text = [NSString stringWithFormat:@"%04d", pid];
     DBAccountInfo *ai = [[[DBAccountManager sharedManager] linkedAccount] info];
     if(ai) {

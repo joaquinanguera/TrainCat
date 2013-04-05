@@ -25,7 +25,7 @@
 {    
     [self configureDropbox];
     [self configureCocos];
-    [self configureDemo];
+    [self configureAppDefaults];
     
 	return YES;
 }
@@ -35,7 +35,7 @@
 -(void)configureDropbox {
     // The account manager stores all the account info. Create this when your app launches
     DBAccountManager* accountMgr =
-    [[DBAccountManager alloc] initWithAppKey:@"ev7wggh9l3s2vy7" secret:@"bgoed4lggdhkuke"];
+    [[DBAccountManager alloc] initWithAppKey:DROPBOX_APP_KEY secret:DROPBOX_SECRET];
     [DBAccountManager setSharedManager:accountMgr];
     DBAccount *account = accountMgr.linkedAccount;
     
@@ -52,20 +52,21 @@
     //sharedFileUtils.enableFallbackSuffixes = YES;
 }
 
--(void)configureDemo {
-    //[self resetDemoParticipant]; // Let the relevant view call resetDemoParticipant lazily.
+-(void)configureAppDefaults {
+    [[NSUserDefaults standardUserDefaults] registerDefaults:[NSDictionary dictionaryWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"Defaults" ofType:@"plist"]]];
+    [Participant clearStateForParticipantWithId:DEMO_PARTICIPANT_ID]; // Reset/Create demo participant
+    
 }
 
 - (BOOL)application:(UIApplication *)app openURL:(NSURL *)url
   sourceApplication:(NSString *)source annotation:(id)annotation {
     DBAccount *account = [[DBAccountManager sharedManager] handleOpenURL:url];
+    [[NSNotificationCenter defaultCenter] postNotificationName:DS_DROPBOX_LINK_ATTEMPT_COMPLETE object:account];
+    
     if (account) {
         DBFilesystem *filesystem = [[DBFilesystem alloc] initWithAccount:account];
         [DBFilesystem setSharedFilesystem:filesystem];
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"DS_APPLICATION_LINKED_TO_DROPBOX" object:nil];
         return YES;
-    } else {
-        NSLog(@"**ERROR: Application could not be authenticated!");
     }
     
     return NO;

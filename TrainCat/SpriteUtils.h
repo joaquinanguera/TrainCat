@@ -11,6 +11,6 @@
 
 @interface SpriteUtils : NSObject
 
-+ (CCSprite*)blankSpriteWithSize:(CGSize)size;
++(CCSprite*)blankSpriteWithSize:(CGSize)size;
 
 @end

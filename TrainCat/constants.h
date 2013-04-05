@@ -12,12 +12,25 @@
 #define DDEBUG 1
 #define DEBUG_SIMULATION_WAIT_TIME 2
 
+// Dropbox related constants
+#define DROPBOX_APP_KEY @"ev7wggh9l3s2vy7"
+#define DROPBOX_SECRET @"bgoed4lggdhkuke"
+#define DS_DROPBOX_LINK_ATTEMPT_COMPLETE @"DS_DROPBOX_LINK_ATTEMPT_COMPLETE"
+
 // Commonly used references
 #define APP_DELEGATE ((AppController *)[[UIApplication sharedApplication] delegate])
 #define MOC ((AppController *)[[UIApplication sharedApplication] delegate]).managedObjectContext
 
+// Default keys. Keys must be synchronous with Defaults.plist
+#define DEFAULT_LOGGED_IN_PARTICIPANT_KEY @"LoggedInParticipant"
+#define DEFAULT_BACKGROUND_SOUND_KEY @"BackgroundSound"
+#define DEFAULT_SETTINGS_PASSWORD_KEY @"SettingsPassword"
 
-#define BACKGROUND_COLOR ccc4(144, 217, 232, 255)
+// Background color constants
+#define BACKGROUND_COLOR_R 127.0
+#define BACKGROUND_COLOR_G 200.0
+#define BACKGROUND_COLOR_B 200.0
+#define BACKGROUND_COLOR ccc4(BACKGROUND_COLOR_R, BACKGROUND_COLOR_G, BACKGROUND_COLOR_B, 255)
 
 #define MAX_TRIALS_PER_STIMULUS_BLOCK 36
 #define MAX_TRIALS_PER_PRACTICE_BLOCK 6
@@ -27,7 +40,9 @@
 #define STIMULUS_PADDING 15.0
 #define STIMULUS_BAR_PADDING_TOP 40.0
 
-#define DEMO_PARTICIPANT_ID -1
+#define DEMO_PARTICIPANT_ID 0
+#define MIN_PARTICIPANT_ID 1
+#define MAX_PARTICIPANT_ID 9999
 
 #define START_MENU_TAG 1
 

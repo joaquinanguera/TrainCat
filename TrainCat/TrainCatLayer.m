@@ -39,10 +39,10 @@
 // Utils 
 #import "RangeArray.h"
 #import "NSMutableArray+Extension.h"
+#import "NSUserDefaults+Extensions.h"
 #import "ArrayUtils.h"
 #import "ActionLib.h"
 #import "Logger.h"
-#import "SessionManager.h"
 
 
 #pragma mark - TrainCatLayer
@@ -405,7 +405,7 @@
         if(self.isPractice) {
             _participant = [Participant dummyParticipant];
         } else {
-            _participant = [Participant participantWithId:[SessionManager loggedIn] mustExist:YES];
+            _participant = [Participant participantWithId:[[NSUserDefaults standardUserDefaults] loggedIn] mustExist:YES];
         }
     }
     return _participant;

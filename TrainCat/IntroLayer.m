@@ -13,16 +13,11 @@
 #import "SimpleAudioEngine.h"
 #import "TrainCatLayer.h"
 #import "GameController.h"
-#import "SessionManager.h"
 #import "Participant+Extension.h"
+#import "SpriteUtils.h"
+#import "CCMenu+Extensions.h"
 
 #pragma mark - IntroLayer
-
-typedef NS_ENUM(NSInteger, MainMenuButtonActionType) {
-    MainMenuButtonActionTypePlay,
-    MainMenuButtonActionTypePractice,
-    MainMenuButtonActionTypeSettings
-};
 
 
 // HelloWorldLayer implementation
@@ -46,7 +41,10 @@ typedef NS_ENUM(NSInteger, MainMenuButtonActionType) {
 
 -(id)init {
     if( (self=[super initWithColor:BACKGROUND_COLOR]) ) {
-        [[SimpleAudioEngine sharedEngine] playBackgroundMusic:@"POL-slums-of-rage-short.wav"]; // Currently throwing an error
+        CGSize winSize = [[CCDirector sharedDirector] winSize];
+        CCSprite *background = [CCSprite spriteWithFile:@"background.png"];
+        background.position = ccp(winSize.width/2, winSize.height/2);
+        [self addChild:background];
     }
     return self;
 }
@@ -60,54 +58,51 @@ typedef NS_ENUM(NSInteger, MainMenuButtonActionType) {
 -(void)makeMenu {
 	CGSize winSize = [[CCDirector sharedDirector] winSize];
     
+    NSArray *buttonPrefixs = [[NSArray alloc] initWithObjects:@"buttonPlay", @"buttonPractice", @"buttonSettings", nil];
+    NSArray *buttonSelectors = [[NSArray alloc] initWithObjects:@"didTapPlay:", @"didTapPractice:", @"didTapSettings:", nil];
+    
     // TODO: Ensure that we have at least ONE currently logged in user (other than Demo)
-    CCMenuItemImage *btnPlay = [CCMenuItemImage itemWithNormalImage:@"buttonPlayNormal.png" selectedImage:@"buttonPlaySelected.png" target:self selector:@selector(didRespond:)];
-    btnPlay.tag = MainMenuButtonActionTypePlay;
-    
-    CCMenuItemImage *btnPractice = [CCMenuItemImage itemWithNormalImage:@"buttonPracticeNormal.png" selectedImage:@"buttonPracticeSelected.png" target:self selector:@selector(didRespond:)];
-    btnPractice.tag = MainMenuButtonActionTypePractice;
-    
-    CCMenuItemImage *btnSettings = [CCMenuItemImage itemWithNormalImage:@"buttonSettingsNormal.png" selectedImage:@"buttonSettingsSelected.png" target:self selector:@selector(didRespond:)];
-    btnSettings.tag = MainMenuButtonActionTypeSettings;
-    
-    CCMenu *mnu = [CCMenu menuWithItems:btnPlay,btnPractice,btnSettings,nil];
+    CCMenu *mnu = [CCMenu menuWithImagePrefixes:buttonPrefixs tags:nil target:self selectors:buttonSelectors];
     [mnu alignItemsVerticallyWithPadding:30];
     mnu.position = ccp(winSize.width/2, winSize.height/2);
     
+    CCMenu *mnuToggleSound = [CCMenu menuWithImagePrefix:@"iconSpeaker" tag:0 target:self selector:@selector(didTapToggleBackgroundMusic:)];
+    mnuToggleSound.position = ccp(winSize.width - mnuToggleSound.button.contentSize.width/2 - STIMULUS_PADDING, mnuToggleSound.button.contentSize.height/2 + STIMULUS_PADDING);
+    
     [self addChild:mnu];
+    [self addChild:mnuToggleSound];
+}
+
+-(void)didTapPlay:(CCMenuItem *)menuItem {
+#ifdef DDEBUG
+    //[Participant clearStateForParticipantWithId:[SessionManager loggedIn]];
+    
+#endif
+    //[[CCDirector sharedDirector] replaceScene:[CCTransitionZoomFlipX transitionWithDuration:0.5 scene:[TrainCatLayer sceneWithPracticeSetting:NO]]];    
+}
+
+-(void)didTapPractice:(CCMenuItem *)menuItem {
+    //[[CCDirector sharedDirector] replaceScene:[CCTransitionZoomFlipX transitionWithDuration:0.5 scene:[TrainCatLayer sceneWithPracticeSetting:YES]]];    
+}
+
+-(void)didTapSettings:(CCMenuItem *)menuItem {
+    GameController *gc = (GameController *)([CCDirector sharedDirector].delegate);
+    [gc performSegueWithIdentifier:@"segueToSettingsAuthentication" sender:gc];
 }
 
 
--(void)didRespond:(CCMenuItem *)menuItem {    
-    GameController *gc;
-    
-    switch(menuItem.tag) {
-        case MainMenuButtonActionTypePlay:
-#ifdef DDEBUG
-            //[Participant clearStateForParticipantWithId:[SessionManager loggedIn]];
-            
-#endif
-            [[CCDirector sharedDirector] replaceScene:[CCTransitionZoomFlipX transitionWithDuration:0.5 scene:[TrainCatLayer sceneWithPracticeSetting:NO]]];
-            break;
-        case MainMenuButtonActionTypePractice:
-            NSLog(@"Switching to practice mode.");
-            [[CCDirector sharedDirector] replaceScene:[CCTransitionZoomFlipX transitionWithDuration:0.5 scene:[TrainCatLayer sceneWithPracticeSetting:YES]]];
-            break;
-        case MainMenuButtonActionTypeSettings:
-            gc = (GameController *)([CCDirector sharedDirector].delegate);
-            [gc performSegueWithIdentifier:@"segueToSettingsAuthentication" sender:gc];
-
-            //[[CCDirector sharedDirector] replaceScene:[CCTransitionZoomFlipX transitionWithDuration:0.5 scene:[TrainCatLayer sceneW]]];
-            break;
-        default:
-            NSLog(@"Unrecognized tag %d", menuItem.tag);
-            break;
+-(void)didTapToggleBackgroundMusic:(CCMenuItem *)menuItem {
+    if([[SimpleAudioEngine sharedEngine] isBackgroundMusicPlaying]) {
+        [[SimpleAudioEngine sharedEngine] stopBackgroundMusic];
+        ((CCMenuItemImage *)menuItem).opacity = 128;
+    } else {
+        [[SimpleAudioEngine sharedEngine] playBackgroundMusic:@"POL-slums-of-rage-short.wav"]; // Currently throwing an error
+        ((CCMenuItemImage *)menuItem).opacity = 255;
     }
-    
 }
 
 -(void)onExit {
-    [[SimpleAudioEngine sharedEngine] stopBackgroundMusic];
+    //[self didTapToggleBackgroundMusic];
     [super onExit];
 }
 

@@ -23,7 +23,7 @@ static const CGFloat CSToastHorizontalPadding   = 10.0;
 static const CGFloat CSToastVerticalPadding     = 10.0;
 static const CGFloat CSToastCornerRadius        = 10.0;
 static const CGFloat CSToastOpacity             = 0.8;
-static const CGFloat CSToastFontSize            = 13.0;
+static const CGFloat CSToastFontSize            = 17.0;
 static const CGFloat CSToastMaxTitleLines       = 0;
 static const CGFloat CSToastMaxMessageLines     = 0;
 static const CGFloat CSToastFadeDuration        = 0.2;
@@ -209,8 +209,11 @@ static const NSString * CSToastActivityViewKey  = @"CSToastActivityViewKey";
         wrapperView.layer.shadowRadius = CSToastShadowRadius;
         wrapperView.layer.shadowOffset = CSToastShadowOffset;
     }
-
-    wrapperView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:CSToastOpacity];
+    
+    SEL selBgColor = @selector(toastBackgroundColor);
+    UIColor *bgColor = [self respondsToSelector:selBgColor] ? [self performSelector:selBgColor] : [UIColor blackColor];
+    
+    wrapperView.backgroundColor = [bgColor colorWithAlphaComponent:CSToastOpacity];
     
     if(image != nil) {
         imageView = [[[UIImageView alloc] initWithImage:image] autorelease];

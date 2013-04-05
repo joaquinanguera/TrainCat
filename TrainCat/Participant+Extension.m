@@ -75,12 +75,12 @@
     return participant;    
 }
 
-
 - (BOOL)validatePid:(id *)ioValue error:(NSError **)outError {
     NSError *error = NULL;
+    NSString *illegalParticipantIdFormatString = @"%04d is not a valid Participant Id. Participant Id's range from %04d to %04d.";
     int32_t pid = [*ioValue integerValue];
-    if((pid != DEMO_PARTICIPANT_ID) && (pid < 0 || pid >= 9999)) { 
-        NSString *errorMessage = [NSString stringWithFormat:@"%04d out of bounds. Valid participant numbers range from 0001 to 9999.", pid];
+    if((pid != DEMO_PARTICIPANT_ID) && (pid < 1 || pid > 9999)) {
+        NSString *errorMessage = [NSString stringWithFormat:illegalParticipantIdFormatString, pid, MIN_PARTICIPANT_ID, MAX_PARTICIPANT_ID];
         error = [[NSError alloc] initWithDomain:errorMessage code:0x2 userInfo:nil];
     } else { // duplicate?
         NSManagedObjectContext *moc = MOC;
@@ -92,8 +92,8 @@
         if (executeFetchError) {
             NSString *errorMessage = [NSString stringWithFormat:@"Error looking up Participant %04d with error: %@", pid, [executeFetchError localizedDescription]];
             error = [[NSError alloc] initWithDomain:errorMessage code:0x4 userInfo:nil];
-        } else if(idCount > 1){ // idCount will be 2 in case of duplicates cause we created the new duplicate object in the current managed object context
-            error = [[NSError alloc] initWithDomain:@"Duplicate Participant Id" code:0x8 userInfo:nil];
+        } else if(idCount > 1) { // idCount will be 2 in case of duplicates cause we created the new duplicate object in the current managed object context
+            error = [[NSError alloc] initWithDomain:((pid == DEMO_PARTICIPANT_ID) ? [NSString stringWithFormat:illegalParticipantIdFormatString, pid, MIN_PARTICIPANT_ID, MAX_PARTICIPANT_ID] : @"Duplicate Participant Id") code:0x8 userInfo:nil];
         }
     }
     if (error!= NULL) {
@@ -167,55 +167,6 @@
     
     return highestLevelAchieved;
 }
-
-/*
- // *For each trial
- if(self.trials && self.trials.count) {
- for(Trial *trial in self.trials) {
- // - Was the response correct?
- if([trial.accuracy isEqualToString:@"Correct"]) {
- // - Increment the number of corrects at this level
- [correct incrementNumberAtIndex:trial.listId];
- // - Did you get two corrects at any level?
- NSUInteger lvl = [correct indexOfObjectIdenticalTo:[NSNumber numberWithInt:2]];
- if(lvl != NSNotFound) {
- // - If you got two corrects at any level
- // Set that as the level achieved in this block (overwriting previous values)
- NSLog(@"Block %d: Moving level from %@ to %d for correct array: %@", trial.blockId, blockPerf[trial.blockId], lvl+1, [correct componentsJoinedByString:@","]);
- blockPerf[trial.blockId] = [NSNumber numberWithUnsignedInteger:(lvl+1)];
- // Zero out the correct counts so we can start evaluating again
- [correct zeroOut];
- }
- // - If you did not get two corrects at any level, move along.
- }
- // - If the response was incorrect, move along
- 
- // Did we finish a block?
- BOOL isGameOver = (trial == self.trials.lastObject);
- BOOL isBlockComplete = trial.trial >= MAX_TRIALS_PER_STIMULUS_BLOCK;
- 
- if(isBlockComplete || isGameOver) {
- // We finished a block
- // Zero out the correct counts so we can start evaluating again
- [correct zeroOut];
- 
- // Did we finish a session?
- BOOL isSessionComplete = trial.blockId >= (MAX_STIMULUS_BLOCKS-1);
- if(isSessionComplete || isGameOver) {
- // We finished a session
- // Average the blocks and save the result in the sessions block
- [sessionPerf addObject:[NSNumber numberWithDouble:[blockPerf sum]/(trial.blockId+1)]];
- // Zero out the block performance data so we can start over for a new session
- NSLog(@"Block Perf for Session %d: %@", trial.sessionId, [blockPerf componentsJoinedByString:@","]);
- [blockPerf zeroOut];
- }
- }
- 
- // - If there are more trials in this block, keep evaluating
- }
- }
- 
- NSLog(@"Perf = %@", [sessionPerf componentsJoinedByString:@","]);    */
 
 
 @end

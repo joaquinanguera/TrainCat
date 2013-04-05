@@ -7,7 +7,7 @@
 //
 
 #import "ParticipantDetailViewController.h"
-#import "SessionManager.h"
+#import "NSUserDefaults+Extensions.h"
 #import "constants.h"
 #import "Logger.h"
 
@@ -36,7 +36,7 @@
 	// Do any additional setup after loading the view.
     self.navigationItem.rightBarButtonItem = self.editButtonItem;
     self.pidField.text = [NSString stringWithFormat:@"%04d", self.participant.pid];
-    self.loggedInField.on = [SessionManager isLoggedIn:self.participant.pid];
+    self.loggedInField.on = [[NSUserDefaults standardUserDefaults] isLoggedIn:self.participant.pid];
     [self disableControls];
 }
 

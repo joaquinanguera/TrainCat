@@ -9,8 +9,8 @@
 #import "ParticipantMasterViewController.h"
 #import "AppDelegate.h"
 #import "Participant+Extension.h"
-#import "SessionManager.h"
 #import "constants.h"
+#import "NSUserDefaults+Extensions.h"
 
 @interface ParticipantMasterViewController ()
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
@@ -70,7 +70,7 @@
     } else {
         [self dismissViewControllerAnimated:YES completion:nil];
         if(autoLogin) {
-            [SessionManager login:participant.pid];
+            [[NSUserDefaults standardUserDefaults] login:participant.pid];
         }
         [self.tableView setNeedsDisplay];
     }
@@ -97,9 +97,9 @@
         [message show];
     } else {
         if(autoLogin) {
-            [SessionManager login:participant.pid];
+            [[NSUserDefaults standardUserDefaults] login:participant.pid];
         } else {
-            [SessionManager logout];
+            [[NSUserDefaults standardUserDefaults] logout];
         }
         [self.tableView setNeedsDisplay];
     }
@@ -216,7 +216,7 @@
     [fetchRequest setSortDescriptors:sortDescriptors];
     
     NSNumber *pid = [NSNumber numberWithInt:0];
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"pid>=%@", pid];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"pid>%@", pid];
     [fetchRequest setPredicate:predicate];
     
     // Edit the section name key path and cache name if appropriate.

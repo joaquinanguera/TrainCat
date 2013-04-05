@@ -19,37 +19,20 @@
         file = [[DBFilesystem sharedFilesystem] createFile:newPath error:nil];
     }
     [file writeString:string error:nil];
-    
-    /*
-     
-     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Attempted to write"
-     message:[[NSString alloc] initWithFormat:@"Created file %@ on DropBox.", path]
-     delegate:nil
-     cancelButtonTitle:@"OK"
-     otherButtonTitles:nil];
-     [alert show];
-     [alert release];
-     */
-
     NSLog(@"Created file %@ on DropBox.", path);
 }
 
 +(void)linkWithDelegate:(UIViewController *)controller {
     DBAccountManager *dbm = [DBAccountManager sharedManager];
-    /*
-    [dbm addObserver:nil block:^(DBAccount *account) {
-        NSLog(@"Done");
-        if(account && [account isLinked]) {
-            NSLog(@"Authenticated from within DSDropbox");
-        } else {
-            NSLog(@"NOT Authenticated from within DSDropbox");
-        }
-    }];*/
     [dbm linkFromController:controller];
 }
 
 +(void)unlinkWithDelegate:(UIViewController *)controller {
     [[[DBAccountManager sharedManager] linkedAccount] unlink];
+}
+
++(DBAccountInfo *)accountInfo {
+    return [[[DBAccountManager sharedManager] linkedAccount] info];
 }
 
 @end
