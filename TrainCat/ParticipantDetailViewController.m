@@ -60,15 +60,23 @@
 }
 
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 - (IBAction)didTapSendReport {
     [Logger printProgramForParticipant:self.participant];
     [Logger printSessionLogsForParticipant:self.participant];
     [Logger printBlocksForParticipant:self.participant];
 }
+
+-(void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:NO animated:NO];
+}
+
+-(void)viewWillDisappear:(BOOL)animated {
+    [self.navigationController setNavigationBarHidden:YES animated:NO];
+    [super viewWillDisappear:animated];
+}
+
+
+
+
 @end

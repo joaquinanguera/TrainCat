@@ -21,4 +21,5 @@
 
 @protocol ParticipantDetailViewControllerDelegate
 -(void)participantDetailViewControllerDidSave:(Participant *)participant withAutoLogin:(BOOL)autoLogin;
+-(void)participantDetailViewControllerDidReturn:(Participant *)participant;
 @end

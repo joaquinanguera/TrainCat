@@ -38,12 +38,6 @@
     [self.pidField becomeFirstResponder];
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 - (IBAction)didCancel:(UIBarButtonItem *)sender {
     [self.delegate addParticipantViewControllerDidCancel:self.participant];
 }

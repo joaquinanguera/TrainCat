@@ -22,19 +22,35 @@
 - (void)awakeFromNib
 {
     self.clearsSelectionOnViewWillAppear = NO;
-    self.contentSizeForViewInPopover = CGSizeMake(320.0, 600.0);
     [super awakeFromNib];
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.navigationItem.leftBarButtonItem = self.editButtonItem;
- 
+    //self.navigationItem.leftBarButtonItem = self.editButtonItem;
     // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;    
+    // self.clearsSelectionOnViewWillAppear = NO;
+    NSLog(@"ParticipantMasterViewController Loaded");
     
 }
+
+-(void)viewDidUnload {
+    [super viewDidUnload];
+    NSLog(@"ParticipantMasterViewController unloaded");
+}
+
+-(void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:NO animated:NO];
+}
+
+-(void)viewWillDisappear:(BOOL)animated {
+    [self.navigationController setNavigationBarHidden:YES animated:NO];
+    [super viewWillDisappear:animated];
+}
+
+
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     NSString *identifier = [segue identifier];
@@ -43,9 +59,9 @@
         Participant *newParticipant = [NSEntityDescription
                                        insertNewObjectForEntityForName:[[[self.fetchedResultsController fetchRequest] entity] name]
                                        inManagedObjectContext:self.fetchedResultsController.managedObjectContext];
-        AddParticipantViewController *apvc = (AddParticipantViewController *)[segue destinationViewController];
-        apvc.delegate = self;
+        AddParticipantViewController *apvc = [segue destinationViewController];
         apvc.participant = newParticipant;
+        apvc.delegate = self;
     } else if([identifier isEqualToString:@"viewEditParticipant"]) {
         NSIndexPath *indexPath = self.tableView.indexPathForSelectedRow;
         Participant *participant = [[self fetchedResultsController] objectAtIndexPath:indexPath];
@@ -55,6 +71,8 @@
     }
     
 }
+
+#pragma mark Add Participant View Delegate Methods
 
 -(void)addParticipantViewControllerDidSave:(Participant*)participant withAutoLogin:(BOOL)autoLogin {
     NSError *error = nil;
@@ -77,11 +95,12 @@
 }
 
 -(void)addParticipantViewControllerDidCancel:(Participant *)participant {
-
+    
     [self.fetchedResultsController.managedObjectContext deleteObject:participant];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
+#pragma mark Participant Detail View Delegate Methods
 
 -(void)participantDetailViewControllerDidSave:(Participant *)participant withAutoLogin:(BOOL)autoLogin {
     NSLog(@"Saving participant with pid %d", participant.pid);
@@ -105,11 +124,9 @@
     }
 }
 
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+-(void)participantDetailViewControllerDidReturn:(Participant *)participant {
+    NSLog(@"participantDetailViewControllerDidReturn");
+    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
 }
 
 -(NSManagedObjectContext *)managedObjectContext {
@@ -168,23 +185,6 @@
     
     // Why doesn't this do anything for the add editing style? or the edit? or is that handled elsewhere?
 }
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-    return YES;
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
 
 #pragma mark - Table view delegate
 
