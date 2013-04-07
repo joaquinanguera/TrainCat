@@ -15,6 +15,8 @@
 +(Participant *)clearStateForParticipantWithId:(int)pid;
 
 - (BOOL)validatePid:(id *)ioValue error:(NSError **)outError;
-- (NSArray *)performanceData;
+-(double)completionStat;
+- (NSArray *)performanceStats;
+-(NSString *)completionStatDescription;
 
 @end

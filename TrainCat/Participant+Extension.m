@@ -16,6 +16,7 @@
 #import "Trial.h"
 #import "ArrayUtils.h"
 #import "NSMutableArray+Extension.h"
+#import "NSUserDefaults+Extensions.h"
 
 @implementation Participant (Extension)
 
@@ -113,6 +114,15 @@
     self.program = [NSKeyedArchiver archivedDataWithRootObject:[StimulusProgram create]];
 }
 
+-(void)prepareForDeletion {
+    NSLog(@"Deleting %d", self.pid);
+    [super prepareForDeletion];
+    if([[NSUserDefaults standardUserDefaults] isLoggedIn:self.pid]) {
+        NSLog(@"Logging out %d", self.pid);
+        [[NSUserDefaults standardUserDefaults] logout];
+    }    
+}
+
 - (void)addSessionLogsObject:(SessionLog *)value {
     NSMutableOrderedSet* tempSet = [NSMutableOrderedSet orderedSetWithOrderedSet:self.sessionLogs];
     [tempSet addObject:value];
@@ -125,8 +135,38 @@
     self.sessions = tempSet;
 }
 
--(NSArray *)performanceData {
+-(double)completionStat {
+    double value = 0.0;
     
+    if(self.sessions.count) {
+        value = (self.sessions.count-1) * MAX_STIMULUS_BLOCKS * MAX_TRIALS_PER_STIMULUS_BLOCK;
+        Session *lastSession = self.sessions.lastObject;
+        if(lastSession.blocks.count) {
+            value += (lastSession.blocks.count-1) * MAX_TRIALS_PER_STIMULUS_BLOCK;
+            Block *lastBlock = lastSession.blocks.lastObject;            
+            value += lastBlock.trials.count;
+        }
+    }
+    
+    NSLog(@"completion Stat: sessionsCompleted: %f", value/(MAX_STIMULUS_SESSIONS*MAX_STIMULUS_BLOCKS*MAX_TRIALS_PER_STIMULUS_BLOCK));
+    return value/(MAX_STIMULUS_SESSIONS*MAX_STIMULUS_BLOCKS*MAX_TRIALS_PER_STIMULUS_BLOCK);
+}
+
+-(NSString *)completionStatDescription {
+    NSUInteger sc = self.sessions.count, bc = 0, tc = 0;
+    if(sc) {
+        Session *lastSession = self.sessions.lastObject;
+        if(lastSession.blocks.count) {
+            bc = lastSession.blocks.count;
+            Block *lastBlock = lastSession.blocks.lastObject;
+            tc = lastBlock.trials.count;
+        }
+    }
+    return [NSString stringWithFormat:@"Sessions:%u, Blocks:%u, Trials:%u", sc, bc, tc];
+}
+
+
+-(NSArray *)performanceStats {    
     NSMutableArray *blockPerf = [[NSMutableArray alloc] initWithCapacity:MAX_STIMULUS_BLOCKS];
     [blockPerf ensureCount:MAX_STIMULUS_BLOCKS];
     

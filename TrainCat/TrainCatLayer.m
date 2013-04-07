@@ -35,6 +35,7 @@
 #import "SessionCompleteLayer.h"
 #import "BlockCompleteLayer.h"
 #import "GameOverLayer.h"
+#import "BackgroundLayer.h"
 
 // Utils 
 #import "RangeArray.h"
@@ -43,6 +44,7 @@
 #import "ArrayUtils.h"
 #import "ActionLib.h"
 #import "Logger.h"
+#import "SoundUtils.h"
 
 
 #pragma mark - TrainCatLayer
@@ -55,6 +57,7 @@
 @property (nonatomic, strong) ResponseLayer *response;
 @property (nonatomic, strong) FeedbackLayer *feedback;
 @property (nonatomic, strong) HUDLayer *hud;
+@property (nonatomic, strong) BackgroundLayer *bg;
 
 @property (nonatomic, strong) Participant *participant;
 @property (nonatomic, strong) NSArray *program;
@@ -78,13 +81,13 @@
 @implementation TrainCatLayer
 
 // Helper class method that creates a Scene with the TrainCatLayer as the only child.
-+(CCScene *) sceneWithPracticeSetting:(BOOL)isPractice
++(CCScene *) sceneWithPractice:(BOOL)isPractice
 {
 	// 'scene' is an autorelease object.
 	CCScene *scene = [CCScene node];
 	
 	// 'layer' is an autorelease object.
-	TrainCatLayer *gameLayer = [[TrainCatLayer alloc] initWithPracticeSetting:isPractice];
+	TrainCatLayer *gameLayer = [[TrainCatLayer alloc] initWithPractice:isPractice];
     
 	// add layer as a child to scene
 	[scene addChild: gameLayer];
@@ -95,8 +98,8 @@
 
 
 // on "init" you need to initialize your instance
--(id)initWithPracticeSetting:(BOOL)isPractice {
-	if( (self=[super initWithColor:ccc4(255, 255, 255, 255)]) ) { // ccc4(220, 220, 220, 255)
+-(id)initWithPractice:(BOOL)isPractice {
+	if( (self=[super initWithColor:ccc4(255, 255, 255, 255)]) ) {
         self.isPractice = isPractice;
         
         self.maxTrials = isPractice ? MAX_TRIALS_PER_PRACTICE_BLOCK : MAX_TRIALS_PER_STIMULUS_BLOCK;
@@ -107,6 +110,7 @@
         [self setSubviews];
         
         #ifndef DDEBUG
+        self.bg.visible = YES;
          [self setStartButton];
         #else
          self.aiResponse = [ArrayUtils aiYesNoResponsesWithTrialCount:self.maxTrials expectedAccuracyPercentage:1.0];
@@ -119,7 +123,7 @@
 
 -(id) init
 {
-    return [self initWithPracticeSetting:NO];
+    return [self initWithPractice:NO];
 }
 
 -(void)startSessionLog {
@@ -137,8 +141,12 @@
 -(void)setSubviews {
     // Note: We could do this in the 'sceneWithPracticeSetting' but this layer is useless by itself
     // so we construct the other layers in init.
+    self.bg = [BackgroundLayer node];
+    self.bg.visible = NO;
+    
     self.stim = [StimulusLayer node];
     self.stim.delegate = self;
+    self.stim.visible = NO;
     
     self.response = [ResponseLayer node];
     self.response.delegate = self;
@@ -149,6 +157,8 @@
     self.feedback.visible = NO;
     
     self.hud = [HUDLayer node];
+    
+    [self addChild:self.bg];
     [self addChild:self.stim];
     [self addChild:self.response];
     [self addChild:self.feedback];
@@ -166,6 +176,8 @@
 }
 
 -(void)beginGame {
+    [SoundUtils playInputClick];
+    self.bg.visible = NO;
     CCNode *mnu = [self getChildByTag:START_MENU_TAG];
     [mnu.children.lastObject stopAllActions];
     [self removeChild:mnu cleanup:YES];
@@ -174,6 +186,7 @@
 
 -(void)showStimulus {
     [self.stim clear];
+    self.stim.visible = YES;
     self.morphLabel = self.stimuli[arc4random() % self.stimuli.count];
 #ifndef DDEBUG
     [self.stim showStimulusWithExemplarLeftPath:self.category.exemplarLeft exemplarRightPath:self.category.exemplarRight morphLabel:self.morphLabel];
@@ -186,6 +199,7 @@
 }
 
 -(void)stimulusDidFinish {
+    self.stim.visible = NO;
     [self.response clear];
     self.response.visible = YES;
     [self.response getResponse];
@@ -241,12 +255,19 @@
     
     //NSLog(@"%@", trial);
 #ifndef DDEBUG
+    self.bg.visible = YES;
     [self.feedback clear];
     self.feedback.visible = YES;
     [self.feedback showFeedback:gradeCode];
 #else
     [self updateStimulus];
 #endif
+}
+
+-(void)feedbackDidFinish {
+    self.feedback.visible = NO;
+    self.bg.visible = NO;
+    [self updateStimulus];
 }
 
 -(Trial *)createTrial {
@@ -284,12 +305,6 @@
     [block addTrialsObject:trial];
     return trial;
 }
-
--(void)feedbackDidFinish {
-    self.feedback.visible = NO;
-    [self updateStimulus];
-}
-
 
 -(void)setupStimulus {
     if([self isGameOver]) {
@@ -332,7 +347,7 @@
 #ifdef DDEBUG
             [Logger printBlocksForParticipant:self.participant];
             [Logger printSessionLogsForParticipant:self.participant];
-            NSLog(@"Perf = %@", [[self.participant performanceData] componentsJoinedByString:@","]);
+            NSLog(@"Perf = %@", [[self.participant performanceStats] componentsJoinedByString:@","]);
             //[Participant clearStateForParticipantWithId:[SessionManager loggedIn]];
 #endif
             scene = [GameOverLayer scene]; 

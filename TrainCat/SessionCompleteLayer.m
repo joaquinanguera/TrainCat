@@ -31,7 +31,7 @@
 -(id)init {
     if( (self=[super initWithColor:ccc4(255, 255, 255, 255)]) ) {
         CGSize winSize = [CCDirector sharedDirector].winSize;
-        CCLabelTTF *label = [CCLabelTTF labelWithString:@"Session Complete!" fontName:@"DevanagariSangamMN-Bold" fontSize:64];
+        CCLabelTTF *label = [CCLabelTTF labelWithString:@"Session Complete!" fontName:GAME_TEXT_FONT fontSize:64];
         label.color = ccc3(0, 0, 0);
         label.position = ccp(winSize.width/2.0,winSize.height/2.0);
         [self addChild:label];
@@ -48,7 +48,7 @@
 }
 
 -(void)didTapNewSession {
-    [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:1.0 scene:[TrainCatLayer sceneWithPracticeSetting:NO] withColor:ccWHITE]];
+    [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:1.0 scene:[TrainCatLayer sceneWithPractice:NO] withColor:ccWHITE]];
 }
 
 @end

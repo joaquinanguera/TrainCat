@@ -8,12 +8,14 @@
 
 #import "ResponseLayer.h"
 #import "constants.h"
+#import "SoundUtils.h"
 
 
 @interface ResponseLayer()
 
 @property (nonatomic, strong) id getResponseAction;
 @property (nonatomic, strong) NSDate *startTime;
+@property (nonatomic, assign) BOOL hasResponded;
 
 @end
 
@@ -35,11 +37,6 @@
         CCMenu *rb = [CCMenu menuWithItems:rbItem,nil];        
         rb.position = ccp(winSize.width-rbItem.contentSize.width/2-RESPONSE_LAYER_BUTTON_PADDING, winSize.height/3.0);
         
-        //lb.visible = NO;
-        //rb.visible = NO;
-        /*
-        id moveAction = [CCMoveTo ]
-        id action = [CCEaseElasticOut actionWithAction:move period:0.3f]; */
         self.getResponseAction = [CCSequence actions:
                                   [CCDelayTime actionWithDuration:RESPONSE_DURATION],
                                   [CCCallFunc actionWithTarget:self selector:@selector(didSkipResponse)],
@@ -52,23 +49,32 @@
     return self;
 }
 
--(void)getResponse {
+-(void)getResponse {    
+    self.hasResponded = NO;
     self.startTime = [NSDate date];
     [self runAction:self.getResponseAction];
 }
 
 -(void)didSkipResponse {
-    if(self.delegate) [self.delegate didRespond:ResponseTypeNoResponse responseTime:-[self.startTime timeIntervalSinceNow]];
+    if(!self.hasResponded) {
+        [self stopAllActions];
+        self.hasResponded = YES;
+        if(self.delegate) [self.delegate didRespond:ResponseTypeNoResponse responseTime:-[self.startTime timeIntervalSinceNow]];
+    }
 }
 
 -(void)didRespond:(CCMenuItem *)menuItem {
-    NSTimeInterval rt = -[self.startTime timeIntervalSinceNow];
-    [self stopAllActions];
-    if(self.delegate) [self.delegate didRespond:menuItem.tag responseTime:rt];
+    if(!self.hasResponded) {
+        self.hasResponded = YES;
+        [self stopAllActions];
+        NSTimeInterval rt = -[self.startTime timeIntervalSinceNow];
+        if(self.delegate) [self.delegate didRespond:menuItem.tag responseTime:rt];
+        [SoundUtils playInputClick];
+    }
 }
 
 -(void)clear {
-    // Do nothing
+    self.hasResponded = NO;
 }
 
 @end

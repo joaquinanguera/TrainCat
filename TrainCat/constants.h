@@ -9,8 +9,9 @@
 #ifndef TrainCat_constants_h
 #define TrainCat_constants_h
 
-#define DDEBUG 1
+//#define DDEBUG 1
 #define DEBUG_SIMULATION_WAIT_TIME 2
+#define GAME_TEXT_FONT @"DevanagariSangamMN-Bold"
 
 // Dropbox related constants
 #define DROPBOX_APP_KEY @"ev7wggh9l3s2vy7"
@@ -36,6 +37,7 @@
 #define MAX_TRIALS_PER_PRACTICE_BLOCK 6
 #define MAX_STIMULUS_BLOCKS 6
 #define MAX_STIMULUS_LEVEL 10
+#define MAX_STIMULUS_SESSIONS 10
 
 #define STIMULUS_PADDING 15.0
 #define STIMULUS_BAR_PADDING_TOP 40.0

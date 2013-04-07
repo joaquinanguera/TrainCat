@@ -8,9 +8,9 @@
 
 #import "GameController.h"
 #import "IntroLayer.h"
-#import "DropboxLayer.h"
 #import "DSDropbox.h"
 #import "constants.h"
+#import "BlockCompleteLayer.h"
 
 @interface GameController ()
 
@@ -30,7 +30,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
     CCDirector *director = [CCDirector sharedDirector];
     
     if([director isViewLoaded] == NO)
@@ -69,12 +68,21 @@
     
     // Finish up our view controller containment responsibilities.
     [director didMoveToParentViewController:self];
-    CCScene *scene = ([DSDropbox accountInfo]) ? [IntroLayer scene] : [DropboxLayer scene];
     // Run whatever scene we'd like to run here.
     if(director.runningScene)
-        [director replaceScene:scene];
+        [director replaceScene:[BlockCompleteLayer scene]];
     else
-        [director runWithScene:scene];
+        [director runWithScene:[BlockCompleteLayer scene]];
+}
+
+-(void)viewWillAppear:(BOOL)animated {
+    [self.navigationController setNavigationBarHidden:YES animated:NO];
+    CCScene *scene = [CCDirector sharedDirector].runningScene;
+    for(CCNode *child in scene.children) {
+        if([child respondsToSelector:@selector(viewWillAppear)]) {
+            [child performSelector:@selector(viewWillAppear)];
+        }
+    }
 }
 
 - (void)viewDidUnload

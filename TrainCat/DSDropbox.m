@@ -23,8 +23,7 @@
 }
 
 +(void)linkWithDelegate:(UIViewController *)controller {
-    DBAccountManager *dbm = [DBAccountManager sharedManager];
-    [dbm linkFromController:controller];
+    [[DBAccountManager sharedManager] linkFromController:controller.navigationController.viewControllers[0]];
 }
 
 +(void)unlinkWithDelegate:(UIViewController *)controller {

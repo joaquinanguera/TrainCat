@@ -17,7 +17,7 @@
 }
 
 // returns a CCScene that contains the TrainCatLayer as the only child
-+(CCScene *) sceneWithPracticeSetting:(BOOL)isPractice;
++(CCScene *) sceneWithPractice:(BOOL)isPractice;
 
 
 @end

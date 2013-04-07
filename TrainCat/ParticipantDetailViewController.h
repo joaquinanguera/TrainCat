@@ -9,17 +9,14 @@
 #import <UIKit/UIKit.h>
 #import "Participant+Extension.h"
 
-@protocol ParticipantDetailViewControllerDelegate;
+@protocol ParticipantDetailViewControllerDelegate
+-(void)didLoginNewUserWithId:(NSInteger)pid previousPid:(NSInteger)previousPid;
+@end
 
-@interface ParticipantDetailViewController : UIViewController
+@interface ParticipantDetailViewController : UIViewController 
 
 @property (nonatomic, strong) Participant *participant;
 @property (nonatomic, weak) id <ParticipantDetailViewControllerDelegate> delegate;
 
 @end
 
-
-@protocol ParticipantDetailViewControllerDelegate
--(void)participantDetailViewControllerDidSave:(Participant *)participant withAutoLogin:(BOOL)autoLogin;
--(void)participantDetailViewControllerDidReturn:(Participant *)participant;
-@end

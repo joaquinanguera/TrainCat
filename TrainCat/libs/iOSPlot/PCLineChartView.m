@@ -33,6 +33,8 @@
 
 #import "PCLineChartView.h"
 
+#define kPCLineCharViewLabelColor 0.f, 0.f, 0.f, 1.f
+
 @implementation PCLineChartViewComponent
 
 - (id)init
@@ -61,8 +63,8 @@
 		_minValue = 0;
 		_yLabelFont = [UIFont boldSystemFontOfSize:14];
 		_xLabelFont = [UIFont boldSystemFontOfSize:12];
-		_valueLabelFont = [UIFont boldSystemFontOfSize:10];
-		_legendFont = [UIFont boldSystemFontOfSize:10];
+		_valueLabelFont = [UIFont boldSystemFontOfSize:14];
+		_legendFont = [UIFont boldSystemFontOfSize:14];
         _numYIntervals = 5;
         _numXIntervals = 1;
 		
@@ -74,7 +76,8 @@
 {    
     CGContextRef ctx = UIGraphicsGetCurrentContext();
     UIGraphicsPushContext(ctx);
-    CGContextSetRGBFillColor(ctx, 0.2f, 0.2f, 0.2f, 1.0f);
+    //CGContextSetRGBFillColor(ctx, 0.2f, 0.2f, 0.2f, 1.0f);
+    CGContextSetRGBFillColor(ctx, kPCLineCharViewLabelColor);
     
     int n_div;
     int power;
@@ -98,6 +101,7 @@
     n_div = (scale_max-scale_min)/self.interval + 1;
     div_height = (self.frame.size.height-top_margin-bottom_margin-x_label_height)/(n_div-1);
     
+    
     for (int i=0; i<n_div; i++)
     {
         float y_axis = scale_max - i*self.interval;
@@ -119,12 +123,13 @@
 		// These are "grid" lines
         CGContextSetLineWidth(ctx, 1);
         CGContextSetRGBStrokeColor(ctx, 0.4f, 0.4f, 0.4f, 0.1f);
+        //CGContextSetRGBStrokeColor(ctx, kPCLineCharViewLabelColor);
         CGContextMoveToPoint(ctx, 30, y);
         CGContextAddLineToPoint(ctx, self.frame.size.width-30, y);
         CGContextStrokePath(ctx);
     }
     
-    float margin = 45;
+    float margin = 100; // Modified by Alankar Misra
     float div_width;
     if ([self.xLabels count] == 1)
     {
@@ -135,6 +140,7 @@
         div_width = (self.frame.size.width-2*margin)/([self.xLabels count]-1);
     }
     
+    CGContextSetRGBFillColor(ctx, kPCLineCharViewLabelColor);
     for (NSUInteger i=0; i<[self.xLabels count]; i++)
     {
         if (i % self.numXIntervals == 1 || self.numXIntervals==1) {
@@ -149,8 +155,8 @@
 
     }
     
-	CGColorRef shadowColor = [[UIColor lightGrayColor] CGColor];
-    CGContextSetShadowWithColor(ctx, CGSizeMake(0,-1), 1, shadowColor);
+	//CGColorRef shadowColor = [[UIColor lightGrayColor] CGColor];
+    //CGContextSetShadowWithColor(ctx, CGSizeMake(0,-1), 1, shadowColor);
 	
     NSMutableArray *legends = [NSMutableArray array];
     
@@ -237,12 +243,14 @@
                 int x = margin + div_width*i;
                 int y = top_margin + (scale_max-value)/self.interval*div_height;
                 int y1 = y - circle_diameter/2 - self.valueLabelFont.pointSize;
+                y1 -= 3; // Added by Alankar Misra
                 int y2 = y + circle_diameter/2;
                 
 				if ([[self.components objectAtIndex:j] shouldLabelValues]) {
 					if (y1 > y_level)
 					{
-						CGContextSetRGBFillColor(ctx, 0.0f, 0.0f, 0.0f, 1.0f);
+						//CGContextSetRGBFillColor(ctx, 0.0f, 0.0f, 0.0f, 1.0f);
+                        CGContextSetRGBFillColor(ctx, kPCLineCharViewLabelColor);
 						NSString *perc_label = [NSString stringWithFormat:[[self.components objectAtIndex:j] labelFormat], value];
 						CGRect textFrame = CGRectMake(x-25,y1, 50,20);
 						[perc_label drawInRect:textFrame 
@@ -253,7 +261,8 @@
 					}
 					else if (y2 < y_level+20 && y2 < self.frame.size.height-top_margin-bottom_margin)
 					{
-						CGContextSetRGBFillColor(ctx, 0.0f, 0.0f, 0.0f, 1.0f);
+						//CGContextSetRGBFillColor(ctx, 0.0f, 0.0f, 0.0f, 1.0f);
+                        CGContextSetRGBFillColor(ctx, kPCLineCharViewLabelColor);
 						NSString *perc_label = [NSString stringWithFormat:[[self.components objectAtIndex:j] labelFormat], value];
 						CGRect textFrame = CGRectMake(x-25,y2, 50,20);
 						[perc_label drawInRect:textFrame 
@@ -264,7 +273,8 @@
 					}
 					else
 					{
-						CGContextSetRGBFillColor(ctx, 0.0f, 0.0f, 0.0f, 1.0f);
+						//CGContextSetRGBFillColor(ctx, 0.0f, 0.0f, 0.0f, 1.0f);
+                        CGContextSetRGBFillColor(ctx, kPCLineCharViewLabelColor);
 						NSString *perc_label = [NSString stringWithFormat:[[self.components objectAtIndex:j] labelFormat], value];
 						CGRect textFrame = CGRectMake(x-50,y-10, 50,20);
 						[perc_label drawInRect:textFrame 
@@ -288,7 +298,8 @@
     for (NSMutableDictionary *legend in legends)
     {
 		UIColor *colour = [legend objectForKey:@"colour"];
-		CGContextSetFillColorWithColor(ctx, [colour CGColor]);
+		// CGContextSetFillColorWithColor(ctx, [colour CGColor]);
+        CGContextSetFillColorWithColor(ctx, [[UIColor blackColor] CGColor]);
 		
         NSString *title = [legend objectForKey:@"title"];
         float x = [[legend objectForKey:@"x"] floatValue];

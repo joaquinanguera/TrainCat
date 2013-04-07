@@ -79,13 +79,13 @@
     return self;
 }
 
-#define LABEL_TOP_MARGIN 15
+#define LABEL_TOP_MARGIN 0
 #define ARROW_HEAD_LENGTH 6
 #define ARROW_HEAD_WIDTH 4
 
 - (void)drawRect:(CGRect)rect
 {
-    float margin = 15;
+    float margin = 0;
     if (self.diameter==0)
     {
         self.diameter = MIN(rect.size.width, rect.size.height) - 2*margin;
@@ -112,12 +112,15 @@
         }
         
         CGContextRef ctx = UIGraphicsGetCurrentContext();
+        /*
+         // Commented out by Alankar Misra
 		UIGraphicsPushContext(ctx);
 		CGContextSetRGBFillColor(ctx, 1.0f, 1.0f, 1.0f, 1.0f);  // white color
-		// CGContextSetShadow(ctx, CGSizeMake(0.0f, 0.0f), margin);
+		//CGContextSetShadow(ctx, CGSizeMake(0.0f, 0.0f), margin);
 		CGContextFillEllipseInRect(ctx, CGRectMake(x, y, self.diameter, self.diameter));  // a white filled circle with a diameter of 100 pixels, centered in (60, 60)
 		UIGraphicsPopContext();
 		// CGContextSetShadow(ctx, CGSizeMake(0.0f, 0.0f), 0);
+         */
 		
 		float nextStartDeg = 0;
 		float endDeg = 0;
@@ -135,13 +138,16 @@
 			CGContextClosePath(ctx);
 			CGContextFillPath(ctx);
 			
+            /*
+             // Commented out by Alankar Misra
 			CGContextSetRGBStrokeColor(ctx, 1, 1, 1, 1);
 			CGContextSetLineWidth(ctx, gap);
 			CGContextMoveToPoint(ctx, origin_x, origin_y);
 			CGContextAddArc(ctx, origin_x, origin_y, inner_radius, (nextStartDeg-90)*M_PI/180.0, (endDeg-90)*M_PI/180.0, 0);
 			CGContextClosePath(ctx);
 			CGContextStrokePath(ctx);
-			
+			*/
+            
 			[component setStartDeg:nextStartDeg];
 			[component setEndDeg:endDeg];
 			if (nextStartDeg<180)
@@ -312,7 +318,9 @@
 					
 				}
 				// display title on the left
-				CGContextSetRGBFillColor(ctx, 0.4f, 0.4f, 0.4f, 1.0f);
+				//CGContextSetRGBFillColor(ctx, 0.4f, 0.4f, 0.4f, 1.0f);
+                //CGContextSetRGBFillColor(ctx, 1.0f, 1.0f, 1.0f, 1.0f);
+                CGContextSetRGBFillColor(ctx, 0.f, 0.f, 0.f, 1.0f);
 				left_label_y += optimumSize.height - 4;
 				optimumSize = [component.title sizeWithFont:self.titleFont constrainedToSize:CGSizeMake(max_text_width,100)];
 				CGRect titleFrame = CGRectMake(5, left_label_y, max_text_width, optimumSize.height);
@@ -446,7 +454,8 @@
 				}
 				
 				// display title on the left
-				CGContextSetRGBFillColor(ctx, 0.4f, 0.4f, 0.4f, 1.0f);
+				//CGContextSetRGBFillColor(ctx, 0.4f, 0.4f, 0.4f, 1.0f);
+                CGContextSetRGBFillColor(ctx, 0.f, 0.f, 0.f, 1.0f);
 				right_label_y += optimumSize.height - 4;
 				optimumSize = [component.title sizeWithFont:self.titleFont constrainedToSize:CGSizeMake(max_text_width,100)];
 				CGRect titleFrame = CGRectMake(text_x, right_label_y, optimumSize.width, optimumSize.height);

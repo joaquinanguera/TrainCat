@@ -11,7 +11,7 @@
 
 @implementation NSUserDefaults (Extensions)
 
--(void)login:(int32_t)pid {
+-(void)login:(NSInteger)pid {
     [self setInteger:pid forKey:DEFAULT_LOGGED_IN_PARTICIPANT_KEY];
     [self synchronize];
 }
@@ -21,11 +21,11 @@
     [self synchronize];
 }
 
--(BOOL)isLoggedIn:(int32_t)pid {
+-(BOOL)isLoggedIn:(NSInteger)pid {
     return self.loggedIn == pid;
 }
 
--(int32_t)loggedIn {
+-(NSInteger)loggedIn {
     return [self integerForKey:DEFAULT_LOGGED_IN_PARTICIPANT_KEY];
 }
 

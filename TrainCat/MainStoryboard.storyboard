@@ -42,9 +42,9 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4By-9f-Zr4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3060" y="241"/>
+            <point key="canvasLocation" x="2692" y="-375"/>
         </scene>
-        <!--Settings Auth View Controller-->
+        <!--Settings Auth View Controller - Login-->
         <scene sceneID="gv4-oE-A7C">
             <objects>
                 <viewController id="ZbC-dz-GML" customClass="SettingsAuthViewController" sceneMemberID="viewController">
@@ -56,11 +56,10 @@
                                 <rect key="frame" x="0.0" y="0.0" width="1024" height="748"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             </imageView>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Etch thy secret word beneath" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="JPB-ok-0AF">
-                                <rect key="frame" x="392" y="270" width="238" height="21"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Etch thy secret word beneath" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="JPB-ok-0AF">
+                                <rect key="frame" x="369" y="273" width="286" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Beware the shoulder surfer" minimumFontSize="17" id="2Rq-Ee-hdY">
@@ -90,20 +89,22 @@
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     </view>
-                    <navigationItem key="navigationItem" id="vHJ-zX-SEd"/>
+                    <navigationItem key="navigationItem" title="Login" id="vHJ-zX-SEd">
+                        <barButtonItem key="backBarButtonItem" title="Game" id="cUq-A4-G8h"/>
+                    </navigationItem>
                     <connections>
                         <outlet property="passwordField" destination="2Rq-Ee-hdY" id="j6j-zt-aSw"/>
-                        <segue destination="wyX-o7-Wea" kind="push" identifier="segueToSettings" id="aBG-50-YB9"/>
+                        <segue destination="387-C9-jEq" kind="push" identifier="segueToSettings" id="neY-r8-Xxv"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lc3-iU-O7Y" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4148" y="-1053"/>
+            <point key="canvasLocation" x="3976" y="-381"/>
         </scene>
         <!--Participant Master View Controller - Participants-->
         <scene sceneID="V7R-cP-Ak8">
             <objects>
-                <tableViewController storyboardIdentifier="v" title="Participants" id="wyX-o7-Wea" customClass="ParticipantMasterViewController" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="" title="Participants" id="wyX-o7-Wea" customClass="ParticipantMasterViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="nc5-se-oMj">
                         <rect key="frame" x="0.0" y="64" width="1024" height="704"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -138,7 +139,6 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Participants" id="YDo-7d-9Y0">
-                        <barButtonItem key="backBarButtonItem" title="Settings" id="Zw6-TT-yEc"/>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="cdr-78-cMD">
                             <connections>
                                 <segue destination="qFg-rS-kGC" kind="modal" identifier="addParticipant" modalPresentationStyle="currentContext" id="u9B-fd-3x1"/>
@@ -152,28 +152,80 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="E6S-vc-laB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5560" y="-1178"/>
+            <point key="canvasLocation" x="6724" y="-1105"/>
+        </scene>
+        <!--Settings Menu View Controller - Settings-->
+        <scene sceneID="DXF-xL-1Hu">
+            <objects>
+                <viewController id="387-C9-jEq" customClass="SettingsMenuViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Ezb-Nv-Qma">
+                        <rect key="frame" x="0.0" y="20" width="1024" height="748"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="background.png" id="Nt8-nW-awS">
+                                <rect key="frame" x="0.0" y="0.0" width="1024" height="748"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="yQY-B5-qAF">
+                                <rect key="frame" x="411" y="297" width="202" height="73"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" image="buttonParticipantsNormal.png">
+                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="selected" image="buttonParticipantsSelected.png"/>
+                                <state key="highlighted" image="buttonParticipantsSelected.png">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="wyX-o7-Wea" kind="push" id="7ti-QU-kYH"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="cgF-A8-3VZ">
+                                <rect key="frame" x="411" y="392" width="202" height="73"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" title="Button" image="buttonDropboxNormal.png">
+                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="selected" image="buttonDropboxSelected.png"/>
+                                <state key="highlighted" image="buttonDropboxSelected.png">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="fSR-i8-qJO" kind="push" id="cYz-zQ-9OK"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Settings" id="fPZ-eZ-r0k"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Sij-fz-yVd" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5205" y="-381"/>
         </scene>
         <!--Add Participant View Controller - Participant-->
         <scene sceneID="htR-A3-jJN">
             <objects>
                 <viewController title="Participant" id="qFg-rS-kGC" customClass="AddParticipantViewController" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="SuK-8J-NYn">
+                    <view key="view" contentMode="scaleToFill" id="SuK-8J-NYn" customClass="ViewWithToast">
                         <rect key="frame" x="0.0" y="20" width="1024" height="748"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Participant ID" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Xt2-1N-6LZ">
-                                <rect key="frame" x="166" y="92" width="147" height="21"/>
+                                <rect key="frame" x="355" y="91" width="147" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Logged In" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ZBV-Fl-Kc9">
-                                <rect key="frame" x="302" y="134" width="82" height="21"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Logged in" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ZBV-Fl-Kc9">
+                                <rect key="frame" x="420" y="134" width="82" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Participant ID" minimumFontSize="17" id="Tlk-tr-DSG" customClass="NumericTextField">
@@ -183,7 +235,7 @@
                                 <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                             </textField>
                             <switch opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" id="Z4X-aG-aNI">
-                                <rect key="frame" x="497" y="133" width="79" height="27"/>
+                                <rect key="frame" x="510" y="134" width="79" height="27"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </switch>
                             <navigationBar contentMode="scaleToFill" barStyle="blackOpaque" id="J7N-aN-IzI">
@@ -204,8 +256,12 @@
                                     </navigationItem>
                                 </items>
                             </navigationBar>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="logoTrainCat.png" id="7RG-zs-zDa">
+                                <rect key="frame" x="399" y="551" width="227" height="198"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            </imageView>
                         </subviews>
-                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.49803921568627452" green="0.78431372549019607" blue="0.78431372549019607" alpha="1" colorSpace="calibratedRGB"/>
                         <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     </view>
                     <connections>
@@ -215,7 +271,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="orH-NF-nhs" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="7655" y="-1922"/>
+            <point key="canvasLocation" x="8144" y="-1926"/>
         </scene>
         <!--Participant Detail View Controller - Participant-->
         <scene sceneID="MId-eK-nzI">
@@ -223,56 +279,80 @@
                 <viewController autoresizesArchivedViewToFullSize="NO" title="Participant" modalPresentationStyle="currentContext" id="iJv-dQ-ywI" customClass="ParticipantDetailViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="aIe-78-i59">
                         <rect key="frame" x="0.0" y="64" width="1024" height="704"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" id="xdB-eg-mfF">
-                                <rect key="frame" x="393" y="110" width="258" height="105"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <subviews>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="5kO-61-zBf" customClass="NumericTextField">
-                                        <rect key="frame" x="138" y="16" width="100" height="30"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                        <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
-                                    </textField>
-                                    <switch opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" id="2Gb-FA-dco">
-                                        <rect key="frame" x="138" y="64" width="79" height="27"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    </switch>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Participant ID" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="mW9-q3-dxP">
-                                        <rect key="frame" x="20" y="20" width="110" height="21"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Logged in?" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="UjW-WI-1wR">
-                                        <rect key="frame" x="38" y="64" width="92" height="21"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                            </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="SfM-Y3-scD">
-                                <rect key="frame" x="414" y="266" width="197" height="45"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <rect key="frame" x="664" y="410" width="202" height="73"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                <state key="normal" title="Button" image="buttonSendReportNormal.png">
+                                <state key="normal" image="buttonSendStatsNormal.png">
                                     <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
-                                <state key="highlighted">
+                                <state key="selected" image="buttonSendStatsSelected.png"/>
+                                <state key="highlighted" image="buttonSendStatsSelected.png">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
                                     <action selector="didTapSendReport" destination="iJv-dQ-ywI" eventType="touchUpInside" id="7DP-RU-Fev"/>
                                 </connections>
                             </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="logoTrainCat.png" id="BNu-Tw-dys">
+                                <rect key="frame" x="399" y="506" width="227" height="198"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="zdf-lQ-2Vi">
+                                <rect key="frame" x="157" y="409" width="202" height="74"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" title="Button" image="buttonLoginParticipantNormal.png">
+                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="selected" image="buttonLoginParticipantSelected.png"/>
+                                <state key="highlighted" image="buttonLoginParticipantSelected.png">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="didToggleLoginStatus:" destination="iJv-dQ-ywI" eventType="touchUpInside" id="dUx-un-Ku3"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="LeN-T4-NYt">
+                                <rect key="frame" x="157" y="409" width="202" height="74"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" title="Button" image="buttonLogoutParticipantNormal.png">
+                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="selected" image="buttonLogoutParticipantSelected.png"/>
+                                <state key="highlighted" image="buttonLogoutParticipantSelected.png">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="didToggleLoginStatus:" destination="iJv-dQ-ywI" eventType="touchUpInside" id="nFm-Vb-mln"/>
+                                </connections>
+                            </button>
+                            <view contentMode="scaleToFill" id="nDq-fR-mK8" customClass="ParticipantCompletionStatChartView">
+                                <rect key="frame" x="10" y="49" width="497" height="352"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                            <view contentMode="scaleToFill" id="DO2-C7-qwA" customClass="ParticipantPerformanceStatsChartView">
+                                <rect key="frame" x="517" y="49" width="497" height="352"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                            </view>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Sessions:10, Blocks:6, Trials:32" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="g1L-GX-PvE">
+                                <rect key="frame" x="348" y="0.0" width="315" height="34"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.11764705882352941" green="0.36862745098039218" blue="0.47843137254901957" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
-                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.49803921568627452" green="0.78431372549019607" blue="0.78431372549019607" alpha="1" colorSpace="calibratedRGB"/>
                         <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     </view>
                     <toolbarItems/>
@@ -282,114 +362,84 @@
                     <value key="contentSizeForViewInPopover" type="size" width="235" height="105"/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <connections>
-                        <outlet property="loggedInField" destination="2Gb-FA-dco" id="He7-Ga-kMr"/>
-                        <outlet property="pidField" destination="5kO-61-zBf" id="td6-Yz-CSk"/>
+                        <outlet property="lineChart" destination="DO2-C7-qwA" id="aDh-c2-ieT"/>
+                        <outlet property="loginButton" destination="zdf-lQ-2Vi" id="KYa-SK-9zc"/>
+                        <outlet property="logoutButton" destination="LeN-T4-NYt" id="T1g-Lk-ozc"/>
+                        <outlet property="pieChart" destination="nDq-fR-mK8" id="Lzy-Bu-0G5"/>
+                        <outlet property="progressLabel" destination="g1L-GX-PvE" id="oJb-xZ-lV0"/>
+                        <outlet property="statsButton" destination="SfM-Y3-scD" id="6WB-Lr-zcc"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4ap-Y5-pDi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="7612" y="-703"/>
+            <point key="canvasLocation" x="8144" y="-487"/>
         </scene>
-        <!--Dropbox View Controller - Dropbox-->
+        <!--Dropbox Settings View Controller - Dropbox-->
         <scene sceneID="Ekv-AL-5JT">
             <objects>
-                <viewController id="fSR-i8-qJO" customClass="DropboxViewController" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="Dpu-rb-ySf">
-                        <rect key="frame" x="0.0" y="20" width="768" height="1004"/>
+                <viewController title="Dropbox" id="fSR-i8-qJO" customClass="DropboxSettingsViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Dpu-rb-ySf" customClass="ViewWithToast">
+                        <rect key="frame" x="0.0" y="20" width="1024" height="748"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="iYY-mo-4P7">
-                                <rect key="frame" x="333" y="325" width="101" height="44"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="background.png" id="sJA-VA-evZ">
+                                <rect key="frame" x="0.0" y="0.0" width="1024" height="748"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="iYY-mo-4P7">
+                                <rect key="frame" x="411" y="405" width="202" height="73"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                <state key="normal" title="Link">
+                                <state key="normal" image="buttonChangeNormal.png">
                                     <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
-                                <state key="highlighted">
+                                <state key="selected" image="buttonChangeSelected.png"/>
+                                <state key="highlighted" image="buttonChangeSelected.png">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="didClickAuthorize:" destination="fSR-i8-qJO" eventType="touchUpInside" id="owU-DA-A0c"/>
+                                    <action selector="didAskToAuthenticate" destination="fSR-i8-qJO" eventType="touchUpInside" id="O5y-SS-xej"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="MBN-Ap-hYZ">
-                                <rect key="frame" x="333" y="412" width="101" height="44"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="cAT-h4-pVR">
+                                <rect key="frame" x="411" y="405" width="202" height="73"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                <state key="normal" title="Unlink">
+                                <state key="normal" image="buttonRetryNormal.png">
                                     <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
-                                <state key="highlighted">
+                                <state key="selected" image="buttonRetrySelected.png"/>
+                                <state key="highlighted" image="buttonRetrySelected.png">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="didClickUnlink:" destination="fSR-i8-qJO" eventType="touchUpInside" id="81e-g0-ZfL"/>
+                                    <action selector="didAskToAuthenticate" destination="fSR-i8-qJO" eventType="touchUpInside" id="7pC-uu-YSu"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Loading..." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ptc-R7-4U0">
+                                <rect key="frame" x="230" y="296" width="565" height="75"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Dropbox" id="pgD-B8-7Ym"/>
-                    <navigationItem key="navigationItem" id="glq-d3-Bxt"/>
+                    <navigationItem key="navigationItem" title="DropBox" id="glq-d3-Bxt"/>
+                    <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
+                    <connections>
+                        <outlet property="btnChange" destination="iYY-mo-4P7" id="HJZ-a1-w8i"/>
+                        <outlet property="btnRetry" destination="cAT-h4-pVR" id="Tfk-Fo-IFh"/>
+                        <outlet property="label" destination="ptc-R7-4U0" id="Auy-8i-QhP"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Tlx-K5-nw9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6673" y="8"/>
-        </scene>
-        <!--Info View Controller - System Information-->
-        <scene sceneID="Lxh-fa-dCU">
-            <objects>
-                <viewController id="gWt-h7-1WQ" customClass="InfoViewController" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="1yF-po-7fN">
-                        <rect key="frame" x="0.0" y="20" width="768" height="1004"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Currently Logged In" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="RmZ-Eo-qte">
-                                <rect key="frame" x="286" y="168" width="196" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Dropbox Authenticated?" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="GcS-1k-jbK">
-                                <rect key="frame" x="286" y="258" width="196" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="[currentPid]" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ybT-HB-aoE">
-                                <rect key="frame" x="292" y="197" width="184" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="[dropboxAuthenticated]" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="tAL-Wb-XeB">
-                                <rect key="frame" x="287" y="287" width="193" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" image="System_Preferences_icon.png" id="yYs-Gp-5hH">
-                                <rect key="frame" x="264" y="20" width="240" height="128"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                    </view>
-                    <tabBarItem key="tabBarItem" title="System Information" id="Doz-r4-Ogy"/>
-                    <connections>
-                        <outlet property="lblCurrentPid" destination="ybT-HB-aoE" id="5kP-hh-TFE"/>
-                        <outlet property="lblDropboxAuthenticated" destination="tAL-Wb-XeB" id="m9F-lr-BzD"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="NDR-lw-Usf" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="6746" y="-2850"/>
+            <point key="canvasLocation" x="6705" y="492"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="DCH-4G-1dY">
@@ -405,7 +455,7 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="004-aV-FOj" kind="relationship" relationship="rootViewController" id="bwJ-uH-bjg"/>
+                        <segue destination="004-aV-FOj" kind="relationship" relationship="rootViewController" id="9tx-u4-m7X"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rZV-iq-ieO" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -414,11 +464,24 @@
         </scene>
     </scenes>
     <resources>
-        <image name="System_Preferences_icon.png" width="512" height="512"/>
         <image name="background.png" width="1024" height="768"/>
+        <image name="buttonChangeNormal.png" width="210" height="80"/>
+        <image name="buttonChangeSelected.png" width="210" height="80"/>
+        <image name="buttonDropboxNormal.png" width="210" height="80"/>
+        <image name="buttonDropboxSelected.png" width="210" height="80"/>
         <image name="buttonLoginNormal.png" width="210" height="80"/>
+        <image name="buttonLoginParticipantNormal.png" width="210" height="80"/>
+        <image name="buttonLoginParticipantSelected.png" width="210" height="80"/>
         <image name="buttonLoginSelected.png" width="210" height="80"/>
-        <image name="buttonSendReportNormal.png" width="341" height="79"/>
+        <image name="buttonLogoutParticipantNormal.png" width="210" height="80"/>
+        <image name="buttonLogoutParticipantSelected.png" width="210" height="80"/>
+        <image name="buttonParticipantsNormal.png" width="210" height="80"/>
+        <image name="buttonParticipantsSelected.png" width="210" height="80"/>
+        <image name="buttonRetryNormal.png" width="210" height="80"/>
+        <image name="buttonRetrySelected.png" width="210" height="80"/>
+        <image name="buttonSendStatsNormal.png" width="210" height="80"/>
+        <image name="buttonSendStatsSelected.png" width="210" height="80"/>
+        <image name="logoTrainCat.png" width="228" height="198"/>
     </resources>
     <classes>
         <class className="AddParticipantViewController" superclassName="UIViewController">
@@ -430,15 +493,16 @@
                 <relationship kind="outlet" name="pidField" candidateClass="UITextField"/>
             </relationships>
         </class>
+        <class className="DropboxSettingsViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/DropboxSettingsViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="btnChange" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="btnRetry" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="label" candidateClass="UILabel"/>
+            </relationships>
+        </class>
         <class className="GameController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/GameController.h"/>
-        </class>
-        <class className="InfoViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/InfoViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="lblCurrentPid" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="lblDropboxAuthenticated" candidateClass="UILabel"/>
-            </relationships>
         </class>
         <class className="NumericTextField" superclassName="UITextField">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/NumericTextField.h"/>
@@ -446,12 +510,20 @@
         <class className="OpeningScreenViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/OpeningScreenViewController.h"/>
         </class>
+        <class className="ParticipantCompletionStatChartView" superclassName="UIView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ParticipantCompletionStatChartView.h"/>
+        </class>
         <class className="ParticipantDetailViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/ParticipantDetailViewController.h"/>
             <relationships>
                 <relationship kind="action" name="didTapSendReport"/>
-                <relationship kind="outlet" name="loggedInField" candidateClass="UISwitch"/>
-                <relationship kind="outlet" name="pidField" candidateClass="UITextField"/>
+                <relationship kind="action" name="didToggleLoginStatus:" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="lineChart" candidateClass="ParticipantPerformanceStatsChartView"/>
+                <relationship kind="outlet" name="loginButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="logoutButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="pieChart" candidateClass="ParticipantCompletionStatChartView"/>
+                <relationship kind="outlet" name="progressLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="statsButton" candidateClass="UIButton"/>
             </relationships>
         </class>
         <class className="ParticipantMasterViewController" superclassName="UITableViewController">
@@ -460,12 +532,18 @@
                 <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
             </relationships>
         </class>
+        <class className="ParticipantPerformanceStatsChartView" superclassName="UIView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ParticipantPerformanceStatsChartView.h"/>
+        </class>
         <class className="SettingsAuthViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/SettingsAuthViewController.h"/>
             <relationships>
                 <relationship kind="action" name="didTapLogin"/>
                 <relationship kind="outlet" name="passwordField" candidateClass="UITextField"/>
             </relationships>
+        </class>
+        <class className="SettingsMenuViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SettingsMenuViewController.h"/>
         </class>
         <class className="ViewWithToast" superclassName="UIView">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/ViewWithToast.h"/>

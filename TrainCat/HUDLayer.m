@@ -7,6 +7,7 @@
 //
 
 #import "HUDLayer.h"
+#import "constants.h"
 
 @interface HUDLayer()
 
@@ -22,7 +23,7 @@
 {
     if(self = [super init]) {
         CGSize winSize = [CCDirector sharedDirector].winSize;
-        self.label = [CCLabelTTF labelWithString:@"" fontName:@"DevanagariSangamMN-Bold" fontSize:18];
+        self.label = [CCLabelTTF labelWithString:@"" fontName:GAME_TEXT_FONT fontSize:18];
         self.label.color = ccc3(0, 0, 0);
         self.label.position = ccp(self.label.contentSize.width/2.0 + PADDING, winSize.height - self.label.contentSize.height/2 - PADDING );
         [self addChild:self.label];

@@ -11,10 +11,10 @@
 @interface NSUserDefaults (Extensions)
 
 // Participant related functions
--(int32_t)loggedIn;
--(void)login:(int32_t)pid;
+-(NSInteger)loggedIn;
+-(void)login:(NSInteger)pid;
 -(void)logout;
--(BOOL)isLoggedIn:(int32_t)pid;
+-(BOOL)isLoggedIn:(NSInteger)pid;
 -(void)setSound:(BOOL)state;
 -(BOOL)sound;
 -(NSString *)settingsPassword;

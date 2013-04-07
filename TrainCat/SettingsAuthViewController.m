@@ -30,6 +30,11 @@
     ((ViewWithToast *)self.view).toastBackgroundColor = [UIColor redColor];
 }
 
+-(void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
+}
+
 -(void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     [self.passwordField setRightViewMode:UITextFieldViewModeNever];

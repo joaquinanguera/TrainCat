@@ -7,6 +7,7 @@
 //
 
 #import "ParticipantMasterViewController.h"
+#import "ParticipantDetailViewController.h"
 #import "AppDelegate.h"
 #import "Participant+Extension.h"
 #import "constants.h"
@@ -14,7 +15,6 @@
 
 @interface ParticipantMasterViewController ()
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
-
 @end
 
 @implementation ParticipantMasterViewController
@@ -24,33 +24,6 @@
     self.clearsSelectionOnViewWillAppear = NO;
     [super awakeFromNib];
 }
-
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-    //self.navigationItem.leftBarButtonItem = self.editButtonItem;
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-    NSLog(@"ParticipantMasterViewController Loaded");
-    
-}
-
--(void)viewDidUnload {
-    [super viewDidUnload];
-    NSLog(@"ParticipantMasterViewController unloaded");
-}
-
--(void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    [self.navigationController setNavigationBarHidden:NO animated:NO];
-}
-
--(void)viewWillDisappear:(BOOL)animated {
-    [self.navigationController setNavigationBarHidden:YES animated:NO];
-    [super viewWillDisappear:animated];
-}
-
-
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     NSString *identifier = [segue identifier];
@@ -74,59 +47,27 @@
 
 #pragma mark Add Participant View Delegate Methods
 
--(void)addParticipantViewControllerDidSave:(Participant*)participant withAutoLogin:(BOOL)autoLogin {
+-(void)addParticipantViewControllerDidSave:(AddParticipantViewController*)controller participant:(Participant*)participant autoLogin:(BOOL)autoLogin {
     NSError *error = nil;
     if (![self.fetchedResultsController.managedObjectContext save:&error]) {
-        // Replace this implementation with code to handle the error appropriately.
-        // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-        UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"Failed to create new participant"
-                                                          message:[error domain] /* , [error userInfo] */
-                                                         delegate:nil
-                                                cancelButtonTitle:@"OK"
-                                                otherButtonTitles:nil];
-        [message show];
+        [controller showErrorWithMessage:[error domain] title:@"Failed to create new participant"];
     } else {
         [self dismissViewControllerAnimated:YES completion:nil];
         if(autoLogin) {
             [[NSUserDefaults standardUserDefaults] login:participant.pid];
         }
-        [self.tableView setNeedsDisplay];
+        [self.tableView reloadData];
     }
 }
 
--(void)addParticipantViewControllerDidCancel:(Participant *)participant {
-    
+-(void)addParticipantViewControllerDidCancel:(AddParticipantViewController*)controller participant:(Participant *)participant {
     [self.fetchedResultsController.managedObjectContext deleteObject:participant];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-#pragma mark Participant Detail View Delegate Methods
-
--(void)participantDetailViewControllerDidSave:(Participant *)participant withAutoLogin:(BOOL)autoLogin {
-    NSLog(@"Saving participant with pid %d", participant.pid);
-    NSError *error = nil;
-    if (![self.fetchedResultsController.managedObjectContext save:&error]) {
-        // Replace this implementation with code to handle the error appropriately.
-        // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-        UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"Failed to update participant"
-                                                          message:[error domain]
-                                                         delegate:nil
-                                                cancelButtonTitle:@"OK"
-                                                otherButtonTitles:nil];
-        [message show];
-    } else {
-        if(autoLogin) {
-            [[NSUserDefaults standardUserDefaults] login:participant.pid];
-        } else {
-            [[NSUserDefaults standardUserDefaults] logout];
-        }
-        [self.tableView setNeedsDisplay];
-    }
-}
-
--(void)participantDetailViewControllerDidReturn:(Participant *)participant {
-    NSLog(@"participantDetailViewControllerDidReturn");
-    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+#pragma mark Edit Participant View Delegate Methods
+-(void)didLoginNewUserWithId:(NSInteger)pid previousPid:(NSInteger)previousPid {
+    [self.tableView reloadData]; // Madly inefficient but ok
 }
 
 -(NSManagedObjectContext *)managedObjectContext {
@@ -154,9 +95,10 @@
 {
     static NSString *CellIdentifier = @"Cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
-    //UIView *selectionColor = [[UIView alloc] init];
-    //selectionColor.backgroundColor = [UIColor colorWithRed:63.0/255.0 green:206.0/255.0 blue:0.0/255.0 alpha:1.0];
-    //cell.selectedBackgroundView = selectionColor;
+    /*
+    UIView *selectionColor = [[UIView alloc] init];
+    selectionColor.backgroundColor = [UIColor colorWithRed:BACKGROUND_COLOR_R/255 green:BACKGROUND_COLOR_G/255 blue:BACKGROUND_COLOR_B/255 alpha:1.0];
+    cell.selectedBackgroundView = selectionColor; */
     [self configureCell:cell atIndexPath:indexPath];
     
     return cell;
@@ -187,7 +129,6 @@
 }
 
 #pragma mark - Table view delegate
-
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -255,6 +196,7 @@
     }
 }
 
+
 - (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject
        atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type
       newIndexPath:(NSIndexPath *)newIndexPath
@@ -264,8 +206,7 @@
     switch(type) {
         case NSFetchedResultsChangeInsert:
             [tableView insertRowsAtIndexPaths:@[newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
-            break;
-            
+            break;            
         case NSFetchedResultsChangeDelete:
             [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
             break;
@@ -280,6 +221,8 @@
             break;
     }
 }
+
+
 
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller
 {
@@ -299,7 +242,8 @@
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {
     Participant *participant = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    cell.textLabel.text = [NSString stringWithFormat:@"%04d", participant.pid];
+    BOOL isLoggedIn = [[NSUserDefaults standardUserDefaults] isLoggedIn:participant.pid];
+    cell.textLabel.text = isLoggedIn ? [NSString stringWithFormat:@"%04d (Playing)", participant.pid] : [NSString stringWithFormat:@"%04d", participant.pid];
 }
 
 

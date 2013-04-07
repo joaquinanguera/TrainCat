@@ -11,15 +11,17 @@
 
 @protocol AddParticipantViewControllerDelegate;
 
-@interface AddParticipantViewController : UIViewController
+@interface AddParticipantViewController : UIViewController <UITextFieldDelegate>
 
 @property (nonatomic, strong) Participant *participant;
 @property (nonatomic, weak) id <AddParticipantViewControllerDelegate> delegate;
+
+-(void)showErrorWithMessage:(NSString *)message title:(NSString *)title;
 
 @end
 
 
 @protocol AddParticipantViewControllerDelegate
--(void)addParticipantViewControllerDidSave:(Participant*)participant withAutoLogin:(BOOL)autoLogin;
--(void)addParticipantViewControllerDidCancel:(Participant *)participant;
+-(void)addParticipantViewControllerDidSave:(AddParticipantViewController*)controller participant:(Participant*)participant autoLogin:(BOOL)autoLogin;
+-(void)addParticipantViewControllerDidCancel:(AddParticipantViewController*)controller participant:(Participant *)participant;
 @end
