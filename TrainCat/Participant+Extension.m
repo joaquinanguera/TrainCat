@@ -6,7 +6,7 @@
 //
 //
 
-#import "constants.h"
+#import "Constants.h"
 #import "Participant+Extension.h"
 #import "AppDelegate.h"
 #import "GameState.h"
@@ -24,14 +24,14 @@
     return [Participant clearStateForParticipantWithId:DEMO_PARTICIPANT_ID];
 }
 
-+(Participant *)participantWithId:(int)pid mustExist:(BOOL)mustExist {
++(Participant *)participantWithId:(NSInteger)pid mustExist:(BOOL)mustExist {
     Participant *participant;
     NSManagedObjectContext *moc = MOC;
     NSEntityDescription *entityDescription = [NSEntityDescription entityForName:@"Participant" inManagedObjectContext:moc];
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
     [request setEntity:entityDescription];
     
-    NSNumber *opid = [NSNumber numberWithInt:pid];
+    NSNumber *opid = @(pid);
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"pid=%@", opid];
     [request setPredicate:predicate];
     NSError *error;
@@ -58,7 +58,7 @@
     return participant;
 }
 
-+(Participant *)clearStateForParticipantWithId:(int)pid {
++(Participant *)clearStateForParticipantWithId:(NSInteger)pid {
     Participant *participant = [self participantWithId:pid mustExist:NO];
     AppController *delegate = APP_DELEGATE;
     if(participant) {
@@ -89,7 +89,7 @@
         request.entity = [NSEntityDescription entityForName:@"Participant" inManagedObjectContext:moc];
         request.predicate = [NSPredicate predicateWithFormat:@"pid = %d",pid];
         NSError *executeFetchError= nil;
-        int idCount = [moc countForFetchRequest:request error:&executeFetchError];
+        NSInteger idCount = [moc countForFetchRequest:request error:&executeFetchError];
         if (executeFetchError) {
             NSString *errorMessage = [NSString stringWithFormat:@"Error looking up Participant %04d with error: %@", pid, [executeFetchError localizedDescription]];
             error = [[NSError alloc] initWithDomain:errorMessage code:0x4 userInfo:nil];
@@ -115,10 +115,10 @@
 }
 
 -(void)prepareForDeletion {
-    NSLog(@"Deleting %d", self.pid);
+    // NSLog(@"Deleting %d", self.pid);
     [super prepareForDeletion];
     if([[NSUserDefaults standardUserDefaults] isLoggedIn:self.pid]) {
-        NSLog(@"Logging out %d", self.pid);
+        // NSLog(@"Logging out %d", self.pid);
         [[NSUserDefaults standardUserDefaults] logout];
     }    
 }
@@ -148,7 +148,7 @@
         }
     }
     
-    NSLog(@"completion Stat: sessionsCompleted: %f", value/(MAX_STIMULUS_SESSIONS*MAX_STIMULUS_BLOCKS*MAX_TRIALS_PER_STIMULUS_BLOCK));
+    //// NSLog(@"completion Stat: sessionsCompleted: %f", value/(MAX_STIMULUS_SESSIONS*MAX_STIMULUS_BLOCKS*MAX_TRIALS_PER_STIMULUS_BLOCK));
     return value/(MAX_STIMULUS_SESSIONS*MAX_STIMULUS_BLOCKS*MAX_TRIALS_PER_STIMULUS_BLOCK);
 }
 
@@ -165,6 +165,20 @@
     return [NSString stringWithFormat:@"Sessions:%u, Blocks:%u, Trials:%u", sc, bc, tc];
 }
 
+-(NSUInteger)blocksCompletedInCurrentSession {
+    NSUInteger result = 0;
+    if(self.sessions.count) {
+        Session *lastSession = self.sessions.lastObject;
+        result = lastSession.blocks.count;
+    }
+    return result;
+}
+
+-(NSUInteger)levelForLastBlock {
+    Block *block = [[[self.sessions lastObject] blocks] lastObject];
+    return (block ? [self gradeBlock:block] : 0);
+}
+
 
 -(NSArray *)performanceStats {    
     NSMutableArray *blockPerf = [[NSMutableArray alloc] initWithCapacity:MAX_STIMULUS_BLOCKS];
@@ -176,13 +190,13 @@
         for(Block *block in session.blocks) {
             blockGradeSum += [self gradeBlock:block];
         }
-        [sessionPerf addObject:[NSNumber numberWithDouble:(blockGradeSum/session.blocks.count)]];
+        [sessionPerf addObject:@(blockGradeSum/session.blocks.count)];
     }
     return sessionPerf;
 }
 
--(int)gradeBlock:(Block *)block {
-    int highestLevelAchieved = 0;
+-(NSUInteger)gradeBlock:(Block *)block {
+    NSUInteger highestLevelAchieved = 0;
     
     NSMutableArray *correct = [[NSMutableArray alloc] initWithCapacity:MAX_STIMULUS_LEVEL];
     [correct ensureCount:MAX_STIMULUS_LEVEL];
@@ -192,11 +206,11 @@
             // - Increment the number of corrects at this level
             [correct incrementNumberAtIndex:trial.listId];
             // - Did you get two corrects at any level?
-            NSUInteger lvl = [correct indexOfObjectIdenticalTo:[NSNumber numberWithInt:2]];
+            NSUInteger lvl = [correct indexOfObjectIdenticalTo:@2];
             if(lvl != NSNotFound) {
                 // - If you got two corrects at any level
                 // Set that as the level achieved in this block (overwriting previous values)
-                NSLog(@"Block %d: Moving level from %d to %d for correct array: %@", block.bid, highestLevelAchieved, lvl+1, [correct componentsJoinedByString:@","]);
+                // NSLog(@"Block %d: Moving level from %d to %d for correct array: %@", block.bid, highestLevelAchieved, lvl+1, [correct componentsJoinedByString:@","]);
                 highestLevelAchieved = (lvl+1);
                 // Zero out the correct counts so we can start evaluating again
                 [correct zeroOut];

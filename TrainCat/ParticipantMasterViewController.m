@@ -10,7 +10,7 @@
 #import "ParticipantDetailViewController.h"
 #import "AppDelegate.h"
 #import "Participant+Extension.h"
-#import "constants.h"
+#import "Constants.h"
 #import "NSUserDefaults+Extensions.h"
 
 @interface ParticipantMasterViewController ()
@@ -156,7 +156,7 @@
     NSArray *sortDescriptors = @[sortDescriptor];
     [fetchRequest setSortDescriptors:sortDescriptors];
     
-    NSNumber *pid = [NSNumber numberWithInt:0];
+    NSNumber *pid = @0;
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"pid>%@", pid];
     [fetchRequest setPredicate:predicate];
     

@@ -11,5 +11,7 @@
 @interface RangeArray : NSArray
 
 - (id) initWithRangeFrom:(NSInteger)firstValue to:(NSInteger)lastValue;
+- (NSNumber *)objectAtIndex:(NSUInteger)index;
+- (NSUInteger) count;
 
 @end

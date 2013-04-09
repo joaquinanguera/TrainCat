@@ -37,7 +37,7 @@
     if (index >= count)
         @throw [NSException exceptionWithName:NSRangeException reason:@"Index out of bounds" userInfo:nil];
     else
-        return [NSNumber numberWithInteger:(start + index)];
+        return @(start + index);
 }
 
 @end

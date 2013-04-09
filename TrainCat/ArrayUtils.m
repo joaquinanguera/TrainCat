@@ -11,15 +11,15 @@
 
 @implementation ArrayUtils
 
-+(NSArray *)aiYesNoResponsesWithTrialCount:(uint)trialCount expectedAccuracyPercentage:(double)accuracyPercentage {
++(NSArray *)randomBooleansWithCount:(uint)trialCount biasForTrue:(double)accuracyPercentage {
     NSMutableArray *responses = [[NSMutableArray alloc] initWithCapacity:trialCount];
-    int correctResponses = floor(trialCount * accuracyPercentage);
-    for(uint i=0; i<correctResponses; ++i) {
-        responses[i] = [NSNumber numberWithBool:YES];
+    NSInteger correctResponses = floor(trialCount * accuracyPercentage);
+    for(NSUInteger i=0; i<correctResponses; ++i) {
+        responses[i] = @YES;
     }
     
-    for(uint i=correctResponses; i<trialCount; ++i) {
-        responses[i] = [NSNumber numberWithBool:NO];
+    for(NSUInteger i=correctResponses; i<trialCount; ++i) {
+        responses[i] = @NO;
     }
     
     [responses shuffle];

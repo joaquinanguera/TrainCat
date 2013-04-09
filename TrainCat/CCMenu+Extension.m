@@ -6,9 +6,9 @@
 //
 //
 
-#import "CCMenu+Extensions.h"
+#import "CCMenu+Extension.h"
 
-@implementation CCMenu (Extensions)
+@implementation CCMenu (Extension)
 
 +(CCMenuItemImage *)buttonWithImagePrefix:(NSString *)prefix tag:(NSInteger)tag target:(id)target selector:(SEL)selector {
     CCMenuItemImage *btnImage = [CCMenuItemImage itemWithNormalImage:[NSString stringWithFormat:@"%@Normal.png", prefix] selectedImage:[NSString stringWithFormat:@"%@Selected.png", prefix] target:target selector:selector];
@@ -22,7 +22,7 @@
 
 +(CCMenu *)menuWithImagePrefixes:(NSArray *)prefixes tags:(NSArray *)tags target:(id)target selectors:(NSArray *)selectors {
     NSMutableArray *buttons = [[NSMutableArray alloc] initWithCapacity:prefixes.count];
-    for(int i=0, c=prefixes.count; i<c; ++i) {
+    for(NSInteger i=0, c=prefixes.count; i<c; ++i) {
         SEL selector = NSSelectorFromString(selectors.count > 1 ? selectors[i] : selectors[0]);
         [buttons addObject:[self buttonWithImagePrefix:prefixes[i] tag:tags?tags[i]:0 target:target selector:selector]];
     }

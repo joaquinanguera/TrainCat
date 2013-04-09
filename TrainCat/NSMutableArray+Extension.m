@@ -24,14 +24,14 @@
 - (void)ensureCount:(NSUInteger)count {
     if(self.count < count) {
         for (NSUInteger i=self.count; i<count; ++i) {
-            [self addObject:[NSNumber numberWithInt:0]];
+            [self addObject:@0];
         }
     }
 }
 
 -(void)zeroOut {
     for(NSUInteger i=0, c=self.count; i<c; ++i) {
-        self[i] = [NSNumber numberWithInt:0];
+        self[i] = @0;
     }
 }
 
@@ -44,11 +44,11 @@
 }
 
 -(void)incrementNumberAtIndex:(NSUInteger)index {
-    self[index] = [NSNumber numberWithInt:([self[index] intValue]+1)];
+    self[index] = @([self[index] intValue]+1);
 }
 
 -(void)decrementNumberAtIndex:(NSUInteger)index {
-    self[index] = [NSNumber numberWithInt:([self[index] intValue]-1)];
+    self[index] = @([self[index] intValue]-1);
 }
 
 @end

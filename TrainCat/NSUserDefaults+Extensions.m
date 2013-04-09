@@ -6,10 +6,15 @@
 //
 //
 
-#import "constants.h"
+#import "Constants.h"
 #import "NSUserDefaults+Extensions.h"
 
 @implementation NSUserDefaults (Extensions)
+
+// Default keys. Keys must be synchronous with Defaults.plist
+#define DEFAULT_LOGGED_IN_PARTICIPANT_KEY @"LoggedInParticipant"
+#define DEFAULT_BACKGROUND_SOUND_KEY @"BackgroundSound"
+#define DEFAULT_SETTINGS_PASSWORD_KEY @"SettingsPassword"
 
 -(void)login:(NSInteger)pid {
     [self setInteger:pid forKey:DEFAULT_LOGGED_IN_PARTICIPANT_KEY];

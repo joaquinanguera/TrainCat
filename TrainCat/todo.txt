@@ -1,8 +1,0 @@
-1. Dropbox notifications to be completed in the AppDelegate
-2. Link unlink UI needs to be improved (low priority)
-3. Edit screen for Participants
-
-
-1. RT
-2. 33% button placement
-3. Demotron (make sure its not accessible from any place)

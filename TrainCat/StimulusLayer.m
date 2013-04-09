@@ -11,16 +11,33 @@
 #import "StimulusCategory.h"
 #import "StimulusList.h"
 #import "SpriteUtils.h"
-#import "constants.h"
+#import "Constants.h"
 #import "SimpleAudioEngine.h"
+#import "ArrayUtils.h"
 
 @interface StimulusLayer()
 @property (nonatomic, copy) NSString *exemplarLeftPath; // Determines if cache is invalid
+@property (nonatomic, strong) NSArray *fixtureDelay; //
+@property (nonatomic, assign) NSUInteger fixtureDelayIndex;
 @end
 
 @implementation StimulusLayer
 
--(id)init {
+typedef NS_ENUM(NSInteger, StimulusType) {
+    StimulusTypeFixation,
+    StimulusTypeExemplar,
+    StimulusTypeMorph,
+    StimulusTypeMask
+};
+
+typedef NS_ENUM(NSInteger, StimulusZIndex) { // Order significant
+    StimulusZIndexExemplar,
+    StimulusZIndexMask,
+    StimulusZIndexFixation,
+    StimulusZIndexMorph
+};
+
+-(id)initWithMaxTrials:(NSUInteger)maxTrials {
     if(self = [super init]) {
         CGSize winSize = [CCDirector sharedDirector].winSize;
         CCSprite *fixation = [CCSprite spriteWithFile:@"fixation.png"];
@@ -34,8 +51,13 @@
         exemplarMask.position = ccp(winSize.width/2, winSize.height/2);
         [self addChild:exemplarMask z:StimulusZIndexMask];
         
+        self.fixtureDelay = [ArrayUtils randomBooleansWithCount:maxTrials biasForTrue:0.5];
     }
     return self;
+}
+
+-(void)clear {
+    self.fixationDuration = 0;
 }
 
 -(void)showStimulusWithExemplarLeftPath:(NSString *)exemplarLeftPath exemplarRightPath:(NSString *)exemplarRightPath morphLabel:(NSString *)morphLabel {
@@ -90,9 +112,10 @@
     morph.opacity = 0;
     [self addChild:morph z:StimulusZIndexMorph];
     
+    self.fixationDuration = (self.fixtureDelay[self.fixtureDelayIndex % self.fixtureDelay.count]) ? FIXATION_DURATION_MAX : FIXATION_DURATION_MIN;
     id actionShowFixation = [CCSequence actions:
                              [CCFadeIn actionWithDuration:FADE_DURATION],
-                             [CCDelayTime actionWithDuration:FIXATION_DURATION_MAX],
+                             [CCDelayTime actionWithDuration:self.fixationDuration],
                              [CCFadeOut actionWithDuration:FADE_DURATION],
                              nil];
     CCTargetedAction *actionFixation = [CCTargetedAction actionWithTarget:[self getChildByTag:StimulusTypeFixation] action:actionShowFixation];
@@ -119,9 +142,6 @@
     [self runAction:stimAction];
 }
 
--(void)clear {
-    // Do nothing
-}
 
 -(void)finished {    
     [self removeChildByTag:StimulusTypeMorph cleanup:YES]; // Remove morph.

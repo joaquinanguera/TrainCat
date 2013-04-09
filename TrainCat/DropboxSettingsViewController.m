@@ -7,7 +7,7 @@
 //
 
 #import <Dropbox/Dropbox.h>
-#import "constants.h"
+#import "Constants.h"
 #import "DropboxSettingsViewController.h"
 #import "DSDropbox.h"
 #import "Toast+UIView.h"
@@ -71,8 +71,17 @@
         [self.view makeToast:@"Failed to authenticate Dropbox." duration:3.0 position:@"top"];
     } else {
         // Display linked information
-        DBAccountInfo *ai = [DSDropbox accountInfo];
-        self.label.text = [NSString stringWithFormat:@"Linked with account Dropbox Account %@\n(%@).", ai.displayName, ai.email];
+        DBAccount *account = [notification object];
+        DBAccountInfo *ai = [account info];
+        
+        if(account.info) {
+            self.label.text = [NSString stringWithFormat:@"Linked with account Dropbox Account %@\n(%@).", ai.displayName, ai.email];
+        } else {
+            // TODO: For some reason the first time round, the notification object / DBAccount info seems to be null
+            // Check the API to see why this is happening. Not a major error so don't sweat it.
+            self.label.text = [NSString stringWithFormat:@"Linked successfully with Dropbox Account."];
+        }
+        
         self.btnChange.hidden = NO;
         ((ViewWithToast *)self.view).toastBackgroundColor = [UIColor colorWithRed:204.0/255 green:213.0/255 blue:19.0/255 alpha:255.0];
         [self.view makeToast:@"Dropbox authenticated." duration:3.0 position:@"top"];

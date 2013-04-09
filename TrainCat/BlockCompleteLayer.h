@@ -8,9 +8,12 @@
 
 #import <Foundation/Foundation.h>
 #import "cocos2d.h"
+#import "Constants.h"
+
+@class Participant;
 
 @interface BlockCompleteLayer : CCLayerColor
 
-+(CCScene *) scene;
++(CCScene *) sceneWithParticipant:(Participant *) participant sessionType:(SessionType)sessionType;
 
 @end

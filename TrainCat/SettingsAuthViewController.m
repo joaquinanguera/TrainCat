@@ -10,7 +10,7 @@
 #import "NSUserDefaults+Extensions.h"
 #import "Toast+UIView.h"
 #import "ViewWithToast.h"
-#import "constants.h"
+#import "Constants.h"
 
 @interface SettingsAuthViewController ()
 @property (weak, nonatomic) IBOutlet UITextField *passwordField;

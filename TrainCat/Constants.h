@@ -1,5 +1,5 @@
 //
-//  constants.h
+//  Constants.h
 //  TrainCat
 //
 //  Created by Alankar Misra on 23/03/13.
@@ -9,9 +9,11 @@
 #ifndef TrainCat_constants_h
 #define TrainCat_constants_h
 
+//FOUNDATION_EXPORT NSString const *AppName;
+
 //#define DDEBUG 1
 #define DEBUG_SIMULATION_WAIT_TIME 2
-#define GAME_TEXT_FONT @"DevanagariSangamMN-Bold"
+#define GAME_TEXT_FONT @"Helvetica-Bold"
 
 // Dropbox related constants
 #define DROPBOX_APP_KEY @"ev7wggh9l3s2vy7"
@@ -21,16 +23,18 @@
 // Commonly used references
 #define APP_DELEGATE ((AppController *)[[UIApplication sharedApplication] delegate])
 #define MOC ((AppController *)[[UIApplication sharedApplication] delegate]).managedObjectContext
+#define SEGUE_TO_SCENE(X) [[CCDirector sharedDirector] replaceScene:[CCTransitionZoomFlipX transitionWithDuration:0.5 scene: ( X ) ]] 
+#define MENU_BUTTON(M) ((CCMenuItem *)[( M ).children objectAtIndex:0])
+#define WIN_SIZE ([[CCDirector sharedDirector] winSize])
+#define WIN_HEIGHT (WIN_SIZE.height)
+#define WIN_WIDTH (WIN_SIZE.width)
 
-// Default keys. Keys must be synchronous with Defaults.plist
-#define DEFAULT_LOGGED_IN_PARTICIPANT_KEY @"LoggedInParticipant"
-#define DEFAULT_BACKGROUND_SOUND_KEY @"BackgroundSound"
-#define DEFAULT_SETTINGS_PASSWORD_KEY @"SettingsPassword"
 
 // Background color constants
 #define BACKGROUND_COLOR_R 127.0
 #define BACKGROUND_COLOR_G 200.0
 #define BACKGROUND_COLOR_B 200.0
+#define BACKGROUND_COLOR_NO_ALPHA ccc3(BACKGROUND_COLOR_R, BACKGROUND_COLOR_G, BACKGROUND_COLOR_B)
 #define BACKGROUND_COLOR ccc4(BACKGROUND_COLOR_R, BACKGROUND_COLOR_G, BACKGROUND_COLOR_B, 255)
 
 #define MAX_TRIALS_PER_STIMULUS_BLOCK 36
@@ -58,18 +62,10 @@
 #define RESPONSE_DURATION 2.0
 #define FADE_DURATION 125.0/1000
 
-typedef NS_ENUM(NSInteger, StimulusType) {
-    StimulusTypeFixation,
-    StimulusTypeExemplar,
-    StimulusTypeMorph,
-    StimulusTypeMask
-};
-
-typedef NS_ENUM(NSInteger, StimulusZIndex) { // Order significant
-    StimulusZIndexExemplar,
-    StimulusZIndexMask,
-    StimulusZIndexFixation,
-    StimulusZIndexMorph
+typedef NS_ENUM(NSInteger, SessionType) {
+    SessionTypeWarmup, // The warm up just before practice. BlockCompleteLayer will read this and direct the participant to a normal session.
+    SessionTypeNormal, // A normal game session.
+    SessionTypePractice // A practice session. BlockCompleteLayer will read this and direct the participant back to the menu.
 };
 
 // Response related constants

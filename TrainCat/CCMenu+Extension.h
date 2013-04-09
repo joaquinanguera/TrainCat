@@ -8,7 +8,7 @@
 
 #import "CCMenu.h"
 
-@interface CCMenu (Extensions)
+@interface CCMenu (Extension)
 
 +(CCMenuItemImage *)buttonWithImagePrefix:(NSString *)prefix tag:(NSInteger)tag target:(id)target selector:(SEL)selector;
 +(CCMenu *)menuWithImagePrefix:(NSString *)prefix tag:(NSInteger)tag target:(id)target selector:(SEL)selector;

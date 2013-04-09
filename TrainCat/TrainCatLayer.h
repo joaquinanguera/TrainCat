@@ -10,14 +10,13 @@
 #import "StimulusLayer.h"
 #import "ResponseLayer.h"
 #import "FeedbackLayer.h"
-
+#import "Participant+Extension.h"
 
 @interface TrainCatLayer : CCLayerColor <StimulusLayerDelegate, ResponseLayerDelegate, FeedbackLayerDelegate>
 {
 }
 
 // returns a CCScene that contains the TrainCatLayer as the only child
-+(CCScene *) sceneWithPractice:(BOOL)isPractice;
-
++(CCScene *) sceneWithSessionType:(SessionType)sessionType;
 
 @end

@@ -8,7 +8,8 @@
 
 #import "FeedbackLayer.h"
 #import "SimpleAudioEngine.h"
-#import "constants.h"
+#import "Constants.h"
+#import "CCNode+Extension.h"
 
 #define kFeedbackSoundCorrect @"correct2.mp3"
 #define kFeedbackSoundIncorrect @"incorrect.mp3"
@@ -27,9 +28,6 @@
         [[SimpleAudioEngine sharedEngine] preloadEffect:kFeedbackSoundCorrect];
         [[SimpleAudioEngine sharedEngine] preloadEffect:kFeedbackSoundIncorrect];
         
-        CGSize winSize = [CCDirector sharedDirector].winSize;
-        CGPoint center = ccp(winSize.width/2, winSize.height/2);
-        
         self.feedback = [CCLabelTTF
                              labelWithString:@""
                              dimensions:CGSizeMake(325,90) // Based on the spriteResponseCorrect graphic
@@ -38,9 +36,11 @@
                              lineBreakMode:kCCLineBreakModeWordWrap
                              fontName:GAME_TEXT_FONT
                              fontSize:55];
-        self.feedback.color = ccc3(255, 255, 255);
-        self.spriteCorrect.position = self.spriteIncorrect.position = center;
-        self.feedback.position = ccp(center.x - 20, center.y - 20); // Based on the spriteResponseCorrect graphic
+        self.feedback.color = ccc3(0, 0, 0);
+        
+        [[[self.spriteCorrect alignMiddle] alignCenter] shiftUp:50];
+        [[[self.spriteIncorrect alignMiddle] alignCenter] shiftUp:50];
+        [[[self.feedback alignMiddle] alignCenter] shiftDown:self.spriteCorrect.contentSize.height/2];
         [self hideAllFeedback];
         
         [self addChild:self.spriteIncorrect];
@@ -123,7 +123,7 @@
 +(NSArray *)rightAnswer {
     static NSArray *_rightAnswer = nil;
     if(!_rightAnswer) {
-        _rightAnswer = [[NSArray alloc] initWithObjects:@"Excellent!", @"Correct!", @"Genius!", @"Well done!", @"That's right!", @"Nicely done!", @"Perfect!", @"Awesome!", nil];
+        _rightAnswer = @[@"Excellent!", @"Correct!", @"Genius!", @"Well done!", @"That's right!", @"Nicely done!", @"Perfect!", @"Awesome!"];
     }
     return _rightAnswer;
 }

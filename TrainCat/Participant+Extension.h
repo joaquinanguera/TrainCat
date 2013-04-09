@@ -11,12 +11,15 @@
 @interface Participant (Extension)
 
 +(Participant *)dummyParticipant;
-+(Participant *)participantWithId:(int)pid mustExist:(BOOL)mustExist;
-+(Participant *)clearStateForParticipantWithId:(int)pid;
++(Participant *)participantWithId:(NSInteger)pid mustExist:(BOOL)mustExist;
++(Participant *)clearStateForParticipantWithId:(NSInteger)pid;
 
 - (BOOL)validatePid:(id *)ioValue error:(NSError **)outError;
 -(double)completionStat;
 - (NSArray *)performanceStats;
 -(NSString *)completionStatDescription;
+-(NSUInteger)blocksCompletedInCurrentSession;
+-(NSUInteger)levelForLastBlock;
+
 
 @end

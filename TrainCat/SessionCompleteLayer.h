@@ -8,10 +8,13 @@
 
 #import <Foundation/Foundation.h>
 #import "cocos2d.h"
+#import "Participant+Extension.h"
+#import "Constants.h"
+
+@class Participant;
 
 @interface SessionCompleteLayer : CCLayerColor
 
-// returns a CCScene that contains the SessionCompleteLayer as the only child
-+(CCScene *) scene;
++(CCScene *) sceneWithParticipant:(Participant *) participant gameOver:(BOOL)isGameOver;
 
 @end

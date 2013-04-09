@@ -19,7 +19,11 @@
 @interface StimulusLayer : CCLayer
 
 @property (nonatomic, weak) id <StimulusLayerDelegate> delegate;
+@property (nonatomic, assign) NSUInteger fixationDuration;
+
+-(id)initWithMaxTrials:(NSUInteger)maxTrials; // Designated initializer
 -(void)showStimulusWithExemplarLeftPath:(NSString *)exemplarLeftPath exemplarRightPath:(NSString *)exemplarRightPath morphLabel:(NSString *)morphLabel;
 -(void)clear;
+
 
 @end

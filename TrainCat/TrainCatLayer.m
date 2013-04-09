@@ -5,9 +5,8 @@
 //  Created by Alankar Misra on 07/02/13.
 //
 
-
 // Import the interfaces
-#import "constants.h"
+#import "Constants.h"
 #import "TrainCatLayer.h"
 #import "AppDelegate.h"
 
@@ -34,7 +33,6 @@
 #import "FeedbackLayer.h"
 #import "SessionCompleteLayer.h"
 #import "BlockCompleteLayer.h"
-#import "GameOverLayer.h"
 #import "BackgroundLayer.h"
 
 // Utils 
@@ -45,7 +43,6 @@
 #import "ActionLib.h"
 #import "Logger.h"
 #import "SoundUtils.h"
-
 
 #pragma mark - TrainCatLayer
 @interface TrainCatLayer()
@@ -66,13 +63,13 @@
 @property (nonatomic, readonly, strong) StimulusBlock *block;
 @property (nonatomic, readonly, strong) NSArray *stimuli;
 @property (nonatomic, strong) NSString *morphLabel;
-@property (nonatomic, assign) int maxTrials;
+@property (nonatomic, assign) NSInteger maxTrials;
 
-@property (nonatomic, assign) BOOL isPractice;
+@property (nonatomic, assign) SessionType sessionType;
 
 #ifdef DDEBUG
 @property (nonatomic, strong) NSArray *aiResponse;
-@property (nonatomic, assign) int aiResponseIndex;
+@property (nonatomic, assign) NSInteger aiResponseIndex;
 #endif
 
 @end
@@ -81,28 +78,21 @@
 @implementation TrainCatLayer
 
 // Helper class method that creates a Scene with the TrainCatLayer as the only child.
-+(CCScene *) sceneWithPractice:(BOOL)isPractice
++(CCScene *) sceneWithSessionType:(SessionType)sessionType;
 {
-	// 'scene' is an autorelease object.
 	CCScene *scene = [CCScene node];
-	
-	// 'layer' is an autorelease object.
-	TrainCatLayer *gameLayer = [[TrainCatLayer alloc] initWithPractice:isPractice];
-    
-	// add layer as a child to scene
+	TrainCatLayer *gameLayer = [[TrainCatLayer alloc] initWithSessionType:sessionType];
 	[scene addChild: gameLayer];
-	
-	// return the scene
 	return scene;
 }
 
 
 // on "init" you need to initialize your instance
--(id)initWithPractice:(BOOL)isPractice {
+-(id)initWithSessionType:(SessionType)sessionType {
 	if( (self=[super initWithColor:ccc4(255, 255, 255, 255)]) ) {
-        self.isPractice = isPractice;
+        self.sessionType = sessionType;
         
-        self.maxTrials = isPractice ? MAX_TRIALS_PER_PRACTICE_BLOCK : MAX_TRIALS_PER_STIMULUS_BLOCK;
+        self.maxTrials = (sessionType == SessionTypeNormal) ? MAX_TRIALS_PER_STIMULUS_BLOCK : MAX_TRIALS_PER_PRACTICE_BLOCK;
         self.gs = self.participant.gameState;
         self.program = [NSKeyedUnarchiver unarchiveObjectWithData:self.participant.program];
         
@@ -113,17 +103,11 @@
         self.bg.visible = YES;
          [self setStartButton];
         #else
-         self.aiResponse = [ArrayUtils aiYesNoResponsesWithTrialCount:self.maxTrials expectedAccuracyPercentage:1.0];
-         NSLog(@"Responses = [%@]", [self.aiResponse componentsJoinedByString:@","]);
+         self.aiResponse = [ArrayUtils randomBooleansWithCount:self.maxTrials biasForTrue:0.8];
          [self performSelector:@selector(beginGame) withObject:nil afterDelay:DEBUG_SIMULATION_WAIT_TIME];
         #endif
 	}
 	return self;
-}
-
--(id) init
-{
-    return [self initWithPractice:NO];
 }
 
 -(void)startSessionLog {
@@ -144,7 +128,7 @@
     self.bg = [BackgroundLayer node];
     self.bg.visible = NO;
     
-    self.stim = [StimulusLayer node];
+    self.stim = [[StimulusLayer alloc] initWithMaxTrials:self.maxTrials];
     self.stim.delegate = self;
     self.stim.visible = NO;
     
@@ -220,6 +204,7 @@
     trial.trial = self.gs.trialCount; 
     trial.categoryId = self.session.categoryId; 
     trial.exemplars = [NSString stringWithFormat:@"%@ / %@", self.category.exemplarLeft, self.category.exemplarRight];
+    trial.fixationDuration = self.stim.fixationDuration;
     trial.morphLabel = self.morphLabel;
     trial.responseTime = responseTime;
     
@@ -308,7 +293,7 @@
 
 -(void)setupStimulus {
     if([self isGameOver]) {
-        [[CCDirector sharedDirector] replaceScene:[CCTransitionZoomFlipX transitionWithDuration:0.5 scene:[GameOverLayer scene]]];
+        SEGUE_TO_SCENE([SessionCompleteLayer sceneWithParticipant:self.participant gameOver:[self isGameOver]]) ;
     } else {
         // Did we finish the last block?
         if(self.gs.trialCount >= self.maxTrials)  {
@@ -343,21 +328,17 @@
         // If no more trials are pending
         // Transition to next screen
         CCScene *scene;
-        if([self isGameOver]) {
-#ifdef DDEBUG
-            [Logger printBlocksForParticipant:self.participant];
-            [Logger printSessionLogsForParticipant:self.participant];
-            NSLog(@"Perf = %@", [[self.participant performanceStats] componentsJoinedByString:@","]);
-            //[Participant clearStateForParticipantWithId:[SessionManager loggedIn]];
-#endif
-            scene = [GameOverLayer scene]; 
-        } else if([self isSessionComplete]){
-            scene = [SessionCompleteLayer scene];
-        } else {
-            scene = [BlockCompleteLayer scene];
+        if((self.sessionType == SessionTypeNormal) && ([self isGameOver] || [self isSessionComplete])) {
+            [Logger sendReportForParticipant:self.participant forSession:self.gs.sessionId];
+            if([self isGameOver]) {
+                [Logger sendAllReportsForParticipant:self.participant];
+            }
+            scene = [SessionCompleteLayer sceneWithParticipant:self.participant gameOver:[self isGameOver]];
+        } else { // SessionTypeWarmup or SessionTypePractice or SessionTypeNormal but !isGameOver && !isSessionComplete
+            scene = [BlockCompleteLayer sceneWithParticipant:self.participant sessionType:self.sessionType];
         }
         
-        [[CCDirector sharedDirector] replaceScene:[CCTransitionZoomFlipX transitionWithDuration:0.5 scene:scene]];
+        SEGUE_TO_SCENE(scene);
     }
 }
 
@@ -406,7 +387,7 @@
 }
 
 -(StimulusBlock *)block {
-    int cBlockId = [self.session.blocks[self.gs.blockId] intValue];
+    NSInteger cBlockId = [self.session.blocks[self.gs.blockId] intValue];
     return self.category.blocks[cBlockId];
 }
 
@@ -417,12 +398,13 @@
 
 -(Participant *)participant {
     if(!_participant) {
-        if(self.isPractice) {
-            _participant = [Participant dummyParticipant];
-        } else {
+        if(self.sessionType == SessionTypeNormal) {
             _participant = [Participant participantWithId:[[NSUserDefaults standardUserDefaults] loggedIn] mustExist:YES];
+        } else {
+            _participant = [Participant dummyParticipant];
         }
     }
+    
     return _participant;
 }
 

@@ -39,7 +39,7 @@
     
     NSMutableArray *xLabels = [[NSMutableArray alloc] initWithCapacity:points.count];
     for(NSUInteger i=0; i<points.count; ++i) {
-        [xLabels addObject:[NSNumber numberWithUnsignedInteger:(i+1)]];
+        [xLabels addObject:@(i+1)];
     }
     [chart setXLabels:xLabels];
     [self addSubview:chart];

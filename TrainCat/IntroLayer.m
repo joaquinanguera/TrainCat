@@ -15,10 +15,11 @@
 #import "GameController.h"
 #import "Participant+Extension.h"
 #import "SpriteUtils.h"
-#import "CCMenu+Extensions.h"
+#import "CCMenu+Extension.h"
 #import "NSUserDefaults+Extensions.h"
 #import "DSDropbox.h"
 #import "SoundUtils.h"
+#import "logger.h"
 
 #pragma mark - IntroLayer
 
@@ -62,35 +63,47 @@
 -(void) onEnter
 {
 	[super onEnter];
+    
+#ifdef DDEBUG
+/*
+    NSInteger pid = 1; //[[NSUserDefaults standardUserDefaults] loggedIn];
+    [Participant clearStateForParticipantWithId:pid];
+    [[NSUserDefaults standardUserDefaults] login:pid];
+*/ 
+#endif
+    
     [self makeMenu];
 }
 
 -(void) viewWillAppear {
-    [self initNotification];    
+    [self initNotification];
     [self makePrimaryMenu];
 }
 
 -(void)makeMenu {
     [self makePrimaryMenu];
+    /*    
 	CGSize winSize = [[CCDirector sharedDirector] winSize];
+
     CCMenu *mnuToggleSound = [CCMenu menuWithImagePrefix:@"iconSpeaker" tag:0 target:self selector:@selector(didTapToggleBackgroundMusic:)];
     mnuToggleSound.position = ccp(winSize.width - mnuToggleSound.button.contentSize.width/2 - STIMULUS_PADDING, mnuToggleSound.button.contentSize.height/2 + STIMULUS_PADDING);
     
-    [self addChild:mnuToggleSound];
+    [self addChild:mnuToggleSound]; */
 }
 
 -(void)didTapPlay:(CCMenuItem *)menuItem {
     [SoundUtils playInputClick];
 #ifdef DDEBUG
-    //[Participant clearStateForParticipantWithId:[SessionManager loggedIn]];
-    
+    SEGUE_TO_SCENE([TrainCatLayer sceneWithSessionType:SessionTypeNormal]);
+#else
+    SEGUE_TO_SCENE([TrainCatLayer sceneWithSessionType:SessionTypeWarmup]);
 #endif
-    //[[CCDirector sharedDirector] replaceScene:[CCTransitionZoomFlipX transitionWithDuration:0.5 scene:[TrainCatLayer sceneWithPracticeSetting:NO]]];    
+    
 }
 
 -(void)didTapPractice:(CCMenuItem *)menuItem {
     [SoundUtils playInputClick];
-    [[CCDirector sharedDirector] replaceScene:[CCTransitionZoomFlipX transitionWithDuration:0.5 scene:[TrainCatLayer sceneWithPractice:YES]]];    
+     SEGUE_TO_SCENE([TrainCatLayer sceneWithSessionType:SessionTypePractice]);
 }
 
 -(void)didTapSettings:(CCMenuItem *)menuItem {
@@ -99,13 +112,17 @@
     [gc performSegueWithIdentifier:@"segueToSettingsAuthentication" sender:gc];
 }
 
+-(void)didTapDisabledButton:(CCMenuItem *)menuItem {
+  // TODO: Play a down sound here.
+}
+
 
 -(void)didTapToggleBackgroundMusic:(CCMenuItem *)menuItem {
     if([[SimpleAudioEngine sharedEngine] isBackgroundMusicPlaying]) {
         [[SimpleAudioEngine sharedEngine] stopBackgroundMusic];
         ((CCMenuItemImage *)menuItem).opacity = 128;
     } else {
-        [[SimpleAudioEngine sharedEngine] playBackgroundMusic:@"theme.mp3"]; // Currently throwing an error
+        [[SimpleAudioEngine sharedEngine] playBackgroundMusic:@"theme.mp3"]; // TODO: Currently throwing an error
         ((CCMenuItemImage *)menuItem).opacity = 255;
     }
 }
@@ -115,17 +132,18 @@
         [self removeChild:self.menu cleanup:YES];
     }
     
-    BOOL isLoggedIn =[[NSUserDefaults standardUserDefaults] loggedIn];
-    BOOL isDropboxAuthenticated = [DSDropbox accountInfo];
+    BOOL isLoggedIn =[[NSUserDefaults standardUserDefaults] loggedIn] ? YES : NO;
+    BOOL isDropboxAuthenticated = [DSDropbox accountInfo] ? YES : NO;
     BOOL isPlayEnabled = isLoggedIn && isDropboxAuthenticated;
     
+    NSLog(@"makePrimaryMenu");
+    NSLog(@"isLoggedIn: %@", isLoggedIn ? @"YES" : @"NO");
+    NSLog(@"isDropboxAuthenticated: %@", isDropboxAuthenticated ? @"YES" : @"NO");
+    NSLog(@"isPlayEnabled: %@", isPlayEnabled ? @"YES" : @"NO");
+    
 	CGSize winSize = [[CCDirector sharedDirector] winSize];
-    NSArray *buttonPrefixs = [[NSArray alloc] initWithObjects:
-                              (isPlayEnabled ? @"buttonPlay" : @"buttonPlayDisabled"),
-                              @"buttonPractice",
-                              @"buttonSettings",
-                              nil];
-    NSArray *buttonSelectors = [[NSArray alloc] initWithObjects:@"didTapPlay:", @"didTapPractice:", @"didTapSettings:", nil];
+    NSArray *buttonPrefixs = @[(isPlayEnabled ? @"buttonPlay" : @"buttonPlayDisabled"),@"buttonPractice",@"buttonSettings"];
+    NSArray *buttonSelectors = @[(isPlayEnabled ? @"didTapPlay:" : @"didTapDisabledButton:"), @"didTapPractice:", @"didTapSettings:"];
     
     CCMenu *mnu = [CCMenu menuWithImagePrefixes:buttonPrefixs tags:nil target:self selectors:buttonSelectors];
     [mnu alignItemsVerticallyWithPadding:30];
@@ -182,6 +200,7 @@
     }
 }
 
+
 -(void)initNotification {
     [self.notification setScale:0.0];
     [self.exclamation setScale:0.0];
@@ -190,6 +209,7 @@
 
 
 -(void)onExit {
+    // TODO: Turn off music
     //[self didTapToggleBackgroundMusic];
     [super onExit];
 }

@@ -8,47 +8,114 @@
 
 #import "SessionCompleteLayer.h"
 #import "TrainCatLayer.h"
+#import "Participant+Extension.h"
+#import "SpriteUtils.h"
+#import "CCMenu+Extension.h"
+#import "CCNode+Extension.h"
+#import "ParticipantCompletionStatChartView.h"
+#import "ParticipantPerformanceStatsChartView.h"
+#import "BackgroundLayer.h"
+#import "SimpleAudioEngine.h"
 
+@interface SessionCompleteLayer()
+@property (nonatomic, strong) Participant *participant;
+@property (nonatomic, assign) BOOL isGameOver;
+@property (nonatomic, strong) ParticipantCompletionStatChartView *pieChart;
+@property (nonatomic, strong) ParticipantPerformanceStatsChartView *lineChart;
+@end
 
 @implementation SessionCompleteLayer
 
-// Helper class method that creates a Scene with the SessionComplete as the only child.
-+(CCScene *) scene
+
+
++(CCScene *) sceneWithParticipant:(Participant *) participant gameOver:(BOOL)isGameOver;
 {
-	// 'scene' is an autorelease object.
 	CCScene *scene = [CCScene node];
-	
-	// 'layer' is an autorelease object.
-	SessionCompleteLayer *gameLayer = [SessionCompleteLayer node];
-	
-	// add layer as a child to scene
+	SessionCompleteLayer *gameLayer = [[SessionCompleteLayer alloc] initWithParticipant:participant gameOver:(BOOL)isGameOver];
 	[scene addChild: gameLayer];
-	
-	// return the scene
 	return scene;
 }
 
--(id)init {
+
+-(id)initWithParticipant:(Participant *)participant gameOver:(BOOL)isGameOver {
     if( (self=[super initWithColor:ccc4(255, 255, 255, 255)]) ) {
-        CGSize winSize = [CCDirector sharedDirector].winSize;
-        CCLabelTTF *label = [CCLabelTTF labelWithString:@"Session Complete!" fontName:GAME_TEXT_FONT fontSize:64];
-        label.color = ccc3(0, 0, 0);
-        label.position = ccp(winSize.width/2.0,winSize.height/2.0);
-        [self addChild:label];
-        
-        CCMenuItemImage *btnNewSessionImage = [CCMenuItemImage itemWithNormalImage:@"buttonNewSessionNormal.png" selectedImage:@"buttonNewSessionSelected.png" target:self selector:@selector(didTapNewSession)];
-        CCMenu *btnNewSession = [CCMenu menuWithItems:btnNewSessionImage,nil];
-        btnNewSession.position = ccp(winSize.width/2.0,label.position.y - label.contentSize.height/2 - btnNewSessionImage.contentSize.height/2 - 50);
-        [self addChild:btnNewSession];
+        [[SimpleAudioEngine sharedEngine] preloadBackgroundMusic:@"theme.mp3"];
+        [self addChild:[BackgroundLayer node]];
+        self.participant = participant;
+        self.isGameOver = isGameOver;
+
+        CCSprite *header = [self makeHeaderWithTitle:isGameOver ? @"Game Over!" : @"Session Complete!"];
+        header.opacity = 255*0.60;
+        [self addChild:[[header alignTop] alignCenter]];
+        CCLabelTTF *levelText = [CCLabelTTF
+                                 labelWithString:@"Congratulations on getting this far!\nPress the home button on your iPad to exit the application."
+                                 dimensions:CGSizeMake(WIN_WIDTH,100)
+                                 hAlignment:kCCTextAlignmentCenter
+                                 vAlignment:kCCVerticalTextAlignmentTop
+                                 lineBreakMode:kCCLineBreakModeWordWrap
+                                 fontName:GAME_TEXT_FONT
+                                 fontSize:32.f];
+
+        levelText.color = ccc3(0, 0, 0);
+        levelText.opacity = 0.0;
+        [[[levelText alignMiddle] alignCenter] shiftDown:160];
+        [self addChild:levelText];
+        [levelText runAction:[CCSequence actionOne:[CCDelayTime actionWithDuration:1.0] two:[CCFadeIn actionWithDuration:1.0]]];
     }
-#ifdef DDEBUG
-    [self performSelector:@selector(didTapNewSession) withObject:nil afterDelay:DEBUG_SIMULATION_WAIT_TIME];
-#endif
+    
+    [self makeGraphs];
     return self;
 }
 
--(void)didTapNewSession {
-    [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:1.0 scene:[TrainCatLayer sceneWithPractice:NO] withColor:ccWHITE]];
+-(void)onEnterTransitionDidFinish {
+    [super onEnterTransitionDidFinish];
+    [UIView animateWithDuration:0.5 animations:^{
+        self.pieChart.alpha = 1.0;
+        self.lineChart.alpha = 1.0;
+    }];
+    [[SimpleAudioEngine sharedEngine] playBackgroundMusic:@"theme.mp3"];
+}
+
+-(void)makeGraphs {
+    self.pieChart = [[ParticipantCompletionStatChartView alloc] initWithFrame:CGRectMake(10, 80, 497, 352)];
+    self.pieChart.backgroundColor = [UIColor clearColor];
+    self.pieChart.alpha = 0;
+    [self.pieChart chartWithCompletionStat:[self.participant completionStat]];
+    [[[CCDirector sharedDirector] view] addSubview:self.pieChart];
+    
+    self.lineChart = [[ParticipantPerformanceStatsChartView alloc] initWithFrame:CGRectMake(517, 140, 497, 352)];
+    self.lineChart.backgroundColor = [UIColor clearColor];
+    self.lineChart.alpha = 0;
+    [self.lineChart chartWithPoints:self.participant.performanceStats];
+    [[[CCDirector sharedDirector] view] addSubview:self.lineChart];    
+}
+
+-(CCSprite *)makeHeaderWithTitle:(NSString *)title {
+    CCSprite *sprite = [SpriteUtils blankSpriteWithSize:CGSizeMake(WIN_WIDTH, 140)];
+    sprite.color = ccBLACK;
+    CCLabelTTF *line1 = [CCLabelTTF
+                         labelWithString:title
+                         dimensions:CGSizeMake(sprite.contentSize.width,65) // 65 to incorporate the g descent
+                         hAlignment:kCCTextAlignmentCenter
+                         vAlignment:kCCVerticalTextAlignmentTop
+                         lineBreakMode:kCCLineBreakModeWordWrap
+                         fontName:GAME_TEXT_FONT
+                         fontSize:55];
+    
+    [[[line1 alignTopTo:sprite] shiftDown:50] alignCenterTo:sprite];
+    [sprite addChild:line1];
+    
+    return sprite;
+}
+
+-(void)didSelectContinue {
+    SEGUE_TO_SCENE([TrainCatLayer sceneWithSessionType:SessionTypeNormal]);
+}
+
+-(void)onExitTransitionDidStart {
+    [super onExitTransitionDidStart];
+    [self.pieChart removeFromSuperview];
+    [self.lineChart removeFromSuperview];
 }
 
 @end

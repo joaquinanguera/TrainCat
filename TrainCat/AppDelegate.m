@@ -10,7 +10,7 @@
 #import "cocos2d.h"
 #import "AppDelegate.h"
 #import "IntroLayer.h"
-#import "constants.h"
+#import "Constants.h"
 #import "Participant+Extension.h"
 
 @implementation AppController
@@ -76,10 +76,6 @@
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
 	return UIInterfaceOrientationIsLandscape(interfaceOrientation);
-    /*
-    if ([self.visibleViewController isKindOfClass:[MWPhotoBrowser class]] ||     [self.visibleViewController isKindOfClass:[ZoomPictureViewController class]]) {
-        return UIInterfaceOrientationMaskAll; */
-    //return YES; // This needs to be horizontal for the game
 }
 
 

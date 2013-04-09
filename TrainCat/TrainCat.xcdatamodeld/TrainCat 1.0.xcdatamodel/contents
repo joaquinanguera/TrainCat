@@ -36,6 +36,7 @@
         <attribute name="accuracy" attributeType="String" regularExpressionString="Correct|Incorrect|No Response" syncable="YES"/>
         <attribute name="categoryId" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="exemplars" attributeType="String" syncable="YES"/>
+        <attribute name="fixationDuration" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="listId" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="morphLabel" attributeType="String" syncable="YES"/>
         <attribute name="response" attributeType="String" regularExpressionString="Left|Right|No Response" syncable="YES"/>
@@ -49,6 +50,6 @@
         <element name="Participant" positionX="-252" positionY="-78" width="128" height="133"/>
         <element name="Session" positionX="-243" positionY="234" width="128" height="88"/>
         <element name="SessionLog" positionX="198" positionY="-186" width="128" height="103"/>
-        <element name="Trial" positionX="277" positionY="137" width="128" height="178"/>
+        <element name="Trial" positionX="277" positionY="137" width="128" height="193"/>
     </elements>
 </model>

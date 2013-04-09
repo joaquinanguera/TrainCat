@@ -9,23 +9,10 @@
 #import "GameController.h"
 #import "IntroLayer.h"
 #import "DSDropbox.h"
-#import "constants.h"
-#import "BlockCompleteLayer.h"
-
-@interface GameController ()
-
-@end
+#import "Constants.h"
+#import "SessionCompleteLayer.h"
 
 @implementation GameController
-
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
 
 - (void)viewDidLoad
 {
@@ -69,10 +56,11 @@
     // Finish up our view controller containment responsibilities.
     [director didMoveToParentViewController:self];
     // Run whatever scene we'd like to run here.
+    CCScene * scene = [IntroLayer scene];
     if(director.runningScene)
-        [director replaceScene:[BlockCompleteLayer scene]];
+        [director replaceScene:scene];
     else
-        [director runWithScene:[BlockCompleteLayer scene]];
+        [director runWithScene:scene];
 }
 
 -(void)viewWillAppear:(BOOL)animated {

@@ -2,7 +2,7 @@
 //  Trial.h
 //  TrainCat
 //
-//  Created by Alankar Misra on 03/04/13.
+//  Created by Alankar Misra on 08/04/13.
 //
 //
 
@@ -21,6 +21,7 @@
 @property (nonatomic, retain) NSString * response;
 @property (nonatomic) double responseTime;
 @property (nonatomic) int16_t trial;
+@property (nonatomic) int16_t fixationDuration;
 @property (nonatomic, retain) Block *block;
 
 @end

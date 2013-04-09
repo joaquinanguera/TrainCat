@@ -9,7 +9,7 @@
 #import "ParticipantDetailViewController.h"
 #import "Participant+Extension.h"
 #import "NSUserDefaults+Extensions.h"
-#import "constants.h"
+#import "Constants.h"
 #import "Logger.h"
 #import "ParticipantCompletionStatChartView.h"
 #import "ParticipantPerformanceStatsChartView.h"
@@ -45,7 +45,10 @@
     self.progressLabel.text = [self.participant completionStatDescription];
     self.pieChart.backgroundColor = [UIColor clearColor];
     self.lineChart.backgroundColor = [UIColor clearColor];
-    [self.pieChart chartWithCompletionStat:[self.participant completionStat]];
+    [self.pieChart chartWithCompletionStat:self.completionStat];
+    
+    NSLog(@"piechart = %@", NSStringFromCGRect(self.pieChart.frame));
+    NSLog(@"linechart = %@", NSStringFromCGRect(self.lineChart.frame));
     
     if(self.performanceStats.count > 0) {
         // Plot both charts and keep existing positions
@@ -86,9 +89,7 @@
 
 
 - (IBAction)didTapSendReport {
-    [Logger printProgramForParticipant:self.participant];
-    [Logger printSessionLogsForParticipant:self.participant];
-    [Logger printBlocksForParticipant:self.participant];
+    [Logger sendAllReportsForParticipant:self.participant];
 }
 
 -(void)initControlsWithAnimation:(BOOL)animate {

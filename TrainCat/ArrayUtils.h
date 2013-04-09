@@ -10,6 +10,6 @@
 
 @interface ArrayUtils : NSObject
 
-+(NSArray *)aiYesNoResponsesWithTrialCount:(uint)trialCount expectedAccuracyPercentage:(double)accuracyPercentage;
++(NSArray *)randomBooleansWithCount:(NSUInteger)trialCount biasForTrue:(double)accuracyPercentage;
 
 @end

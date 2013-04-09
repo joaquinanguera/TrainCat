@@ -7,12 +7,8 @@
 //
 
 #import "OpeningScreenViewController.h"
-#import "constants.h"
+#import "Constants.h"
 #import "PCPieChart.h"
-
-@interface OpeningScreenViewController ()
-
-@end
 
 @implementation OpeningScreenViewController
 

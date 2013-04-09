@@ -11,7 +11,7 @@
 #import "RangeArray.h"
 #import "StimulusSession.h"
 #import "StimulusPack.h"
-#import "constants.h"
+#import "Constants.h"
 
 @implementation StimulusProgram
 
@@ -23,9 +23,7 @@
     [categories shuffle];
     [categorySequence addObjectsFromArray:categories];
     
-    NSNumber *zero = [NSNumber numberWithInt:0];
-    NSNumber *one = [NSNumber numberWithInt:1];
-    NSMutableArray *blocks = [NSMutableArray arrayWithObjects:zero,zero,zero,one,one,one, nil];
+    NSMutableArray *blocks = [NSMutableArray arrayWithObjects:@0,@0,@0,@1,@1,@1, nil];
     
     NSMutableArray *program = [[NSMutableArray alloc] initWithCapacity:10];
     for(NSNumber *catId in categorySequence) {
@@ -36,7 +34,7 @@
 }
 
 +(NSArray *)createPractice {
-    NSMutableArray *blocks = [NSMutableArray arrayWithObjects:[NSNumber numberWithInt:0], nil];
+    NSMutableArray *blocks = [NSMutableArray arrayWithObjects:@0, nil];
     NSMutableArray *program = [[NSMutableArray alloc] initWithCapacity:1];
     [program addObject:[[StimulusSession alloc] initWithCategoryId:0 blocks:[blocks mutableCopy]]];
     return program;

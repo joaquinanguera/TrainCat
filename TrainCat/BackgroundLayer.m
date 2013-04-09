@@ -7,7 +7,7 @@
 //
 
 #import "BackgroundLayer.h"
-#import "constants.h"
+#import "Constants.h"
 
 
 @implementation BackgroundLayer
@@ -30,7 +30,7 @@
 -(id)init {
     if( (self=[super initWithColor:BACKGROUND_COLOR]) ) {
         CGSize winSize = [[CCDirector sharedDirector] winSize];
-        CCSprite *background = [CCSprite spriteWithFile:@"background.png"];
+        CCSprite *background = [CCSprite spriteWithFile:@"backgroundNoClouds.png"];
         background.position = ccp(winSize.width/2, winSize.height/2);
         [self addChild:background];
     }
