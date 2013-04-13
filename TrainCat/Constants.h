@@ -11,7 +11,7 @@
 
 #import "AppDelegate.h"
 
-#define DDEBUG 1
+//#define DDEBUG 1
 
 // Dropbox
 FOUNDATION_EXPORT NSString *const kDropboxAppKey;

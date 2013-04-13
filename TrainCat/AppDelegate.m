@@ -64,8 +64,6 @@
     dispatch_async(soundQueue, ^ {
         [[SimpleAudioEngine sharedEngine] preloadEffect:kCorrectResponseEffect];
         [[SimpleAudioEngine sharedEngine] preloadEffect:kIncorrectResponseEffect];
-        //[[SimpleAudioEngine sharedEngine] preloadEffect:kBlockCompleteEffect];
-        //[[SimpleAudioEngine sharedEngine] preloadEffect:kSessionCompleteEffect];
     });    
 }
 
