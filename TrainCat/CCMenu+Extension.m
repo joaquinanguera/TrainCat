@@ -7,11 +7,16 @@
 //
 
 #import "CCMenu+Extension.h"
+#import "cocos2d.h"
 
 @implementation CCMenu (Extension)
 
 +(CCMenuItemImage *)buttonWithImagePrefix:(NSString *)prefix tag:(NSInteger)tag target:(id)target selector:(SEL)selector {
-    CCMenuItemImage *btnImage = [CCMenuItemImage itemWithNormalImage:[NSString stringWithFormat:@"%@Normal.png", prefix] selectedImage:[NSString stringWithFormat:@"%@Selected.png", prefix] target:target selector:selector];
+    CCMenuItemImage *btnImage = [CCMenuItemImage
+                                 itemWithNormalSprite:[CCSprite spriteWithSpriteFrameName:[NSString stringWithFormat:@"%@Normal.png", prefix]]
+                                 selectedSprite:[CCSprite spriteWithSpriteFrameName:[NSString stringWithFormat:@"%@Selected.png", prefix]]
+                                 target:target
+                                 selector:selector];
     btnImage.tag = tag;
     return btnImage;
 }

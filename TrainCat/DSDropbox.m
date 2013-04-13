@@ -14,10 +14,12 @@
 +(void)writeToFile:(NSString *)path theString:(NSString *)string; {
     DBPath *newPath = [[DBPath root] childPath:path];
     DBFile *file;
+    
     if(!(file = [[DBFilesystem sharedFilesystem] openFile:newPath error:nil])) {
         NSLog(@"File does not exist. Creating...");
         file = [[DBFilesystem sharedFilesystem] createFile:newPath error:nil];
     }
+    
     [file writeString:string error:nil];
     NSLog(@"Created file %@ on DropBox.", path);
 }

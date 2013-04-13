@@ -31,12 +31,19 @@
                     <view key="view" contentMode="scaleToFill" id="Pac-7b-K9m">
                         <rect key="frame" x="0.0" y="20" width="1024" height="748"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" hidesWhenStopped="YES" style="whiteLarge" id="1Vc-pe-Zfz">
+                                <rect key="frame" x="494" y="356" width="37" height="37"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </activityIndicatorView>
+                        </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     </view>
                     <navigationItem key="navigationItem" id="A9P-Nh-Nyk"/>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     <connections>
+                        <outlet property="activityIndicator" destination="1Vc-pe-Zfz" id="kjl-KO-CUK"/>
                         <segue destination="ZbC-dz-GML" kind="push" identifier="segueToSettingsAuthentication" id="zvw-He-UVj"/>
                     </connections>
                 </viewController>
@@ -503,6 +510,9 @@
         </class>
         <class className="GameController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/GameController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="activityIndicator" candidateClass="UIActivityIndicatorView"/>
+            </relationships>
         </class>
         <class className="NumericTextField" superclassName="UITextField">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/NumericTextField.h"/>

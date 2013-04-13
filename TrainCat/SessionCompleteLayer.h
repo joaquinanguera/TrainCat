@@ -15,6 +15,6 @@
 
 @interface SessionCompleteLayer : CCLayerColor
 
-+(CCScene *) sceneWithParticipant:(Participant *) participant gameOver:(BOOL)isGameOver;
++(CCScene *) sceneWithParticipant:(Participant *) participant sessionId:(NSInteger)sessionId gameOver:(BOOL)isGameOver;
 
 @end

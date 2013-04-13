@@ -16,9 +16,11 @@
 #import "ParticipantPerformanceStatsChartView.h"
 #import "BackgroundLayer.h"
 #import "SimpleAudioEngine.h"
+#import "Logger.h"
 
 @interface SessionCompleteLayer()
 @property (nonatomic, strong) Participant *participant;
+@property (nonatomic, assign) NSInteger sessionId;
 @property (nonatomic, assign) BOOL isGameOver;
 @property (nonatomic, strong) ParticipantCompletionStatChartView *pieChart;
 @property (nonatomic, strong) ParticipantPerformanceStatsChartView *lineChart;
@@ -26,41 +28,43 @@
 
 @implementation SessionCompleteLayer
 
-
-
-+(CCScene *) sceneWithParticipant:(Participant *) participant gameOver:(BOOL)isGameOver;
++(CCScene *) sceneWithParticipant:(Participant *) participant sessionId:(NSInteger)sessionId gameOver:(BOOL)isGameOver
 {
 	CCScene *scene = [CCScene node];
-	SessionCompleteLayer *gameLayer = [[SessionCompleteLayer alloc] initWithParticipant:participant gameOver:(BOOL)isGameOver];
+	SessionCompleteLayer *gameLayer = [[SessionCompleteLayer alloc] initWithParticipant:participant sessionId:(NSInteger)sessionId gameOver:(BOOL)isGameOver];
 	[scene addChild: gameLayer];
 	return scene;
 }
 
-
--(id)initWithParticipant:(Participant *)participant gameOver:(BOOL)isGameOver {
-    if( (self=[super initWithColor:ccc4(255, 255, 255, 255)]) ) {
-        [[SimpleAudioEngine sharedEngine] preloadBackgroundMusic:@"theme.mp3"];
+-(id)initWithParticipant:(Participant *)participant sessionId:(NSInteger)sessionId gameOver:(BOOL)isGameOver {
+    if( (self=[super initWithColor:getCocosBackgroundColor()]) ) {
         [self addChild:[BackgroundLayer node]];
         self.participant = participant;
+        self.sessionId = sessionId;
         self.isGameOver = isGameOver;
 
         CCSprite *header = [self makeHeaderWithTitle:isGameOver ? @"Game Over!" : @"Session Complete!"];
         header.opacity = 255*0.60;
         [self addChild:[[header alignTop] alignCenter]];
         CCLabelTTF *levelText = [CCLabelTTF
-                                 labelWithString:@"Congratulations on getting this far!\nPress the home button on your iPad to exit the application."
-                                 dimensions:CGSizeMake(WIN_WIDTH,100)
-                                 hAlignment:kCCTextAlignmentCenter
-                                 vAlignment:kCCVerticalTextAlignmentTop
-                                 lineBreakMode:kCCLineBreakModeWordWrap
-                                 fontName:GAME_TEXT_FONT
-                                 fontSize:32.f];
-
-        levelText.color = ccc3(0, 0, 0);
-        levelText.opacity = 0.0;
-        [[[levelText alignMiddle] alignCenter] shiftDown:160];
-        [self addChild:levelText];
-        [levelText runAction:[CCSequence actionOne:[CCDelayTime actionWithDuration:1.0] two:[CCFadeIn actionWithDuration:1.0]]];
+            labelWithString:@"Congratulations on getting this far!\nPress the home button on your iPad to exit the application."
+            dimensions:CGSizeMake(getWinWidth(),100)
+            hAlignment:kCCTextAlignmentCenter
+            vAlignment:kCCVerticalTextAlignmentTop
+            lineBreakMode:kCCLineBreakModeWordWrap
+            fontName:kGameTextFont
+            fontSize:32.f];
+        
+         levelText.color = ccc3(0, 0, 0);
+         levelText.opacity = 0.0;
+         [[[levelText alignMiddle] alignCenter] shiftDown:160];
+         [self addChild:levelText];
+         [levelText runAction:[CCSequence actionOne:[CCDelayTime actionWithDuration:1.0] two:[CCFadeIn actionWithDuration:1.0]]];
+        
+        [Logger sendReportForParticipant:self.participant forSession:self.sessionId];
+        if(self.isGameOver) {
+            [Logger sendAllReportsForParticipant:self.participant];
+        }
     }
     
     [self makeGraphs];
@@ -73,8 +77,10 @@
         self.pieChart.alpha = 1.0;
         self.lineChart.alpha = 1.0;
     }];
-    [[SimpleAudioEngine sharedEngine] playBackgroundMusic:@"theme.mp3"];
+    [[SimpleAudioEngine sharedEngine] preloadBackgroundMusic:kSessionCompleteEffect];
+    [[SimpleAudioEngine sharedEngine] playBackgroundMusic:kSessionCompleteEffect];
 }
+
 
 -(void)makeGraphs {
     self.pieChart = [[ParticipantCompletionStatChartView alloc] initWithFrame:CGRectMake(10, 80, 497, 352)];
@@ -87,11 +93,11 @@
     self.lineChart.backgroundColor = [UIColor clearColor];
     self.lineChart.alpha = 0;
     [self.lineChart chartWithPoints:self.participant.performanceStats];
-    [[[CCDirector sharedDirector] view] addSubview:self.lineChart];    
+    [[[CCDirector sharedDirector] view] addSubview:self.lineChart];
 }
 
 -(CCSprite *)makeHeaderWithTitle:(NSString *)title {
-    CCSprite *sprite = [SpriteUtils blankSpriteWithSize:CGSizeMake(WIN_WIDTH, 140)];
+    CCSprite *sprite = [SpriteUtils blankSpriteWithSize:CGSizeMake(getWinWidth(), 140)];
     sprite.color = ccBLACK;
     CCLabelTTF *line1 = [CCLabelTTF
                          labelWithString:title
@@ -99,7 +105,7 @@
                          hAlignment:kCCTextAlignmentCenter
                          vAlignment:kCCVerticalTextAlignmentTop
                          lineBreakMode:kCCLineBreakModeWordWrap
-                         fontName:GAME_TEXT_FONT
+                         fontName:kGameTextFont
                          fontSize:55];
     
     [[[line1 alignTopTo:sprite] shiftDown:50] alignCenterTo:sprite];
@@ -108,14 +114,13 @@
     return sprite;
 }
 
--(void)didSelectContinue {
-    SEGUE_TO_SCENE([TrainCatLayer sceneWithSessionType:SessionTypeNormal]);
-}
 
 -(void)onExitTransitionDidStart {
     [super onExitTransitionDidStart];
     [self.pieChart removeFromSuperview];
     [self.lineChart removeFromSuperview];
+    [self stopAllActions];
 }
+
 
 @end

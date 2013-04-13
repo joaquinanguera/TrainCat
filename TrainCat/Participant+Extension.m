@@ -21,12 +21,12 @@
 @implementation Participant (Extension)
 
 +(Participant *)dummyParticipant {
-    return [Participant clearStateForParticipantWithId:DEMO_PARTICIPANT_ID];
+    return [Participant clearStateForParticipantWithId:kDemoParticipantId];
 }
 
 +(Participant *)participantWithId:(NSInteger)pid mustExist:(BOOL)mustExist {
     Participant *participant;
-    NSManagedObjectContext *moc = MOC;
+    NSManagedObjectContext *moc = getMOC();
     NSEntityDescription *entityDescription = [NSEntityDescription entityForName:@"Participant" inManagedObjectContext:moc];
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
     [request setEntity:entityDescription];
@@ -60,7 +60,7 @@
 
 +(Participant *)clearStateForParticipantWithId:(NSInteger)pid {
     Participant *participant = [self participantWithId:pid mustExist:NO];
-    AppController *delegate = APP_DELEGATE;
+    AppController *delegate = getAppDelegate();
     if(participant) {
         [delegate.managedObjectContext deleteObject:participant];
     }
@@ -70,7 +70,7 @@
                    insertNewObjectForEntityForName:@"Participant"
                    inManagedObjectContext:delegate.managedObjectContext];
     participant.pid = pid;
-    participant.program = [NSKeyedArchiver archivedDataWithRootObject:pid == DEMO_PARTICIPANT_ID ? [StimulusProgram createPractice] : [StimulusProgram create]];
+    participant.program = [NSKeyedArchiver archivedDataWithRootObject:pid == kDemoParticipantId ? [StimulusProgram createPractice] : [StimulusProgram create]];
     [delegate saveContext];
     
     return participant;    
@@ -80,11 +80,11 @@
     NSError *error = NULL;
     NSString *illegalParticipantIdFormatString = @"%04d is not a valid Participant Id. Participant Id's range from %04d to %04d.";
     int32_t pid = [*ioValue integerValue];
-    if((pid != DEMO_PARTICIPANT_ID) && (pid < 1 || pid > 9999)) {
-        NSString *errorMessage = [NSString stringWithFormat:illegalParticipantIdFormatString, pid, MIN_PARTICIPANT_ID, MAX_PARTICIPANT_ID];
+    if((pid != kDemoParticipantId) && (pid < kMinParticipantId || pid > kMaxParticipantId)) {
+        NSString *errorMessage = [NSString stringWithFormat:illegalParticipantIdFormatString, pid, kMinParticipantId, kMinParticipantId];
         error = [[NSError alloc] initWithDomain:errorMessage code:0x2 userInfo:nil];
     } else { // duplicate?
-        NSManagedObjectContext *moc = MOC;
+        NSManagedObjectContext *moc = getMOC();
         NSFetchRequest *request = [[NSFetchRequest alloc] init];
         request.entity = [NSEntityDescription entityForName:@"Participant" inManagedObjectContext:moc];
         request.predicate = [NSPredicate predicateWithFormat:@"pid = %d",pid];
@@ -94,7 +94,7 @@
             NSString *errorMessage = [NSString stringWithFormat:@"Error looking up Participant %04d with error: %@", pid, [executeFetchError localizedDescription]];
             error = [[NSError alloc] initWithDomain:errorMessage code:0x4 userInfo:nil];
         } else if(idCount > 1) { // idCount will be 2 in case of duplicates cause we created the new duplicate object in the current managed object context
-            error = [[NSError alloc] initWithDomain:((pid == DEMO_PARTICIPANT_ID) ? [NSString stringWithFormat:illegalParticipantIdFormatString, pid, MIN_PARTICIPANT_ID, MAX_PARTICIPANT_ID] : @"Duplicate Participant Id") code:0x8 userInfo:nil];
+            error = [[NSError alloc] initWithDomain:((pid == kDemoParticipantId) ? [NSString stringWithFormat:illegalParticipantIdFormatString, pid, kMinParticipantId, kMinParticipantId] : @"Duplicate Participant Id") code:0x8 userInfo:nil];
         }
     }
     if (error!= NULL) {
@@ -108,7 +108,7 @@
 
 -(void)awakeFromInsert {
     [super awakeFromInsert];
-    NSManagedObjectContext *moc = MOC;
+    NSManagedObjectContext *moc = getMOC();
     GameState *gs =[NSEntityDescription insertNewObjectForEntityForName:@"GameState" inManagedObjectContext:moc];
     self.gameState = gs;
     self.program = [NSKeyedArchiver archivedDataWithRootObject:[StimulusProgram create]];
@@ -139,17 +139,17 @@
     double value = 0.0;
     
     if(self.sessions.count) {
-        value = (self.sessions.count-1) * MAX_STIMULUS_BLOCKS * MAX_TRIALS_PER_STIMULUS_BLOCK;
+        value = (self.sessions.count-1) * kMaxBlocks * kMaxTrialsPerBlock;
         Session *lastSession = self.sessions.lastObject;
         if(lastSession.blocks.count) {
-            value += (lastSession.blocks.count-1) * MAX_TRIALS_PER_STIMULUS_BLOCK;
+            value += (lastSession.blocks.count-1) * kMaxTrialsPerBlock;
             Block *lastBlock = lastSession.blocks.lastObject;            
             value += lastBlock.trials.count;
         }
     }
     
-    //// NSLog(@"completion Stat: sessionsCompleted: %f", value/(MAX_STIMULUS_SESSIONS*MAX_STIMULUS_BLOCKS*MAX_TRIALS_PER_STIMULUS_BLOCK));
-    return value/(MAX_STIMULUS_SESSIONS*MAX_STIMULUS_BLOCKS*MAX_TRIALS_PER_STIMULUS_BLOCK);
+    //// NSLog(@"completion Stat: sessionsCompleted: %f", value/(kMaxSessions*kMaxBlocks*kMaxTrialsPerBlock));
+    return value/(kMaxSessions*kMaxBlocks*kMaxTrialsPerBlock);
 }
 
 -(NSString *)completionStatDescription {
@@ -181,8 +181,8 @@
 
 
 -(NSArray *)performanceStats {    
-    NSMutableArray *blockPerf = [[NSMutableArray alloc] initWithCapacity:MAX_STIMULUS_BLOCKS];
-    [blockPerf ensureCount:MAX_STIMULUS_BLOCKS];
+    NSMutableArray *blockPerf = [[NSMutableArray alloc] initWithCapacity:kMaxBlocks];
+    [blockPerf ensureCount:kMaxBlocks];
     
     NSMutableArray *sessionPerf = [[NSMutableArray alloc] init]; // Average level achieved in each session
     for(Session *session in self.sessions) {
@@ -198,8 +198,8 @@
 -(NSUInteger)gradeBlock:(Block *)block {
     NSUInteger highestLevelAchieved = 0;
     
-    NSMutableArray *correct = [[NSMutableArray alloc] initWithCapacity:MAX_STIMULUS_LEVEL];
-    [correct ensureCount:MAX_STIMULUS_LEVEL];
+    NSMutableArray *correct = [[NSMutableArray alloc] initWithCapacity:kMaxLevel];
+    [correct ensureCount:kMaxLevel];
     
     for(Trial *trial in block.trials) {
         if([trial.accuracy isEqualToString:@"Correct"]) {

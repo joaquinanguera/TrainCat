@@ -9,7 +9,7 @@
 // TODO: This could be converted into a more full featured layout manager. 
 
 #import "cocos2d.h"
-#import "Constants.h"
+#import "CocosConstants.h"
 #import "CCNode+Extension.h"
 
 @implementation CCNode (Extension)
@@ -97,7 +97,7 @@
 }
 
 -(CGPoint)halfSize {    
-    return [self isKindOfClass:[CCMenu class]] ? MENU_BUTTON(self).anchorPointInPoints : self.anchorPointInPoints;
+    return [self isKindOfClass:[CCMenu class]] ? getMenuButton((CCMenu*)self).anchorPointInPoints : self.anchorPointInPoints;
 }
 
 

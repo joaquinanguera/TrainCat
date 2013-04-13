@@ -22,30 +22,14 @@
 @implementation Logger
 
 +(void)sendReportForParticipant:(Participant *)participant forSession:(NSUInteger)sid {
-    // <participantID%04>_session_<sessionID%02>.csv
-    [DSDropbox writeToFile:[NSString stringWithFormat:@"%04d_session_%02d.csv", participant.pid, sid] theString:[self makeSessionReportForParticipant:participant forSession:sid]];
-    //NSLog(@"%@", [self makeSessionReportForParticipant:participant forSession:sid]);
-    
-    // <participantID%04>_log_<sessionID%02>.csv
-    [DSDropbox writeToFile:[NSString stringWithFormat:@"%04d_log_%02d.csv", participant.pid, sid] theString:[self makeSessionLogsForParticipant:participant]];
-    //NSLog(@"%@", [Logger makeSessionLogsForParticipant:participant]);
-    
-    // <participantID%04>_program.txt
+    [DSDropbox writeToFile:[NSString stringWithFormat:@"%04d_session_%02d.csv", participant.pid, sid+1] theString:[self makeSessionReportForParticipant:participant forSession:sid]];
+    [DSDropbox writeToFile:[NSString stringWithFormat:@"%04d_log_%02d.csv", participant.pid, sid+1] theString:[self makeSessionLogsForParticipant:participant]];
     [DSDropbox writeToFile:[NSString stringWithFormat:@"%04d_program.txt", participant.pid] theString:[self makeProgramListingForParticipant:participant]];
-    //NSLog(@"%@", [Logger makeProgramListingForParticipant:participant]);
 }
 
 +(void)sendAllReportsForParticipant:(Participant *)participant {
-    // <participantID%04>_session_all.csv
     [DSDropbox writeToFile:[NSString stringWithFormat:@"%04d_session_all.csv", participant.pid] theString:[self makeFullSessionsReportForParticipant:participant]];
-    //NSLog(@"%@", [self makeFullSessionsReportForParticipant:participant]);
-    
-    // <participantID%04>_log_all.csv
-    //NSLog(@"%@", [Logger makeSessionLogsForParticipant:participant]);
     [DSDropbox writeToFile:[NSString stringWithFormat:@"%04d_log_all.csv", participant.pid] theString:[self makeSessionLogsForParticipant:participant]];
-    
-    // <participantID%04>_program.txt
-    //NSLog(@"%@", [Logger makeProgramListingForParticipant:participant]);
     [DSDropbox writeToFile:[NSString stringWithFormat:@"%04d_program.txt", participant.pid] theString:[self makeProgramListingForParticipant:participant]];
 }
 

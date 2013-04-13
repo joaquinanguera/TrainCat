@@ -7,7 +7,7 @@
 //
 
 #import "ResponseLayer.h"
-#import "Constants.h"
+#import "CocosConstants.h"
 #import "SoundUtils.h"
 
 
@@ -38,7 +38,7 @@
         rb.position = ccp(winSize.width-rbItem.contentSize.width/2-RESPONSE_LAYER_BUTTON_PADDING, winSize.height/3.0);
         
         self.getResponseAction = [CCSequence actions:
-                                  [CCDelayTime actionWithDuration:RESPONSE_DURATION],
+                                  [CCDelayTime actionWithDuration:kResponseDuration],
                                   [CCCallFunc actionWithTarget:self selector:@selector(didSkipResponse)],
                                   nil];        
         

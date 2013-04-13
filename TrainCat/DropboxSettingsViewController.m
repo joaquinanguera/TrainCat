@@ -28,8 +28,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didCompleteDropboxLinkAttempt:) name:DS_DROPBOX_LINK_ATTEMPT_COMPLETE object:nil];
-	self.view.backgroundColor = [UIColor colorWithRed:BACKGROUND_COLOR_R/255.0 green:BACKGROUND_COLOR_G/255.0 blue:BACKGROUND_COLOR_B/255.0 alpha:255];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didCompleteDropboxLinkAttempt:) name:kDropboxLinkAttemptComplete object:nil];
+	self.view.backgroundColor = getBackgroundColor();
     ((ViewWithToast *)self.view).toastBackgroundColor = [UIColor redColor];
     self.isFirstRun = ![DSDropbox accountInfo];
     [self hideControls];

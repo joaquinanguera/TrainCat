@@ -7,8 +7,8 @@
 //
 
 #import "BackgroundLayer.h"
-#import "Constants.h"
-
+#import "CocosConstants.h"
+#import "CCNode+Extension.h"
 
 @implementation BackgroundLayer
 // Helper class method that creates a Scene with the BackgroundLayer as the only child.
@@ -28,11 +28,8 @@
 }
 
 -(id)init {
-    if( (self=[super initWithColor:BACKGROUND_COLOR]) ) {
-        CGSize winSize = [[CCDirector sharedDirector] winSize];
-        CCSprite *background = [CCSprite spriteWithFile:@"backgroundNoClouds.png"];
-        background.position = ccp(winSize.width/2, winSize.height/2);
-        [self addChild:background];
+    if( (self=[super initWithColor:getCocosBackgroundColor()]) ) {
+        [self addChild:[[[[CCSprite spriteWithSpriteFrameName:@"logoTrainCat.png"] alignBottom] alignCenter] shiftDown:2.0]];
     }
     return self;
 }

@@ -10,5 +10,5 @@
 #import "cocos2d.h"
 
 @interface GameController : UIViewController <CCDirectorDelegate>
-
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 @end

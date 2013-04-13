@@ -119,7 +119,7 @@
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    
+
     [[CCDirector sharedDirector] purgeCachedData];
 }
 
@@ -156,13 +156,13 @@
 - (void)applicationWillResignActive:(NSNotification *)notification
 {
     [[SimpleAudioEngine sharedEngine] stopBackgroundMusic];
-    [[CCDirector sharedDirector] pause];
+    [[CCDirector sharedDirector] pause]; 
 }
 
 
 - (void)applicationDidBecomeActive:(NSNotification *)notification
 {
-    [[CCDirector sharedDirector] resume];
+    [[CCDirector sharedDirector] resume]; 
 }
 
 
@@ -180,6 +180,7 @@
 
 - (void)applicationWillTerminate:(NSNotification *)notification
 {
+    [SimpleAudioEngine end];
     [[CCDirector sharedDirector] end];
 }
 

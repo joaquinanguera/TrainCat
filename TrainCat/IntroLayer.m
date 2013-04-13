@@ -13,22 +13,18 @@
 #import "SimpleAudioEngine.h"
 #import "TrainCatLayer.h"
 #import "GameController.h"
-#import "Participant+Extension.h"
 #import "SpriteUtils.h"
 #import "CCMenu+Extension.h"
 #import "NSUserDefaults+Extensions.h"
 #import "DSDropbox.h"
 #import "SoundUtils.h"
-#import "logger.h"
+#import "CCNode+Extension.h"
+#import "BackgroundLayer.h"
 
 #pragma mark - IntroLayer
 
 @interface IntroLayer()
 
-@property (nonatomic, strong) CCMenu *menu;
-@property (nonatomic, strong) CCSprite *exclamation;
-@property (nonatomic, strong) CCSprite *alert;
-@property (nonatomic, strong) CCLabelTTF *notification;
 @end
 
 // HelloWorldLayer implementation
@@ -51,167 +47,106 @@
 }
 
 -(id)init {
-    if( (self=[super initWithColor:BACKGROUND_COLOR]) ) {
-        CGSize winSize = [[CCDirector sharedDirector] winSize];
-        CCSprite *background = [CCSprite spriteWithFile:@"background.png"];
-        background.position = ccp(winSize.width/2, winSize.height/2);
-        [self addChild:background];
+    if( (self=[super initWithColor:getCocosBackgroundColor()]) ) {
+        
+        [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"TrainCat.plist"];
     }
     return self;
 }
 
--(void) onEnter
-{
-	[super onEnter];
-    
-#ifdef DDEBUG
-/*
-    NSInteger pid = 1; //[[NSUserDefaults standardUserDefaults] loggedIn];
-    [Participant clearStateForParticipantWithId:pid];
-    [[NSUserDefaults standardUserDefaults] login:pid];
-*/ 
-#endif
-    
-    [self makeMenu];
-}
-
 -(void) viewWillAppear {
-    [self initNotification];
-    [self makePrimaryMenu];
+    [self setupUI];    
 }
 
--(void)makeMenu {
-    [self makePrimaryMenu];
-    /*    
-	CGSize winSize = [[CCDirector sharedDirector] winSize];
+-(void)onEnterTransitionDidFinish {
+    [self setupUI];
+}
 
-    CCMenu *mnuToggleSound = [CCMenu menuWithImagePrefix:@"iconSpeaker" tag:0 target:self selector:@selector(didTapToggleBackgroundMusic:)];
-    mnuToggleSound.position = ccp(winSize.width - mnuToggleSound.button.contentSize.width/2 - STIMULUS_PADDING, mnuToggleSound.button.contentSize.height/2 + STIMULUS_PADDING);
+
+-(void)setupUI {
+    [self removeAllChildrenWithCleanup:YES];
     
-    [self addChild:mnuToggleSound]; */
-}
-
--(void)didTapPlay:(CCMenuItem *)menuItem {
-    [SoundUtils playInputClick];
-#ifdef DDEBUG
-    SEGUE_TO_SCENE([TrainCatLayer sceneWithSessionType:SessionTypeNormal]);
-#else
-    SEGUE_TO_SCENE([TrainCatLayer sceneWithSessionType:SessionTypeWarmup]);
-#endif
-    
-}
-
--(void)didTapPractice:(CCMenuItem *)menuItem {
-    [SoundUtils playInputClick];
-     SEGUE_TO_SCENE([TrainCatLayer sceneWithSessionType:SessionTypePractice]);
-}
-
--(void)didTapSettings:(CCMenuItem *)menuItem {
-    [SoundUtils playInputClick];
-    GameController *gc = (GameController *)([CCDirector sharedDirector].delegate);
-    [gc performSegueWithIdentifier:@"segueToSettingsAuthentication" sender:gc];
-}
-
--(void)didTapDisabledButton:(CCMenuItem *)menuItem {
-  // TODO: Play a down sound here.
-}
-
-
--(void)didTapToggleBackgroundMusic:(CCMenuItem *)menuItem {
-    if([[SimpleAudioEngine sharedEngine] isBackgroundMusicPlaying]) {
-        [[SimpleAudioEngine sharedEngine] stopBackgroundMusic];
-        ((CCMenuItemImage *)menuItem).opacity = 128;
-    } else {
-        [[SimpleAudioEngine sharedEngine] playBackgroundMusic:@"theme.mp3"]; // TODO: Currently throwing an error
-        ((CCMenuItemImage *)menuItem).opacity = 255;
-    }
-}
-
--(void)makePrimaryMenu {
-    if(self.menu) {
-        [self removeChild:self.menu cleanup:YES];
-    }
+    CGSize winSize = [[CCDirector sharedDirector] winSize];
+    [self addChild:[BackgroundLayer node]];
+    [self addChild:[[[[CCSprite spriteWithSpriteFrameName:@"clouds.png"] alignTop] alignCenter] shiftDown:20]];
     
     BOOL isLoggedIn =[[NSUserDefaults standardUserDefaults] loggedIn] ? YES : NO;
     BOOL isDropboxAuthenticated = [DSDropbox accountInfo] ? YES : NO;
     BOOL isPlayEnabled = isLoggedIn && isDropboxAuthenticated;
     
-    NSLog(@"makePrimaryMenu");
-    NSLog(@"isLoggedIn: %@", isLoggedIn ? @"YES" : @"NO");
-    NSLog(@"isDropboxAuthenticated: %@", isDropboxAuthenticated ? @"YES" : @"NO");
-    NSLog(@"isPlayEnabled: %@", isPlayEnabled ? @"YES" : @"NO");
-    
-	CGSize winSize = [[CCDirector sharedDirector] winSize];
-    NSArray *buttonPrefixs = @[(isPlayEnabled ? @"buttonPlay" : @"buttonPlayDisabled"),@"buttonPractice",@"buttonSettings"];
+    NSArray *buttonPrefixs = @[(isPlayEnabled ? @"buttonPlay" : @"buttonPlayDisabled"),@"buttonPractice",@"buttonSettings"]; // MenuItems support a disabled image feature but we've done it this way (which is ok too)
     NSArray *buttonSelectors = @[(isPlayEnabled ? @"didTapPlay:" : @"didTapDisabledButton:"), @"didTapPractice:", @"didTapSettings:"];
     
     CCMenu *mnu = [CCMenu menuWithImagePrefixes:buttonPrefixs tags:nil target:self selectors:buttonSelectors];
     [mnu alignItemsVerticallyWithPadding:30];
     mnu.position = ccp(winSize.width/2, winSize.height/2);
     [self addChild:mnu];
-    self.menu = mnu;
 
     if(!isPlayEnabled) {
         CCMenuItem *item = [mnu.children objectAtIndex:0];
-        if(!self.exclamation) {
-            self.exclamation = [CCSprite spriteWithFile:@"largeAlertIcon.png"];
-            self.exclamation.position = ccp(item.contentSize.width/2 + item.position.x + mnu.position.x - self.exclamation.contentSize.width/2 + 5, item.contentSize.height/2 + item.position.y + mnu.position.y - self.exclamation.contentSize.height/2 + 5);
+        CCSprite *exclamation = [CCSprite spriteWithSpriteFrameName:@"largeAlertIcon.png"];
+        exclamation.position = ccp(item.contentSize.width/2 + item.position.x + mnu.position.x - exclamation.contentSize.width/2 + 5, item.contentSize.height/2 + item.position.y + mnu.position.y - exclamation.contentSize.height/2 + 5);
+        CCSprite *alert = [CCSprite spriteWithSpriteFrameName:@"dropboxAndLoginAlert.png"];
+        alert.position = ccp(item.contentSize.width/2 + item.position.x + mnu.position.x + alert.contentSize.width/2, item.contentSize.height/2 + item.position.y + mnu.position.y - alert.contentSize.height/2);;        
             
-            self.alert = [CCSprite spriteWithFile:@"dropboxAndLoginAlert.png"];
-            self.alert.position = ccp(item.contentSize.width/2 + item.position.x + mnu.position.x + self.alert.contentSize.width/2, item.contentSize.height/2 + item.position.y + mnu.position.y - self.alert.contentSize.height/2);;        
-            
-            NSString *ns;
-            if(!isDropboxAuthenticated && !isLoggedIn) {
-                ns = @"Enable Dropbox and login a participant (tap Settings).";
-            } else if(!isDropboxAuthenticated) {
-                ns = @"Verify Dropbox credentials\n(tap Settings).";
-            } else if(!isLoggedIn) {
-                ns = @"Login a participant\n(tap Settings).";
-            }
-            
-            float kNotificationPointerSize = 22.5;
-            float kNotificationPadding = 20.0;
-            if(self.notification) {
-                [self removeChild:self.notification cleanup:YES];
-            }
-            self.notification = [CCLabelTTF
+        NSString *ns;
+        if(!isDropboxAuthenticated && !isLoggedIn) {
+            ns = @"Enable Dropbox and login a participant (tap Settings).";
+        } else if(!isDropboxAuthenticated) {
+            ns = @"Verify Dropbox credentials\n(tap Settings).";
+        } else if(!isLoggedIn) {
+            ns = @"Login a participant\n(tap Settings).";
+        }
+        
+        float kNotificationPointerSize = 22.5;
+        float kNotificationPadding = 20.0;
+        CCSprite *notification = [CCLabelTTF
                                  labelWithString:ns
-                                 dimensions:CGSizeMake(self.alert.contentSize.width-kNotificationPointerSize-kNotificationPadding,
-                                                       self.alert.contentSize.height-kNotificationPadding)
+                                 dimensions:CGSizeMake(alert.contentSize.width-kNotificationPointerSize-kNotificationPadding,
+                                                       alert.contentSize.height-kNotificationPadding)
                                             hAlignment:kCCTextAlignmentCenter
                                             vAlignment:kCCVerticalTextAlignmentCenter
                                             lineBreakMode:kCCLineBreakModeWordWrap
-                                            fontName:GAME_TEXT_FONT
+                                            fontName:kGameTextFont
                                             fontSize:15];
             
-            self.notification.color = ccc3(255, 255, 255);
-            self.notification.position = ccp(self.alert.position.x + kNotificationPointerSize/2, self.alert.position.y);
+        notification.color = ccc3(255, 255, 255);
+        notification.position = ccp(alert.position.x + kNotificationPointerSize/2, alert.position.y);
             
-            [self initNotification];
-            [self addChild:self.exclamation z:5];
-            [self addChild:self.alert z:5];
-            [self addChild:self.notification z:5];
-        }
-        
+        [notification setScale:0.0];
+        [exclamation setScale:0.0];
+        [alert setScale:0.0];
+
+        [self addChild:exclamation z:5];
+        [self addChild:alert z:5];
+        [self addChild:notification z:5];
+                
         CCAction *popInAction = [CCSequence actions:[CCDelayTime actionWithDuration:0.5], [CCEaseBounceOut actionWithAction:[CCScaleTo actionWithDuration:0.5 scale:1.0]], nil];
-        [self.exclamation runAction:popInAction];
-        [self.alert runAction:[popInAction copy]];
-        [self.notification runAction:[popInAction copy]];
+        [exclamation runAction:popInAction];
+        [alert runAction:[popInAction copy]];
+        [notification runAction:[popInAction copy]];
     }
 }
 
-
--(void)initNotification {
-    [self.notification setScale:0.0];
-    [self.exclamation setScale:0.0];
-    [self.alert setScale:0.0];
+-(void)didTapPlay:(CCMenuItem *)menuItem {
+    [SoundUtils playInputClick];
+#ifdef DDEBUG
+    segueToScene([TrainCatLayer sceneWithSessionType:SessionTypeNormal]);
+#else
+    segueToScene([TrainCatLayer sceneWithSessionType:SessionTypeWarmup]);
+#endif
+    
 }
 
+-(void)didTapPractice:(CCMenuItem *)menuItem {
+    [SoundUtils playInputClick];
+    segueToScene([TrainCatLayer sceneWithSessionType:SessionTypePractice]);
+}
 
--(void)onExit {
-    // TODO: Turn off music
-    //[self didTapToggleBackgroundMusic];
-    [super onExit];
+-(void)didTapSettings:(CCMenuItem *)menuItem {
+    [SoundUtils playInputClick];
+    UIViewController *gc = getGameController();
+    [gc performSegueWithIdentifier:@"segueToSettingsAuthentication" sender:gc];
 }
 
 @end

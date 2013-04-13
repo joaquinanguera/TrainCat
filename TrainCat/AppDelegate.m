@@ -10,12 +10,14 @@
 #import "cocos2d.h"
 #import "AppDelegate.h"
 #import "IntroLayer.h"
-#import "Constants.h"
+#import "CocosConstants.h"
 #import "Participant+Extension.h"
+#import "SimpleAudioEngine.h"
+#import "BlockCompleteLayer.h"
 
 @implementation AppController
 
-@synthesize window=window_, navController=navController_, director=director_;
+@synthesize window=window_;
 @synthesize managedObjectContext = _managedObjectContext;
 @synthesize managedObjectModel = _managedObjectModel;
 @synthesize persistentStoreCoordinator = _persistentStoreCoordinator;
@@ -26,7 +28,7 @@
     [self configureDropbox];
     [self configureCocos];
     [self configureAppDefaults];
-    
+    [self preloadSounds]; 
 	return YES;
 }
 
@@ -34,8 +36,7 @@
 
 -(void)configureDropbox {
     // The account manager stores all the account info. Create this when your app launches
-    DBAccountManager* accountMgr =
-    [[DBAccountManager alloc] initWithAppKey:DROPBOX_APP_KEY secret:DROPBOX_SECRET];
+    DBAccountManager* accountMgr = [[DBAccountManager alloc] initWithAppKey:kDropboxAppKey secret:kDropboxSecretKey];
     [DBAccountManager setSharedManager:accountMgr];
     DBAccount *account = accountMgr.linkedAccount;
     
@@ -54,22 +55,30 @@
 
 -(void)configureAppDefaults {
     [[NSUserDefaults standardUserDefaults] registerDefaults:[NSDictionary dictionaryWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"Defaults" ofType:@"plist"]]];
-    [Participant clearStateForParticipantWithId:DEMO_PARTICIPANT_ID]; // Reset/Create demo participant
+    [Participant clearStateForParticipantWithId:kDemoParticipantId]; // Reset/Create demo participant
     
+}
+
+-(void)preloadSounds {
+    dispatch_queue_t soundQueue = dispatch_queue_create("sound preloader", NULL);
+    dispatch_async(soundQueue, ^ {
+        [[SimpleAudioEngine sharedEngine] preloadEffect:kCorrectResponseEffect];
+        [[SimpleAudioEngine sharedEngine] preloadEffect:kIncorrectResponseEffect];
+        //[[SimpleAudioEngine sharedEngine] preloadEffect:kBlockCompleteEffect];
+        //[[SimpleAudioEngine sharedEngine] preloadEffect:kSessionCompleteEffect];
+    });    
 }
 
 - (BOOL)application:(UIApplication *)app openURL:(NSURL *)url
   sourceApplication:(NSString *)source annotation:(id)annotation {
     DBAccount *account = [[DBAccountManager sharedManager] handleOpenURL:url];
-    [[NSNotificationCenter defaultCenter] postNotificationName:DS_DROPBOX_LINK_ATTEMPT_COMPLETE object:account];
-    
     if (account) {
         DBFilesystem *filesystem = [[DBFilesystem alloc] initWithAccount:account];
         [DBFilesystem setSharedFilesystem:filesystem];
-        return YES;
     }
     
-    return NO;
+    [[NSNotificationCenter defaultCenter] postNotificationName:kDropboxLinkAttemptComplete object:account];    
+    return account ? YES : NO;
 }
 
 // Supported orientations: Landscape. Customize it for your own needs
@@ -77,62 +86,7 @@
 {
 	return UIInterfaceOrientationIsLandscape(interfaceOrientation);
 }
-
-
-// getting a call, pause the game
--(void) applicationWillResignActive:(UIApplication *)application
-{
-	if( [navController_ visibleViewController] == director_ )
-		[director_ pause];
-}
-
-// call got rejected
--(void) applicationDidBecomeActive:(UIApplication *)application
-{
-	if( [navController_ visibleViewController] == director_ )
-		[director_ resume];
-}
-
--(void) applicationDidEnterBackground:(UIApplication*)application
-{
-	if( [navController_ visibleViewController] == director_ )
-		[director_ stopAnimation];
-}
-
--(void) applicationWillEnterForeground:(UIApplication*)application
-{
-	if( [navController_ visibleViewController] == director_ )
-		[director_ startAnimation];
-}
-
-// application will be killed
-- (void)applicationWillTerminate:(UIApplication *)application
-{
-	CC_DIRECTOR_END();
-}
-
-// purge memory
-- (void)applicationDidReceiveMemoryWarning:(UIApplication *)application
-{
-	[[CCDirector sharedDirector] purgeCachedData];
-}
-
-// next delta time will be zero
--(void) applicationSignificantTimeChange:(UIApplication *)application
-{
-	[[CCDirector sharedDirector] setNextDeltaTimeZero:YES];
-}
-/*
-- (void) dealloc
-{
-	[window_ release];
-	[navController_ release];
-    [_managedObjectContext release];
-    [_managedObjectModel release];
-    [_persistentStoreCoordinator release];
-    [super dealloc];
-} */
-
+ 
 - (void)saveContext
 {
     NSError *error = nil;
@@ -193,29 +147,6 @@
                              [NSNumber numberWithBool:YES], NSMigratePersistentStoresAutomaticallyOption,
                              [NSNumber numberWithBool:YES], NSInferMappingModelAutomaticallyOption, nil];
     if (![_persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:options error:&error]) {
-        /*
-         Replace this implementation with code to handle the error appropriately.
-         
-         abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-         
-         Typical reasons for an error here include:
-         * The persistent store is not accessible;
-         * The schema for the persistent store is incompatible with current managed object model.
-         Check the error message to determine what the actual problem was.
-         
-         
-         If the persistent store is not accessible, there is typically something wrong with the file path. Often, a file URL is pointing into the application's resources directory instead of a writeable directory.
-         
-         If you encounter schema incompatibility errors during development, you can reduce their frequency by:
-         * Simply deleting the existing store:
-         [[NSFileManager defaultManager] removeItemAtURL:storeURL error:nil]
-         
-         * Performing automatic lightweight migration by passing the following dictionary as the options parameter:
-         @{NSMigratePersistentStoresAutomaticallyOption:@YES, NSInferMappingModelAutomaticallyOption:@YES}
-         
-         Lightweight migration will only work for a limited set of schema changes; consult "Core Data Model Versioning and Data Migration Programming Guide" for details.
-         
-         */
         NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
         abort();
     }
@@ -231,6 +162,7 @@
 {
     return [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
 }
+
 
 
 @end

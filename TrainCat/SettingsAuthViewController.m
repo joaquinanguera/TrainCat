@@ -23,7 +23,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	self.view.backgroundColor = [UIColor colorWithRed:BACKGROUND_COLOR_R/255.0 green:BACKGROUND_COLOR_G/255.0 blue:BACKGROUND_COLOR_B/255.0 alpha:255];
+	self.view.backgroundColor = getBackgroundColor();
     self.passwordField.delegate = self;
     UIImageView * invalidField = [[UIImageView  alloc] initWithImage:[UIImage  imageNamed:@"iconInvalidField.png"]];
     [self.passwordField setRightView:invalidField];

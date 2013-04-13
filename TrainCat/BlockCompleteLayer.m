@@ -23,15 +23,13 @@
 @property (nonatomic, assign) ALuint backgroundScoreId;
 @end
 
-#define kBlockCompleteEffect @"blockComplete.mp3"
-#define kFeedbackSoundCorrect @"correct2.mp3"
-#define kSpriteRewardPostive @"iconRewardPositive.png"
-#define kSpriteRewardNegative @"iconRewardNegative.png"
-
-#define kBlockCompleteMeterPositionPadding 50
-#define kBlockCompleteMeterElementPadding 15.0f
 
 @implementation BlockCompleteLayer
+
+static NSString *const kSpriteRewardPostive = @"iconRewardPositive.png";
+static NSString *const kSpriteRewardNegative = @"iconRewardNegative.png";
+static double const kBlockCompleteMeterPositionPadding = 50.f;
+static double const kBlockCompleteMeterElementPadding = 15.f;
 
 +(CCScene *) sceneWithParticipant:(Participant *) participant sessionType:(SessionType)sessionType;
 {
@@ -42,11 +40,10 @@
 }
 
 -(id)initWithParticipant:(Participant *)participant sessionType:(SessionType)sessionType {
-    if( (self=[super initWithColor:BACKGROUND_COLOR]) ) {
+    if( (self=[super initWithColor:getCocosBackgroundColor()]) ) {
         self.participant = participant;
         self.sessionType = sessionType;
         
-        [[SimpleAudioEngine sharedEngine] preloadEffect:kBlockCompleteEffect];
         [self addChild:[BackgroundLayer node]];
         
         CCSprite *header = [self makeHeader];
@@ -55,12 +52,12 @@
         [self addChild:header];
         
         NSUInteger level = [self.participant levelForLastBlock];
-        self.levelText = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"You reached level %d.", level] fontName:GAME_TEXT_FONT fontSize:32.f];
+        self.levelText = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"You reached level %d.", level] fontName:kGameTextFont fontSize:32.f];
         self.levelText.color = ccc3(0, 0, 0);
         self.levelText.opacity = 0.0;
         [self addChild:self.levelText];
         
-        CCSprite *levelMeter = [self setupLevelMeterWithLevel:level maxLevels:MAX_STIMULUS_LEVEL rows:2];
+        CCSprite *levelMeter = [self setupLevelMeterWithLevel:level maxLevels:kMaxLevel rows:3];
         // levelMeter adds itself to the stage cause otherwise the actions construction code seems to barf.
         // Not the most elegant solution but it will do for now. 
         [[[levelMeter alignCenter] alignMiddle] shiftUp:kBlockCompleteMeterPositionPadding];
@@ -90,15 +87,13 @@
             }
                 break;
         }
-        
-        [[SimpleAudioEngine sharedEngine] preloadEffect:kFeedbackSoundCorrect];        
     }
     
     return self;
 }
 
 -(CCSprite *)makeHeader {
-    CCSprite *sprite = [SpriteUtils blankSpriteWithSize:CGSizeMake(WIN_WIDTH, 140)];
+    CCSprite *sprite = [SpriteUtils blankSpriteWithSize:CGSizeMake(getWinWidth(), 140)];
     sprite.color = ccBLACK;
     
     CCLabelTTF *line1 = [CCLabelTTF
@@ -107,7 +102,7 @@
                      hAlignment:kCCTextAlignmentCenter
                      vAlignment:kCCVerticalTextAlignmentTop
                      lineBreakMode:kCCLineBreakModeWordWrap
-                     fontName:GAME_TEXT_FONT
+                     fontName:kGameTextFont
                      fontSize:55];
     
     NSString *line2Text;    
@@ -128,13 +123,13 @@
                          hAlignment:kCCTextAlignmentCenter
                          vAlignment:kCCVerticalTextAlignmentTop
                          lineBreakMode:kCCLineBreakModeWordWrap
-                         fontName:GAME_TEXT_FONT
+                         fontName:kGameTextFont
                          fontSize:30];
     
     NSString *line3Text;
     switch (self.sessionType) {
         case SessionTypeNormal:
-            line3Text = [NSString stringWithFormat:@"Only %d more to go for today!", MAX_STIMULUS_BLOCKS - [self.participant blocksCompletedInCurrentSession]];
+            line3Text = [NSString stringWithFormat:@"Only %d more to go for today!", kMaxBlocks - [self.participant blocksCompletedInCurrentSession]];
             break;
         case SessionTypePractice:
             line3Text = @"Tap Back to practice again. Tap Continue to the Game Menu.";
@@ -150,7 +145,7 @@
                          hAlignment:kCCTextAlignmentCenter
                          vAlignment:kCCVerticalTextAlignmentTop
                          lineBreakMode:kCCLineBreakModeWordWrap
-                         fontName:GAME_TEXT_FONT
+                         fontName:kGameTextFont
                          fontSize:18];
     
     [[line1 alignCenterTo:sprite] alignTopTo:sprite];
@@ -163,15 +158,15 @@
 }
 
 -(CCSprite *)setupLevelMeterWithLevel:(NSUInteger)level maxLevels:(NSUInteger)maxLevels rows:(NSUInteger)rows {
-    // TODO: This should be in a sprite sheet
-    CCSprite *sprite = [CCSprite spriteWithFile:@"iconRewardPositive.png"];
+    CCSprite *sprite = [CCSprite spriteWithSpriteFrameName:@"iconRewardPositive.png"];
     
     float iconWidth = sprite.contentSize.width;
     float iconHeight = sprite.contentSize.height;
     float padding = kBlockCompleteMeterElementPadding;
-
-    NSUInteger itemsPerRow = ((maxLevels%2)? maxLevels : (maxLevels+1)) / rows;
     
+    BOOL isSquare = !(maxLevels%rows);
+    NSUInteger itemsPerRow = (isSquare ? maxLevels : (maxLevels+1)) / rows;
+
     float containerWidth = iconWidth*itemsPerRow+padding*(itemsPerRow-1);
     float containerHeight = iconHeight*rows+padding*(rows-1);
     
@@ -184,13 +179,15 @@
     
     NSMutableArray *actions = [[NSMutableArray alloc] initWithCapacity:level];
     
+    NSUInteger crow = 1;
+    
     for(NSUInteger i=0; i<maxLevels; ++i) {
-        sprite = [CCSprite spriteWithFile:@"iconRewardNegative.png"];
+        sprite = [CCSprite spriteWithSpriteFrameName:@"iconRewardNegative.png"];
         sprite.position = ccp(x,y);
         [result addChild:sprite];
         
         if(i < level) {
-            CCSprite *psprite = [CCSprite spriteWithFile:@"iconRewardPositive.png"];
+            CCSprite *psprite = [CCSprite spriteWithSpriteFrameName:@"iconRewardPositive.png"];
             psprite.opacity = 0;
             psprite.position = sprite.position;
             [result addChild:psprite];
@@ -202,7 +199,8 @@
         
         x += sprite.contentSize.width + padding;
         if(x >= containerWidth) {
-            x = sprite.contentSize.width/2;
+            crow++;
+            x = (crow == rows && !isSquare) ? sprite.contentSize.width : sprite.contentSize.width/2;
             y -= iconHeight + padding;
         }
     }
@@ -212,48 +210,47 @@
     [actions addObject:[CCDelayTime actionWithDuration:0.5]];
     [actions addObject:[CCCallFunc actionWithTarget:self selector:@selector(playBackgroundScore)]];
     
-    
     self.levelMeterAnimation = [CCSequence actionWithArray:actions];
     return result;
 }
 
 -(void)playLevelUpSound {
-    [[SimpleAudioEngine sharedEngine] playEffect:kFeedbackSoundCorrect];
+    [[SimpleAudioEngine sharedEngine] playEffect:kCorrectResponseEffect];
 }
 
 -(void)playBackgroundScore {
-    self.backgroundScoreId = [[SimpleAudioEngine sharedEngine] playEffect:kBlockCompleteEffect];
+    [[SimpleAudioEngine sharedEngine] preloadBackgroundMusic:kBlockCompleteEffect];
+    [[SimpleAudioEngine sharedEngine] playBackgroundMusic:kBlockCompleteEffect];
 }
 
 -(void)onEnter {
     [super onEnter];
     [self runAction:self.levelMeterAnimation];
 #ifdef DDEBUG
-    [self performSelector:@selector(didTapContinueToNextBlock) withObject:self afterDelay:1.5];
+//[self performSelector:@selector(didTapContinueToNextBlock) withObject:self afterDelay:1];
 #endif
 }
 
 -(void)didTapContinueToNextBlock {
-    SEGUE_TO_SCENE([TrainCatLayer sceneWithSessionType:SessionTypeNormal]);
+    segueToScene([TrainCatLayer sceneWithSessionType:SessionTypeNormal]);
 }
 
 -(void)didTapBackToWarmup {
-    SEGUE_TO_SCENE([TrainCatLayer sceneWithSessionType:SessionTypeWarmup]);
+    segueToScene([TrainCatLayer sceneWithSessionType:SessionTypeWarmup]);
 }
 
 -(void)didTapContinueToMainMenu {
-    SEGUE_TO_SCENE([IntroLayer scene]);
+    segueToScene([IntroLayer scene]);
 }
 
 -(void)didTapBackToPractice {
-    SEGUE_TO_SCENE([TrainCatLayer sceneWithSessionType:SessionTypePractice]);
+    segueToScene([TrainCatLayer sceneWithSessionType:SessionTypePractice]);
 }
 
--(void)onExit {
-    [super onExit];
+-(void)onExitTransitionDidStart {
+    [super onExitTransitionDidStart];
     [self stopAllActions];
     [[SimpleAudioEngine sharedEngine] stopEffect:self.backgroundScoreId];
 }
-
 
 @end

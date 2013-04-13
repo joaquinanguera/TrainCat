@@ -11,7 +11,7 @@
 #import "StimulusCategory.h"
 #import "StimulusList.h"
 #import "SpriteUtils.h"
-#import "Constants.h"
+#import "CocosConstants.h"
 #import "SimpleAudioEngine.h"
 #import "ArrayUtils.h"
 
@@ -22,6 +22,8 @@
 @end
 
 @implementation StimulusLayer
+
+static double const kStimulusBarPaddingTop = 40.0;
 
 typedef NS_ENUM(NSInteger, StimulusType) {
     StimulusTypeFixation,
@@ -40,7 +42,7 @@ typedef NS_ENUM(NSInteger, StimulusZIndex) { // Order significant
 -(id)initWithMaxTrials:(NSUInteger)maxTrials {
     if(self = [super init]) {
         CGSize winSize = [CCDirector sharedDirector].winSize;
-        CCSprite *fixation = [CCSprite spriteWithFile:@"fixation.png"];
+        CCSprite *fixation = [CCSprite spriteWithSpriteFrameName:@"fixation.png"];
         fixation.tag = StimulusTypeFixation;
         fixation.position = ccp(winSize.width/2, winSize.height/2);
         fixation.opacity = 0;
@@ -89,9 +91,9 @@ typedef NS_ENUM(NSInteger, StimulusZIndex) { // Order significant
         
         // Position
         el.position = ccp(winSize.width/4.0, centerY - (maxHeight - el.contentSize.height)/2.0);
-        elBar.position = ccp(winSize.width/4.0, el.position.y - el.contentSize.height/2 - elBar.contentSize.height/2.0 - STIMULUS_BAR_PADDING_TOP);
+        elBar.position = ccp(winSize.width/4.0, el.position.y - el.contentSize.height/2 - elBar.contentSize.height/2.0 - kStimulusBarPaddingTop);
         er.position = ccp(winSize.width*3.0/4.0, centerY - (maxHeight - er.contentSize.height)/2.0);
-        erBar.position = ccp(winSize.width*3.0/4.0, er.position.y - er.contentSize.height/2 - erBar.contentSize.height/2.0 - STIMULUS_BAR_PADDING_TOP);
+        erBar.position = ccp(winSize.width*3.0/4.0, er.position.y - er.contentSize.height/2 - erBar.contentSize.height/2.0 - kStimulusBarPaddingTop);
         
         // Add
         [exemplar addChild:el];
@@ -112,28 +114,28 @@ typedef NS_ENUM(NSInteger, StimulusZIndex) { // Order significant
     morph.opacity = 0;
     [self addChild:morph z:StimulusZIndexMorph];
     
-    self.fixationDuration = (self.fixtureDelay[self.fixtureDelayIndex % self.fixtureDelay.count]) ? FIXATION_DURATION_MAX : FIXATION_DURATION_MIN;
+    self.fixationDuration = ([self.fixtureDelay[self.fixtureDelayIndex++ % self.fixtureDelay.count] intValue]) ? kFixationDurationMax : kFixationDurationMin;
     id actionShowFixation = [CCSequence actions:
-                             [CCFadeIn actionWithDuration:FADE_DURATION],
+                             [CCFadeIn actionWithDuration:kFadeDuration],
                              [CCDelayTime actionWithDuration:self.fixationDuration],
-                             [CCFadeOut actionWithDuration:FADE_DURATION],
+                             [CCFadeOut actionWithDuration:kFadeDuration],
                              nil];
     CCTargetedAction *actionFixation = [CCTargetedAction actionWithTarget:[self getChildByTag:StimulusTypeFixation] action:actionShowFixation];
     
     
     id actionShowExemplar = [CCSequence actions:
-                             [CCFadeOut actionWithDuration:FADE_DURATION],
-                             [CCDelayTime actionWithDuration:EXEMPLAR_DURATION],
-                             [CCFadeIn actionWithDuration:FADE_DURATION],
+                             [CCFadeOut actionWithDuration:kFadeDuration],
+                             [CCDelayTime actionWithDuration:kExemplarDuration],
+                             [CCFadeIn actionWithDuration:kFadeDuration],
                              nil];
     CCTargetedAction *actionExemplar = [CCTargetedAction actionWithTarget:[self getChildByTag:StimulusTypeMask] action:actionShowExemplar];
     
     id actionShowMorph = [CCSequence actions:
-                          [CCDelayTime actionWithDuration:MASK_DURATION],
-                          [CCFadeIn actionWithDuration:FADE_DURATION],
-                          [CCDelayTime actionWithDuration:MORPH_DURATION],
-                          [CCFadeOut actionWithDuration:FADE_DURATION],
-                          [CCDelayTime actionWithDuration:MASK_DURATION],
+                          [CCDelayTime actionWithDuration:kMaskDuration],
+                          [CCFadeIn actionWithDuration:kFadeDuration],
+                          [CCDelayTime actionWithDuration:kMorphDuration],
+                          [CCFadeOut actionWithDuration:kFadeDuration],
+                          [CCDelayTime actionWithDuration:kMaskDuration],
                           [CCCallFunc actionWithTarget:self selector:@selector(finished)],
                           nil];
     CCTargetedAction *actionMorph = [CCTargetedAction actionWithTarget:[self getChildByTag:StimulusTypeMorph] action:actionShowMorph];

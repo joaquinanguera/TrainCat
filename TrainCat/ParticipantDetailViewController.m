@@ -41,7 +41,7 @@
     [super viewDidLoad];
     self.completionStat = kCompletionStatUninitialized; // initialize completionStat to a less than 0 value so 
     
-    self.view.backgroundColor = [UIColor colorWithRed:BACKGROUND_COLOR_R/255.0 green:BACKGROUND_COLOR_G/255.0 blue:BACKGROUND_COLOR_B/255.0 alpha:255];
+    self.view.backgroundColor = getBackgroundColor();
     self.progressLabel.text = [self.participant completionStatDescription];
     self.pieChart.backgroundColor = [UIColor clearColor];
     self.lineChart.backgroundColor = [UIColor clearColor];

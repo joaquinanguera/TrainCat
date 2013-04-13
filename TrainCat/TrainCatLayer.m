@@ -9,6 +9,7 @@
 #import "Constants.h"
 #import "TrainCatLayer.h"
 #import "AppDelegate.h"
+#import "GameController.h"
 
 // Core data
 #import "Participant+Extension.h"
@@ -43,6 +44,7 @@
 #import "ActionLib.h"
 #import "Logger.h"
 #import "SoundUtils.h"
+#import "CCNode+Extension.h"
 
 #pragma mark - TrainCatLayer
 @interface TrainCatLayer()
@@ -53,7 +55,6 @@
 @property (nonatomic, strong) GameState *gs;
 @property (nonatomic, strong) ResponseLayer *response;
 @property (nonatomic, strong) FeedbackLayer *feedback;
-@property (nonatomic, strong) HUDLayer *hud;
 @property (nonatomic, strong) BackgroundLayer *bg;
 
 @property (nonatomic, strong) Participant *participant;
@@ -77,6 +78,8 @@
 // HelloWorldLayer implementation
 @implementation TrainCatLayer
 
+static NSInteger const kStartMenuTag = 1;
+
 // Helper class method that creates a Scene with the TrainCatLayer as the only child.
 +(CCScene *) sceneWithSessionType:(SessionType)sessionType;
 {
@@ -91,23 +94,27 @@
 -(id)initWithSessionType:(SessionType)sessionType {
 	if( (self=[super initWithColor:ccc4(255, 255, 255, 255)]) ) {
         self.sessionType = sessionType;
-        
-        self.maxTrials = (sessionType == SessionTypeNormal) ? MAX_TRIALS_PER_STIMULUS_BLOCK : MAX_TRIALS_PER_PRACTICE_BLOCK;
-        self.gs = self.participant.gameState;
-        self.program = [NSKeyedUnarchiver unarchiveObjectWithData:self.participant.program];
-        
-        [self startSessionLog];
-        [self setSubviews];
-        
-        #ifndef DDEBUG
-        self.bg.visible = YES;
-         [self setStartButton];
-        #else
-         self.aiResponse = [ArrayUtils randomBooleansWithCount:self.maxTrials biasForTrue:0.8];
-         [self performSelector:@selector(beginGame) withObject:nil afterDelay:DEBUG_SIMULATION_WAIT_TIME];
-        #endif
+        self.maxTrials = (sessionType == SessionTypeNormal) ? kMaxTrialsPerBlock : kMaxTrialsPerPracticeBlock;
+        self.bg = [BackgroundLayer node];
+        [self addChild:self.bg];
 	}
 	return self;
+}
+
+-(void)onEnterTransitionDidFinish {
+    //[getGameController().activityIndicator startAnimating];
+    self.gs = self.participant.gameState;
+    self.program = [NSKeyedUnarchiver unarchiveObjectWithData:self.participant.program];
+    [self startSessionLog];
+    [self setSubviews];
+    
+    // stop the wait animation here
+#ifndef DDEBUG
+    [self setStartButton];
+#else
+    self.aiResponse = [ArrayUtils randomBooleansWithCount:self.maxTrials biasForTrue:0.8];
+    [self performSelector:@selector(beginGame) withObject:nil afterDelay:kDebugSimulationWaitTime];
+#endif    
 }
 
 -(void)startSessionLog {
@@ -123,46 +130,43 @@
 }
 
 -(void)setSubviews {
-    // Note: We could do this in the 'sceneWithPracticeSetting' but this layer is useless by itself
-    // so we construct the other layers in init.
-    self.bg = [BackgroundLayer node];
-    self.bg.visible = NO;
-    
     self.stim = [[StimulusLayer alloc] initWithMaxTrials:self.maxTrials];
     self.stim.delegate = self;
     self.stim.visible = NO;
-    
+
     self.response = [ResponseLayer node];
-    self.response.delegate = self;
     self.response.visible = NO;
-    
+    self.response.delegate = self;
+
     self.feedback = [FeedbackLayer node];
-    self.feedback.delegate = self;
     self.feedback.visible = NO;
-    
-    self.hud = [HUDLayer node];
-    
-    [self addChild:self.bg];
+    self.feedback.delegate = self;
+
+        
     [self addChild:self.stim];
     [self addChild:self.response];
     [self addChild:self.feedback];
-    [self addChild:self.hud];    
 }
 
 -(void)setStartButton {
-    CCMenuItemImage *btnStart = [CCMenuItemImage itemWithNormalImage:@"buttonStartNormal.png" selectedImage:@"buttonStartSelected.png" target:self selector:@selector(beginGame)];
+    CCMenuItemImage *btnStart = [CCMenuItemImage itemWithNormalImage:@"buttonStartNormal.png" selectedImage:@"buttonStartSelected.png" target:self selector:@selector(delayedBeginGame)];
     CCMenu *mnu = [CCMenu menuWithItems:btnStart,nil];
-    mnu.tag = START_MENU_TAG;
-    CGSize winSize = [[CCDirector sharedDirector] winSize];
-    mnu.position = ccp(winSize.width/2, winSize.height/2);
+    mnu.tag = kStartMenuTag;
+    mnu.opacity = 0;
     [self addChild:mnu];
-    [btnStart runAction:[ActionLib pulse]];    
+    [getGameController().activityIndicator stopAnimating];
+    [btnStart runAction:[CCFadeIn actionWithDuration:0.5]];
+    [btnStart runAction:[ActionLib pulse]];
+}
+
+-(void)delayedBeginGame {
+    [self performSelector:@selector(beginGame) withObject:self afterDelay:0.05];
 }
 
 -(void)beginGame {
     [SoundUtils playInputClick];
     self.bg.visible = NO;
-    CCNode *mnu = [self getChildByTag:START_MENU_TAG];
+    CCNode *mnu = [self getChildByTag:kStartMenuTag];
     [mnu.children.lastObject stopAllActions];
     [self removeChild:mnu cleanup:YES];
     [self setupStimulus];
@@ -293,7 +297,7 @@
 
 -(void)setupStimulus {
     if([self isGameOver]) {
-        SEGUE_TO_SCENE([SessionCompleteLayer sceneWithParticipant:self.participant gameOver:[self isGameOver]]) ;
+        segueToScene([SessionCompleteLayer sceneWithParticipant:self.participant sessionId:self.gs.sessionId gameOver:[self isGameOver]]);
     } else {
         // Did we finish the last block?
         if(self.gs.trialCount >= self.maxTrials)  {
@@ -329,16 +333,12 @@
         // Transition to next screen
         CCScene *scene;
         if((self.sessionType == SessionTypeNormal) && ([self isGameOver] || [self isSessionComplete])) {
-            [Logger sendReportForParticipant:self.participant forSession:self.gs.sessionId];
-            if([self isGameOver]) {
-                [Logger sendAllReportsForParticipant:self.participant];
-            }
-            scene = [SessionCompleteLayer sceneWithParticipant:self.participant gameOver:[self isGameOver]];
+            scene = [SessionCompleteLayer sceneWithParticipant:self.participant sessionId:self.gs.sessionId gameOver:[self isGameOver]];
         } else { // SessionTypeWarmup or SessionTypePractice or SessionTypeNormal but !isGameOver && !isSessionComplete
             scene = [BlockCompleteLayer sceneWithParticipant:self.participant sessionType:self.sessionType];
         }
         
-        SEGUE_TO_SCENE(scene);
+        segueToScene(scene);
     }
 }
 
@@ -408,10 +408,9 @@
     return _participant;
 }
 
-
 -(NSManagedObjectContext *) moc {
     if(!_moc) {
-        _moc = MOC;
+        _moc = getMOC();
     }
     return _moc;
 }

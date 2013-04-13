@@ -101,6 +101,9 @@
     n_div = (scale_max-scale_min)/self.interval + 1;
     div_height = (self.frame.size.height-top_margin-bottom_margin-x_label_height)/(n_div-1);
     
+    // Write the axis labels
+    [@"Level" drawAtPoint:CGPointMake(0, scale_max) withFont:self.yLabelFont];
+    [@"Session" drawInRect:CGRectMake(0,rect.size.height-20,rect.size.width-30,20) withFont:self.yLabelFont lineBreakMode:NSLineBreakByWordWrapping alignment:NSTextAlignmentRight];
     
     for (int i=0; i<n_div; i++)
     {
@@ -109,19 +112,16 @@
         int y = top_margin + div_height*i;
         CGRect textFrame = CGRectMake(0,y-8,25,20);
 
-//        NSString *text = [NSString stringWithFormat:@"%.0f", y_axis];
-//        NSLog(@">>>>%@", text);
-
         NSString *formatString = [NSString stringWithFormat:@"%%.%if", (power < 0) ? -power : 0];
         NSString *text = [NSString stringWithFormat:formatString, y_axis];
 
         [text drawInRect:textFrame 
 				withFont:self.yLabelFont 
-		   lineBreakMode:UILineBreakModeWordWrap 
-			   alignment:UITextAlignmentRight];
+		   lineBreakMode:NSLineBreakByWordWrapping
+			   alignment:NSTextAlignmentRight];
 		
 		// These are "grid" lines
-        CGContextSetLineWidth(ctx, 1);
+        CGContextSetLineWidth(ctx, 3);
         CGContextSetRGBStrokeColor(ctx, 0.4f, 0.4f, 0.4f, 0.1f);
         //CGContextSetRGBStrokeColor(ctx, kPCLineCharViewLabelColor);
         CGContextMoveToPoint(ctx, 30, y);
@@ -149,8 +149,8 @@
             CGRect textFrame = CGRectMake(x - 100, self.frame.size.height - x_label_height, 200, x_label_height);
             [x_label drawInRect:textFrame
                        withFont:self.xLabelFont
-                  lineBreakMode:UILineBreakModeWordWrap
-                      alignment:UITextAlignmentCenter];
+                  lineBreakMode:NSLineBreakByWordWrapping
+                      alignment:NSTextAlignmentCenter];
         };
 
     }
@@ -255,8 +255,8 @@
 						CGRect textFrame = CGRectMake(x-25,y1, 50,20);
 						[perc_label drawInRect:textFrame 
 									  withFont:self.valueLabelFont 
-								 lineBreakMode:UILineBreakModeWordWrap 
-									 alignment:UITextAlignmentCenter];
+								 lineBreakMode:NSLineBreakByWordWrapping
+									 alignment:NSTextAlignmentCenter];
 						y_level = y1 + 20;
 					}
 					else if (y2 < y_level+20 && y2 < self.frame.size.height-top_margin-bottom_margin)
@@ -267,8 +267,8 @@
 						CGRect textFrame = CGRectMake(x-25,y2, 50,20);
 						[perc_label drawInRect:textFrame 
 									  withFont:self.valueLabelFont 
-								 lineBreakMode:UILineBreakModeWordWrap 
-									 alignment:UITextAlignmentCenter];
+								 lineBreakMode:NSLineBreakByWordWrapping 
+									 alignment:NSTextAlignmentCenter];
 						y_level = y2 + 20;
 					}
 					else
@@ -279,8 +279,8 @@
 						CGRect textFrame = CGRectMake(x-50,y-10, 50,20);
 						[perc_label drawInRect:textFrame 
 									  withFont:self.valueLabelFont 
-								 lineBreakMode:UILineBreakModeWordWrap 
-									 alignment:UITextAlignmentCenter];
+								 lineBreakMode:NSLineBreakByWordWrapping 
+									 alignment:NSTextAlignmentCenter];
 						y_level = y1 + 20;
 					}
                 }
@@ -293,11 +293,12 @@
 	NSSortDescriptor *sortDesc = [NSSortDescriptor sortDescriptorWithKey:@"y" ascending:YES];
 	[legends sortUsingDescriptors:[NSArray arrayWithObject:sortDesc]];
 	
+    /*
     //CGContextSetRGBFillColor(ctx, 0.0f, 0.0f, 0.0f, 1.0f);
     float y_level = 0;
     for (NSMutableDictionary *legend in legends)
     {
-		UIColor *colour = [legend objectForKey:@"colour"];
+		//UIColor *colour = [legend objectForKey:@"colour"];
 		// CGContextSetFillColorWithColor(ctx, [colour CGColor]);
         CGContextSetFillColorWithColor(ctx, [[UIColor blackColor] CGColor]);
 		
@@ -313,7 +314,7 @@
         [title drawInRect:textFrame withFont:self.legendFont];
         
         y_level = y + 15;
-    }
+    } */
 }
 
 

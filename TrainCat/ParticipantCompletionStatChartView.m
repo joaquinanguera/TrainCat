@@ -8,6 +8,7 @@
 
 #import "ParticipantCompletionStatChartView.h"
 #import "PCPieChart.h"
+#import "Constants.h"
 #import "Participant+Extension.h"
 
 @interface ParticipantCompletionStatChartView()
@@ -23,10 +24,10 @@
     
     PCPieChart *pieChart = [[PCPieChart alloc] initWithFrame:self.frame];
     pieChart.sameColorLabel = NO;
-    [pieChart setDiameter:self.frame.size.width/2];
+    [pieChart setDiameter:self.frame.size.width/2.5];
     
-    pieChart.titleFont = [UIFont fontWithName:@"HelveticaNeue-Bold" size:20];
-    pieChart.percentageFont = [UIFont fontWithName:@"HelveticaNeue-Bold" size:30];
+    pieChart.titleFont = [UIFont fontWithName:kGameTextFont size:20];
+    pieChart.percentageFont = [UIFont fontWithName:kGameTextFont size:30];
     
     NSMutableArray *components = [NSMutableArray array];
     
