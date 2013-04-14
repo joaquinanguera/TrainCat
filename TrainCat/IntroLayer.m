@@ -31,19 +31,21 @@
 // HelloWorldLayer implementation
 @implementation IntroLayer
 
-// Helper class method that creates a Scene with the HelloWorldLayer as the only child.
+static const float kNotificationPointerSize = 22.5;
+static const float kNotificationPadding = 20.0;
+
+typedef NS_ENUM(NSInteger, IntroLayerSpriteTag) {
+    kNotificationTag = 1,
+    kAlertTag,
+    kExclamationTag,
+    kMenuTag
+};
+
 +(CCScene *) scene
 {
-	// 'scene' is an autorelease object.
 	CCScene *scene = [CCScene node];
-	
-	// 'layer' is an autorelease object.
 	IntroLayer *layer = [IntroLayer node];
-	
-	// add layer as a child to scene
 	[scene addChild: layer];
-	
-	// return the scene
 	return scene;
 }
 
@@ -61,19 +63,14 @@
 
 // Called when the scene becomes the current scene due to a popstack
 -(void) viewWillAppear {
-    [self setupUI];
+    [self updateUI];
 }
 
 -(void)viewWillDisappear {
     [self.cloudsLayer pauseAnimation];
 }
 
-
 -(void)setupUI {
-    // This is slightly inefficient in that we tear down the entire menu and rebuild it.
-    // There's better ways of doing this but for now this works fine without causing performance issues.
-    [self removeAllChildrenWithCleanup:YES];
-    
     CGSize winSize = [[CCDirector sharedDirector] winSize];
     self.cloudsLayer = [CloudsLayer node];
     [self addChild:[BackgroundLayer node]];
@@ -83,33 +80,37 @@
     BOOL isDropboxAuthenticated = [DSDropbox accountInfo] ? YES : NO;
     BOOL isPlayEnabled = isLoggedIn && isDropboxAuthenticated;
     
-    NSArray *buttonPrefixs = @[(isPlayEnabled ? @"buttonPlay" : @"buttonPlayDisabled"),@"buttonPractice",@"buttonSettings"]; // MenuItems support a disabled image feature but we've done it this way (which is ok too)
-    NSArray *buttonSelectors = @[(isPlayEnabled ? @"didTapPlay:" : @"didTapDisabledButton:"), @"didTapPractice:", @"didTapSettings:"];
+    NSArray *buttonPrefixs = @[@"buttonPlay",@"buttonPractice",@"buttonSettings"]; // MenuItems support a disabled image feature but we've done it this way (which is ok too)
+    NSArray *buttonSelectors = @[@"didTapPlay:", @"didTapPractice:", @"didTapSettings:"];
     
     CCMenu *mnu = [CCMenu menuWithImagePrefixes:buttonPrefixs tags:nil target:self selectors:buttonSelectors];
+    mnu.tag = kMenuTag;
     [mnu alignItemsVerticallyWithPadding:30];
     mnu.position = ccp(winSize.width/2, winSize.height/2);
     [self addChild:mnu];
-
+    
     if(!isPlayEnabled) {
-        CCMenuItem *item = [mnu.children objectAtIndex:0];
+        CCMenuItem *playButton = [mnu.children objectAtIndex:0];
+        playButton.isEnabled = NO;
+        
         CCSprite *exclamation = [CCSprite spriteWithSpriteFrameName:@"largeAlertIcon.png"];
-        exclamation.position = ccp(item.contentSize.width/2 + item.position.x + mnu.position.x - exclamation.contentSize.width/2 + 5, item.contentSize.height/2 + item.position.y + mnu.position.y - exclamation.contentSize.height/2 + 5);
+        exclamation.tag = kExclamationTag;
+        exclamation.position = ccp(playButton.contentSize.width/2 + playButton.position.x + mnu.position.x - exclamation.contentSize.width/2 + 5, playButton.contentSize.height/2 + playButton.position.y + mnu.position.y - exclamation.contentSize.height/2 + 5);
+
         CCSprite *alert = [CCSprite spriteWithSpriteFrameName:@"dropboxAndLoginAlert.png"];
-        alert.position = ccp(item.contentSize.width/2 + item.position.x + mnu.position.x + alert.contentSize.width/2, item.contentSize.height/2 + item.position.y + mnu.position.y - alert.contentSize.height/2);;        
+        alert.tag = kAlertTag;
+        alert.position = ccp(playButton.contentSize.width/2 + playButton.position.x + mnu.position.x + alert.contentSize.width/2, playButton.contentSize.height/2 + playButton.position.y + mnu.position.y - alert.contentSize.height/2);;        
             
         NSString *ns;
         if(!isDropboxAuthenticated && !isLoggedIn) {
-            ns = @"Enable Dropbox and login a participant (tap Settings).";
+            ns = @"Enable Dropbox and login a participant\n(tap Settings).";
         } else if(!isDropboxAuthenticated) {
             ns = @"Verify Dropbox credentials\n(tap Settings).";
         } else if(!isLoggedIn) {
             ns = @"Login a participant\n(tap Settings).";
         }
         
-        float kNotificationPointerSize = 22.5;
-        float kNotificationPadding = 20.0;
-        CCSprite *notification = [CCLabelTTF
+        CCLabelTTF *notification = [CCLabelTTF
                                  labelWithString:ns
                                  dimensions:CGSizeMake(alert.contentSize.width-kNotificationPointerSize-kNotificationPadding,
                                                        alert.contentSize.height-kNotificationPadding)
@@ -118,13 +119,11 @@
                                             lineBreakMode:kCCLineBreakModeWordWrap
                                             fontName:kGameTextFont
                                             fontSize:15];
-            
+        notification.tag = kNotificationTag;
         notification.color = ccc3(255, 255, 255);
         notification.position = ccp(alert.position.x + kNotificationPointerSize/2, alert.position.y);
-            
-        [notification setScale:0.0];
-        [exclamation setScale:0.0];
-        [alert setScale:0.0];
+        
+        notification.scale = exclamation.scale = alert.scale = 0.0;
 
         [self addChild:exclamation z:5];
         [self addChild:alert z:5];
@@ -136,6 +135,43 @@
         [notification runAction:[popInAction copy]];
     }
 }
+
+-(void)updateUI {
+    [self.cloudsLayer resumeAnimation];
+    
+    CCLabelTTF *notification = (CCLabelTTF *)[self getChildByTag:kNotificationTag];
+    CCSprite *exclamation = (CCSprite *)[self getChildByTag:kExclamationTag];
+    CCSprite *alert = (CCSprite *)[self getChildByTag:kAlertTag];
+    notification.scale = exclamation.scale = alert.scale = 0.0;
+    
+    BOOL isLoggedIn =[[NSUserDefaults standardUserDefaults] loggedIn] ? YES : NO;
+    BOOL isDropboxAuthenticated = [DSDropbox accountInfo] ? YES : NO;
+    BOOL isPlayEnabled = isLoggedIn && isDropboxAuthenticated;
+    
+    CCMenu *mnu = (CCMenu *)[self getChildByTag:kMenuTag];
+    CCMenuItem *playButton = [mnu.children objectAtIndex:0];
+    playButton.isEnabled = isPlayEnabled;
+    
+    if(!isPlayEnabled) {
+        NSString *ns;
+        if(!isDropboxAuthenticated && !isLoggedIn) {
+            ns = @"Enable Dropbox and login a participant (tap Settings).";
+        } else if(!isDropboxAuthenticated) {
+            ns = @"Verify Dropbox credentials (tap Settings).";
+        } else if(!isLoggedIn) {
+            ns = @"Login a participant\n(tap Settings).";
+        }
+        
+        notification.string = ns;
+        notification.position = ccp(alert.position.x + kNotificationPointerSize/2, alert.position.y);
+        
+        CCAction *popInAction = [CCSequence actions:[CCDelayTime actionWithDuration:0.5], [CCEaseBounceOut actionWithAction:[CCScaleTo actionWithDuration:0.5 scale:1.0]], nil];
+        [exclamation runAction:popInAction];
+        [alert runAction:[popInAction copy]];
+        [notification runAction:[popInAction copy]];
+    }
+}
+
 
 -(void)didTapPlay:(CCMenuItem *)menuItem {
     [SoundUtils playInputClick];

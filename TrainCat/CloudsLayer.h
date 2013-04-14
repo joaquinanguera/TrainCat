@@ -15,5 +15,6 @@
 +(CCScene *) scene;
 
 -(void)pauseAnimation;
+-(void)resumeAnimation;
 
 @end

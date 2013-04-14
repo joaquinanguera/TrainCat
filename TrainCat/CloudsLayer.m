@@ -42,7 +42,7 @@
 	return scene;
 }
 
--(void)startAnimating {    
+-(void)resumeAnimation {
     [self resumeSchedulerAndActions];
     [[SimpleAudioEngine sharedEngine] playBackgroundMusic:kMenuBackgroundMusic];
     [self setIsTouchEnabled:YES];
@@ -128,6 +128,7 @@
     [self setIsTouchEnabled:NO];
     [[SimpleAudioEngine sharedEngine] stopBackgroundMusic];
     [self pauseSchedulerAndActions];
+    //[self unschedule:@selector(gameLogic:)];
 }
 
 

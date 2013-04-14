@@ -2290,6 +2290,7 @@
 		6DE9BACB1709DF260008953B /* Icon~ipad@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6DE9BAC01709DF260008953B /* Icon~ipad@2x.png */; };
 		6DE9BACD1709DF260008953B /* iTunesArtwork in Resources */ = {isa = PBXBuildFile; fileRef = 6DE9BAC21709DF260008953B /* iTunesArtwork */; };
 		6DE9BACE1709DF260008953B /* iTunesArtwork@2x in Resources */ = {isa = PBXBuildFile; fileRef = 6DE9BAC31709DF260008953B /* iTunesArtwork@2x */; };
+		6DFF9C06171B1E4C0025AEFF /* FileUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DFF9C05171B1E4C0025AEFF /* FileUtils.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -4766,6 +4767,8 @@
 		6DE9BAC11709DF260008953B /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Resources/Info.plist; sourceTree = "<group>"; };
 		6DE9BAC21709DF260008953B /* iTunesArtwork */ = {isa = PBXFileReference; lastKnownFileType = file; name = iTunesArtwork; path = Resources/iTunesArtwork; sourceTree = "<group>"; };
 		6DE9BAC31709DF260008953B /* iTunesArtwork@2x */ = {isa = PBXFileReference; lastKnownFileType = file; name = "iTunesArtwork@2x"; path = "Resources/iTunesArtwork@2x"; sourceTree = "<group>"; };
+		6DFF9C04171B1E4C0025AEFF /* FileUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileUtils.h; sourceTree = "<group>"; };
+		6DFF9C05171B1E4C0025AEFF /* FileUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileUtils.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -5280,7 +5283,6 @@
 			children = (
 				6DD9CDEB170F8F5F00119045 /* Dropbox */,
 				6DCCC5DB16DEC01B00B11E13 /* Participant */,
-				6D4ADE4F16DD58920077E1D7 /* Game */,
 				6D972FA2170F32D30030B513 /* SettingsAuthViewController.h */,
 				6D972FA3170F32D30030B513 /* SettingsAuthViewController.m */,
 				6DD9CDE8170F8B7F00119045 /* SettingsMenuViewController.h */,
@@ -5312,6 +5314,7 @@
 		6DBC380816D02AE500A4C492 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				6D4ADE4F16DD58920077E1D7 /* Game */,
 				6D972FA1170F32A40030B513 /* Settings */,
 			);
 			name = Controllers;
@@ -5437,6 +5440,8 @@
 				6DD31B02170A216B00141CFA /* ActionLib.m */,
 				6D720C48171141BF00A0710D /* SoundUtils.h */,
 				6D720C49171141BF00A0710D /* SoundUtils.m */,
+				6DFF9C04171B1E4C0025AEFF /* FileUtils.h */,
+				6DFF9C05171B1E4C0025AEFF /* FileUtils.m */,
 			);
 			name = Utils;
 			sourceTree = "<group>";
@@ -9925,6 +9930,7 @@
 				6D9A773F171421CC00D9227F /* CCNode+Extension.m in Sources */,
 				6D7D32F817181B6500F31037 /* CocosConstants.m in Sources */,
 				6D82DCAB1719CAB6004730CD /* CloudsLayer.m in Sources */,
+				6DFF9C06171B1E4C0025AEFF /* FileUtils.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

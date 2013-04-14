@@ -80,6 +80,7 @@
 @implementation TrainCatLayer
 
 static NSInteger const kStartMenuTag = 1;
+static NSInteger const KStartMenuTextTag = 2;
 
 // Helper class method that creates a Scene with the TrainCatLayer as the only child.
 +(CCScene *) sceneWithSessionType:(SessionType)sessionType;
@@ -103,7 +104,7 @@ static NSInteger const kStartMenuTag = 1;
 }
 
 -(void)onEnterTransitionDidFinish {
-    //[getGameController().activityIndicator startAnimating];
+    [getGameController().activityIndicator startAnimating];
     self.gs = self.participant.gameState;
     self.program = [NSKeyedUnarchiver unarchiveObjectWithData:self.participant.program];
     [self startSessionLog];
@@ -150,13 +151,31 @@ static NSInteger const kStartMenuTag = 1;
 }
 
 -(void)setStartButton {
+    // TODO: If this is a warmup session, put a label saying so. 
     CCMenu *mnu = [CCMenu menuWithImagePrefix:@"buttonStart" tag:1 target:self selector:@selector(delayedBeginGame)];
     mnu.tag = kStartMenuTag;
     mnu.opacity = 0;
     [self addChild:mnu];
+    
+    if(self.sessionType == SessionTypeWarmup) {
+        CCLabelTTF *label = [CCLabelTTF labelWithString:@"Let's warm up some shall we?" fontName:kGameTextFont fontSize:40];
+        label.tag = KStartMenuTextTag;
+        label.color = ccc3(0,0,0);
+        [[[label alignCenter] alignMiddle] shiftUp:125];
+        label.opacity = 0;
+        [self addChild:label];
+        [label runAction:[CCFadeIn actionWithDuration:0.5]];
+    };
+    
     [getGameController().activityIndicator stopAnimating];
-    [getMenuButton(mnu) runAction:[CCFadeIn actionWithDuration:0.5]];
-    [getMenuButton(mnu) runAction:[ActionLib pulse]];
+    [getMenuButton(mnu)
+        runAction:[CCSequence actions:
+                   [CCFadeIn actionWithDuration:0.5],
+                   [CCCallBlockN actionWithBlock:^(CCNode *node) {
+                       [getMenuButton(mnu) runAction:[ActionLib pulse]];
+                    }],
+                   nil]];
+
 }
 
 -(void)delayedBeginGame {
@@ -166,9 +185,17 @@ static NSInteger const kStartMenuTag = 1;
 -(void)beginGame {
     [SoundUtils playInputClick];
     self.bg.visible = NO;
+    
+    // Clean up the menu
     CCNode *mnu = [self getChildByTag:kStartMenuTag];
     [mnu.children.lastObject stopAllActions];
     [self removeChild:mnu cleanup:YES];
+    
+    // Clean up the menu text if any
+    CCNode *mnuTxt = [self getChildByTag:KStartMenuTextTag];
+    [mnuTxt stopAllActions];
+    [self removeChild:mnuTxt cleanup:YES];
+    
     [self setupStimulus];
 }
 
