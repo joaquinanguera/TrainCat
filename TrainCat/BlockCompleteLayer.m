@@ -219,8 +219,8 @@ static double const kBlockCompleteMeterElementPadding = 15.f;
 }
 
 -(void)playBackgroundScore {
-    [[SimpleAudioEngine sharedEngine] preloadBackgroundMusic:kBlockCompleteEffect];
-    [[SimpleAudioEngine sharedEngine] playBackgroundMusic:kBlockCompleteEffect];
+    [[SimpleAudioEngine sharedEngine] preloadBackgroundMusic:kBlockCompleteBackgroundMusic];
+    [[SimpleAudioEngine sharedEngine] playBackgroundMusic:kBlockCompleteBackgroundMusic loop:NO];
 }
 
 -(void)onEnter {
@@ -250,7 +250,7 @@ static double const kBlockCompleteMeterElementPadding = 15.f;
 -(void)onExitTransitionDidStart {
     [super onExitTransitionDidStart];
     [self stopAllActions];
-    [[SimpleAudioEngine sharedEngine] stopEffect:self.backgroundScoreId];
+    [[SimpleAudioEngine sharedEngine] stopBackgroundMusic];
 }
 
 @end

@@ -94,6 +94,16 @@
     }
 }
 
+-(void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    CCScene *scene = [CCDirector sharedDirector].runningScene;
+    for(CCNode *child in scene.children) {
+        if([child respondsToSelector:@selector(viewWillDisappear)]) {
+            [child performSelector:@selector(viewWillDisappear)];
+        }
+    }    
+}
+
 - (void)viewDidDisappear:(BOOL)animated
 {
     [super viewDidDisappear:animated];

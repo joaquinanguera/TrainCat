@@ -9,7 +9,8 @@
 #import "ResponseLayer.h"
 #import "CocosConstants.h"
 #import "SoundUtils.h"
-
+#import "CCMenu+Extension.h"
+#import "CCNode+Extension.h"
 
 @interface ResponseLayer()
 
@@ -21,21 +22,21 @@
 
 @implementation ResponseLayer
 
-#define RESPONSE_LAYER_BUTTON_PADDING 15
+static const NSUInteger kResponseLayerHorizontalPadding = 15;
 
 -(id)init {
     if(self = [super init]) {
         CGSize winSize = [CCDirector sharedDirector].winSize;
         
-        CCMenuItemImage *lbItem = [CCMenuItemImage itemWithNormalImage:@"buttonRespondLeftNormal.png" selectedImage:@"buttonRespondLeftSelected.png" target:self selector:@selector(didRespond:)];
-        lbItem.tag = ResponseTypeLeft;
-        CCMenu *lb = [CCMenu menuWithItems:lbItem,nil];
-        lb.position = ccp(lbItem.contentSize.width/2 + RESPONSE_LAYER_BUTTON_PADDING, winSize.height/3.0);
+        CCMenu *lb = [CCMenu menuWithImagePrefix:@"buttonRespondLeft" tag:ResponseTypeLeft target:self selector:@selector(didRespond:)];
+        double responseLayerVerticalPadding = winSize.height/3.0 - getMenuButton(lb).contentSize.height/2.0; // The center should be placed at 33%
         
-        CCMenuItemImage *rbItem = [CCMenuItemImage itemWithNormalImage:@"buttonRespondRightNormal.png" selectedImage:@"buttonRespondRightSelected.png" target:self selector:@selector(didRespond:)];
-        rbItem.tag = ResponseTypeRight;
-        CCMenu *rb = [CCMenu menuWithItems:rbItem,nil];        
-        rb.position = ccp(winSize.width-rbItem.contentSize.width/2-RESPONSE_LAYER_BUTTON_PADDING, winSize.height/3.0);
+        [[[[lb alignLeft] alignBottom] shiftUp:responseLayerVerticalPadding] shiftRight:kResponseLayerHorizontalPadding];
+        //lb.position = ccp(getMenuButton(lb).contentSize.width/2 + RESPONSE_LAYER_BUTTON_PADDING, winSize.height/3.0);
+        
+        CCMenu *rb = [CCMenu menuWithImagePrefix:@"buttonRespondRight" tag:ResponseTypeRight target:self selector:@selector(didRespond:)];
+        //rb.position = ccp(winSize.width-rbItem.contentSize.width/2-RESPONSE_LAYER_BUTTON_PADDING, winSize.height/3.0);
+        [[[[rb alignRight] alignBottom] shiftUp:responseLayerVerticalPadding] shiftLeft:kResponseLayerHorizontalPadding];
         
         self.getResponseAction = [CCSequence actions:
                                   [CCDelayTime actionWithDuration:kResponseDuration],

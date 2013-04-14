@@ -6,7 +6,7 @@
 //
 
 // Import the interfaces
-#import "Constants.h"
+#import "CocosConstants.h"
 #import "TrainCatLayer.h"
 #import "AppDelegate.h"
 #import "GameController.h"
@@ -45,6 +45,7 @@
 #import "Logger.h"
 #import "SoundUtils.h"
 #import "CCNode+Extension.h"
+#import "CCMenu+Extension.h"
 
 #pragma mark - TrainCatLayer
 @interface TrainCatLayer()
@@ -149,14 +150,13 @@ static NSInteger const kStartMenuTag = 1;
 }
 
 -(void)setStartButton {
-    CCMenuItemImage *btnStart = [CCMenuItemImage itemWithNormalImage:@"buttonStartNormal.png" selectedImage:@"buttonStartSelected.png" target:self selector:@selector(delayedBeginGame)];
-    CCMenu *mnu = [CCMenu menuWithItems:btnStart,nil];
+    CCMenu *mnu = [CCMenu menuWithImagePrefix:@"buttonStart" tag:1 target:self selector:@selector(delayedBeginGame)];
     mnu.tag = kStartMenuTag;
     mnu.opacity = 0;
     [self addChild:mnu];
     [getGameController().activityIndicator stopAnimating];
-    [btnStart runAction:[CCFadeIn actionWithDuration:0.5]];
-    [btnStart runAction:[ActionLib pulse]];
+    [getMenuButton(mnu) runAction:[CCFadeIn actionWithDuration:0.5]];
+    [getMenuButton(mnu) runAction:[ActionLib pulse]];
 }
 
 -(void)delayedBeginGame {

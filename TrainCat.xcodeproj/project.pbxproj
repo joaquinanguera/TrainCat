@@ -173,6 +173,9 @@
 		6D805F8F16CD38B700DC2096 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D805F8E16CD38B700DC2096 /* Security.framework */; };
 		6D805F9116CD38C000DC2096 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D805F9016CD38C000DC2096 /* SystemConfiguration.framework */; };
 		6D805F9416CD39FF00DC2096 /* DropboxSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D805F9316CD39FF00DC2096 /* DropboxSettingsViewController.m */; };
+		6D82DCAB1719CAB6004730CD /* CloudsLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D82DCAA1719CAB6004730CD /* CloudsLayer.m */; };
+		6D82DCAD1719DFB4004730CD /* pop.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6D82DCAC1719DFB4004730CD /* pop.mp3 */; };
+		6D82DCAF171A902B004730CD /* fire.png in Resources */ = {isa = PBXBuildFile; fileRef = 6D82DCAE171A902B004730CD /* fire.png */; };
 		6D972F9E170F2C5D0030B513 /* NSUserDefaults+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D972F9D170F2C5D0030B513 /* NSUserDefaults+Extensions.m */; };
 		6D972FA0170F2EDE0030B513 /* Defaults.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6D972F9F170F2EDE0030B513 /* Defaults.plist */; };
 		6D972FA4170F32D30030B513 /* SettingsAuthViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D972FA3170F32D30030B513 /* SettingsAuthViewController.m */; };
@@ -2287,6 +2290,7 @@
 		6DE9BACB1709DF260008953B /* Icon~ipad@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6DE9BAC01709DF260008953B /* Icon~ipad@2x.png */; };
 		6DE9BACD1709DF260008953B /* iTunesArtwork in Resources */ = {isa = PBXBuildFile; fileRef = 6DE9BAC21709DF260008953B /* iTunesArtwork */; };
 		6DE9BACE1709DF260008953B /* iTunesArtwork@2x in Resources */ = {isa = PBXBuildFile; fileRef = 6DE9BAC31709DF260008953B /* iTunesArtwork@2x */; };
+		6DEEAA3C171981E000255912 /* menu.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6DEEAA3B171981E000255912 /* menu.mp3 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -2610,6 +2614,10 @@
 		6D805F9016CD38C000DC2096 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		6D805F9216CD39FF00DC2096 /* DropboxSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DropboxSettingsViewController.h; sourceTree = "<group>"; };
 		6D805F9316CD39FF00DC2096 /* DropboxSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DropboxSettingsViewController.m; sourceTree = "<group>"; };
+		6D82DCA91719CAB6004730CD /* CloudsLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CloudsLayer.h; sourceTree = "<group>"; };
+		6D82DCAA1719CAB6004730CD /* CloudsLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CloudsLayer.m; sourceTree = "<group>"; };
+		6D82DCAC1719DFB4004730CD /* pop.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = pop.mp3; sourceTree = "<group>"; };
+		6D82DCAE171A902B004730CD /* fire.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fire.png; sourceTree = "<group>"; };
 		6D972F9C170F2C5D0030B513 /* NSUserDefaults+Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSUserDefaults+Extensions.h"; sourceTree = "<group>"; };
 		6D972F9D170F2C5D0030B513 /* NSUserDefaults+Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSUserDefaults+Extensions.m"; sourceTree = "<group>"; };
 		6D972F9F170F2EDE0030B513 /* Defaults.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Defaults.plist; sourceTree = "<group>"; };
@@ -4759,6 +4767,7 @@
 		6DE9BAC11709DF260008953B /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Resources/Info.plist; sourceTree = "<group>"; };
 		6DE9BAC21709DF260008953B /* iTunesArtwork */ = {isa = PBXFileReference; lastKnownFileType = file; name = iTunesArtwork; path = Resources/iTunesArtwork; sourceTree = "<group>"; };
 		6DE9BAC31709DF260008953B /* iTunesArtwork@2x */ = {isa = PBXFileReference; lastKnownFileType = file; name = "iTunesArtwork@2x"; path = "Resources/iTunesArtwork@2x"; sourceTree = "<group>"; };
+		6DEEAA3B171981E000255912 /* menu.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = menu.mp3; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -5227,6 +5236,8 @@
 				6DE8E4EA1703256700F76997 /* OpeningScreenViewController.m */,
 				6D805F8616CD14E300DC2096 /* GameController.h */,
 				6D805F8716CD14E300DC2096 /* GameController.m */,
+				6D82DCA91719CAB6004730CD /* CloudsLayer.h */,
+				6D82DCAA1719CAB6004730CD /* CloudsLayer.m */,
 				6D2E613216C3897300C51C9D /* IntroLayer.h */,
 				6D2E613316C3897300C51C9D /* IntroLayer.m */,
 				6D2E612F16C3897300C51C9D /* TrainCatLayer.h */,
@@ -5435,6 +5446,8 @@
 		6DE9AA551709DD9B0008953B /* Sounds */ = {
 			isa = PBXGroup;
 			children = (
+				6D82DCAC1719DFB4004730CD /* pop.mp3 */,
+				6DEEAA3B171981E000255912 /* menu.mp3 */,
 				6D9A770C171200CD00D9227F /* correct.mp3 */,
 				6D9A770A1712006F00D9227F /* blockComplete.mp3 */,
 				6D9A77081711FDCA00D9227F /* incorrect.mp3 */,
@@ -7515,6 +7528,7 @@
 		6DE9B26A1709DDA70008953B /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				6D82DCAE171A902B004730CD /* fire.png */,
 				6D972FB1170F49E50030B513 /* iconInvalidField.png */,
 				6DD59E22170D8DDB009F2C4B /* background.png */,
 				6DD59E23170D8DDB009F2C4B /* background@2x.png */,
@@ -9743,6 +9757,9 @@
 				6D7D32F11717E1F100F31037 /* logoTrainCat@2x.png in Resources */,
 				6D7D32F41717E64C00F31037 /* TrainCat-hd.plist in Resources */,
 				6D7D32F51717E64C00F31037 /* TrainCat-hd.png in Resources */,
+				6DEEAA3C171981E000255912 /* menu.mp3 in Resources */,
+				6D82DCAD1719DFB4004730CD /* pop.mp3 in Resources */,
+				6D82DCAF171A902B004730CD /* fire.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -9911,6 +9928,7 @@
 				6D9A773A1713193400D9227F /* Constants.m in Sources */,
 				6D9A773F171421CC00D9227F /* CCNode+Extension.m in Sources */,
 				6D7D32F817181B6500F31037 /* CocosConstants.m in Sources */,
+				6D82DCAB1719CAB6004730CD /* CloudsLayer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

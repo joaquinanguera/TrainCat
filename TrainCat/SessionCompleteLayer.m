@@ -77,8 +77,8 @@
         self.pieChart.alpha = 1.0;
         self.lineChart.alpha = 1.0;
     }];
-    [[SimpleAudioEngine sharedEngine] preloadBackgroundMusic:kSessionCompleteEffect];
-    [[SimpleAudioEngine sharedEngine] playBackgroundMusic:kSessionCompleteEffect];
+    [[SimpleAudioEngine sharedEngine] preloadBackgroundMusic:kSessionCompleteBackgroundMusic];
+    [[SimpleAudioEngine sharedEngine] playBackgroundMusic:kSessionCompleteBackgroundMusic];
 }
 
 

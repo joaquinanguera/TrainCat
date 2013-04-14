@@ -20,11 +20,12 @@
 #import "SoundUtils.h"
 #import "CCNode+Extension.h"
 #import "BackgroundLayer.h"
+#import "CloudsLayer.h"
 
 #pragma mark - IntroLayer
 
 @interface IntroLayer()
-
+@property (nonatomic, strong) CloudsLayer *cloudsLayer;
 @end
 
 // HelloWorldLayer implementation
@@ -47,28 +48,36 @@
 }
 
 -(id)init {
-    if( (self=[super initWithColor:getCocosBackgroundColor()]) ) {
-        
+    if( (self=[super initWithColor:getCocosBackgroundColor()]) ) {        
         [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"TrainCat.plist"];
     }
     return self;
 }
 
--(void) viewWillAppear {
-    [self setupUI];    
-}
-
+// Called the first time the scene is loaded
 -(void)onEnterTransitionDidFinish {
     [self setupUI];
 }
 
+// Called when the scene becomes the current scene due to a popstack
+-(void) viewWillAppear {
+    [self setupUI];
+}
+
+-(void)viewWillDisappear {
+    [self.cloudsLayer pauseAnimation];
+}
+
 
 -(void)setupUI {
+    // This is slightly inefficient in that we tear down the entire menu and rebuild it.
+    // There's better ways of doing this but for now this works fine without causing performance issues.
     [self removeAllChildrenWithCleanup:YES];
     
     CGSize winSize = [[CCDirector sharedDirector] winSize];
+    self.cloudsLayer = [CloudsLayer node];
     [self addChild:[BackgroundLayer node]];
-    [self addChild:[[[[CCSprite spriteWithSpriteFrameName:@"clouds.png"] alignTop] alignCenter] shiftDown:20]];
+    [self addChild:self.cloudsLayer];
     
     BOOL isLoggedIn =[[NSUserDefaults standardUserDefaults] loggedIn] ? YES : NO;
     BOOL isDropboxAuthenticated = [DSDropbox accountInfo] ? YES : NO;
@@ -148,5 +157,10 @@
     UIViewController *gc = getGameController();
     [gc performSegueWithIdentifier:@"segueToSettingsAuthentication" sender:gc];
 }
+
+-(void)onExit {
+    [[SimpleAudioEngine sharedEngine] stopBackgroundMusic];
+}
+
 
 @end

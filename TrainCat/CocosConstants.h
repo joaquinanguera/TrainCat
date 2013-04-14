@@ -17,10 +17,12 @@ FOUNDATION_EXPORT NSInteger const kDebugSimulationWaitTime;
 FOUNDATION_EXPORT NSString *const kGameTextFont;
 
 // Sound
+FOUNDATION_EXPORT NSString *const kPopEffect;
 FOUNDATION_EXPORT NSString *const kCorrectResponseEffect;
 FOUNDATION_EXPORT NSString *const kIncorrectResponseEffect;
-FOUNDATION_EXPORT NSString *const kBlockCompleteEffect;
-FOUNDATION_EXPORT NSString *const kSessionCompleteEffect;
+FOUNDATION_EXPORT NSString *const kBlockCompleteBackgroundMusic;
+FOUNDATION_EXPORT NSString *const kMenuBackgroundMusic;
+FOUNDATION_EXPORT NSString *const kSessionCompleteBackgroundMusic;
 
 // Stimulus
 FOUNDATION_EXPORT double const kFixationDurationMin;

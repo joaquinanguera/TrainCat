@@ -6,8 +6,6 @@
 //
 //
 
-// TODO: This could be converted into a more full featured layout manager. 
-
 #import "cocos2d.h"
 #import "CocosConstants.h"
 #import "CCNode+Extension.h"
