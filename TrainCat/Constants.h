@@ -11,7 +11,7 @@
 
 #import "AppDelegate.h"
 
-//#define DDEBUG 1
+// #define DDEBUG 1
 
 // Dropbox
 FOUNDATION_EXPORT NSString *const kDropboxAppKey;
@@ -52,5 +52,6 @@ static inline AppController *getAppDelegate(void) {
 static inline NSManagedObjectContext *getMOC(void) {
     return ((AppController *)[[UIApplication sharedApplication] delegate]).managedObjectContext;
 }
+
 
 #endif

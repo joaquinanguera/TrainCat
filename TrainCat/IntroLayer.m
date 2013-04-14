@@ -59,15 +59,18 @@ typedef NS_ENUM(NSInteger, IntroLayerSpriteTag) {
 // Called the first time the scene is loaded
 -(void)onEnterTransitionDidFinish {
     [self setupUI];
+    playMenuBackgroundMusic();
 }
 
 // Called when the scene becomes the current scene due to a popstack
 -(void) viewWillAppear {
     [self updateUI];
+    playMenuBackgroundMusic();
 }
 
 -(void)viewWillDisappear {
     [self.cloudsLayer pauseAnimation];
+    [[SimpleAudioEngine sharedEngine] stopBackgroundMusic];
 }
 
 -(void)setupUI {

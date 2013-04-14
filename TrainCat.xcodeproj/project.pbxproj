@@ -175,7 +175,6 @@
 		6D805F9416CD39FF00DC2096 /* DropboxSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D805F9316CD39FF00DC2096 /* DropboxSettingsViewController.m */; };
 		6D82DCAB1719CAB6004730CD /* CloudsLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D82DCAA1719CAB6004730CD /* CloudsLayer.m */; };
 		6D82DCAD1719DFB4004730CD /* pop.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6D82DCAC1719DFB4004730CD /* pop.mp3 */; };
-		6D82DCB1171AB3F1004730CD /* menu.wav in Resources */ = {isa = PBXBuildFile; fileRef = 6D82DCB0171AB3F1004730CD /* menu.wav */; };
 		6D972F9E170F2C5D0030B513 /* NSUserDefaults+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D972F9D170F2C5D0030B513 /* NSUserDefaults+Extensions.m */; };
 		6D972FA0170F2EDE0030B513 /* Defaults.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6D972F9F170F2EDE0030B513 /* Defaults.plist */; };
 		6D972FA4170F32D30030B513 /* SettingsAuthViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D972FA3170F32D30030B513 /* SettingsAuthViewController.m */; };
@@ -2291,6 +2290,7 @@
 		6DE9BACD1709DF260008953B /* iTunesArtwork in Resources */ = {isa = PBXBuildFile; fileRef = 6DE9BAC21709DF260008953B /* iTunesArtwork */; };
 		6DE9BACE1709DF260008953B /* iTunesArtwork@2x in Resources */ = {isa = PBXBuildFile; fileRef = 6DE9BAC31709DF260008953B /* iTunesArtwork@2x */; };
 		6DFF9C06171B1E4C0025AEFF /* FileUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DFF9C05171B1E4C0025AEFF /* FileUtils.m */; };
+		6DFF9C08171B28580025AEFF /* menu.wav in Resources */ = {isa = PBXBuildFile; fileRef = 6DFF9C07171B28570025AEFF /* menu.wav */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -2617,7 +2617,6 @@
 		6D82DCA91719CAB6004730CD /* CloudsLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CloudsLayer.h; sourceTree = "<group>"; };
 		6D82DCAA1719CAB6004730CD /* CloudsLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CloudsLayer.m; sourceTree = "<group>"; };
 		6D82DCAC1719DFB4004730CD /* pop.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = pop.mp3; sourceTree = "<group>"; };
-		6D82DCB0171AB3F1004730CD /* menu.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = menu.wav; sourceTree = "<group>"; };
 		6D972F9C170F2C5D0030B513 /* NSUserDefaults+Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSUserDefaults+Extensions.h"; sourceTree = "<group>"; };
 		6D972F9D170F2C5D0030B513 /* NSUserDefaults+Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSUserDefaults+Extensions.m"; sourceTree = "<group>"; };
 		6D972F9F170F2EDE0030B513 /* Defaults.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Defaults.plist; sourceTree = "<group>"; };
@@ -4769,6 +4768,7 @@
 		6DE9BAC31709DF260008953B /* iTunesArtwork@2x */ = {isa = PBXFileReference; lastKnownFileType = file; name = "iTunesArtwork@2x"; path = "Resources/iTunesArtwork@2x"; sourceTree = "<group>"; };
 		6DFF9C04171B1E4C0025AEFF /* FileUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileUtils.h; sourceTree = "<group>"; };
 		6DFF9C05171B1E4C0025AEFF /* FileUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileUtils.m; sourceTree = "<group>"; };
+		6DFF9C07171B28570025AEFF /* menu.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = menu.wav; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -5449,7 +5449,7 @@
 		6DE9AA551709DD9B0008953B /* Sounds */ = {
 			isa = PBXGroup;
 			children = (
-				6D82DCB0171AB3F1004730CD /* menu.wav */,
+				6DFF9C07171B28570025AEFF /* menu.wav */,
 				6D82DCAC1719DFB4004730CD /* pop.mp3 */,
 				6D9A770C171200CD00D9227F /* correct.mp3 */,
 				6D9A770A1712006F00D9227F /* blockComplete.mp3 */,
@@ -9760,7 +9760,7 @@
 				6D7D32F41717E64C00F31037 /* TrainCat-hd.plist in Resources */,
 				6D7D32F51717E64C00F31037 /* TrainCat-hd.png in Resources */,
 				6D82DCAD1719DFB4004730CD /* pop.mp3 in Resources */,
-				6D82DCB1171AB3F1004730CD /* menu.wav in Resources */,
+				6DFF9C08171B28580025AEFF /* menu.wav in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -162,8 +162,9 @@
 {
     [[CCDirector sharedDirector] resume];
     if([[[CCDirector sharedDirector] runningScene].children.lastObject isKindOfClass:[SessionCompleteLayer class]]) {
-        NSLog(@"Going to main menu");
         [self performSelector:@selector(goToMainMenu) withObject:self afterDelay:1.0];
+    } else if([[[CCDirector sharedDirector] runningScene].children.lastObject isKindOfClass:[IntroLayer class]]) {
+        playMenuBackgroundMusic();
     }
 }
 

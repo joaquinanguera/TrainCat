@@ -227,7 +227,7 @@ static double const kBlockCompleteMeterElementPadding = 15.f;
     [super onEnter];
     [self runAction:self.levelMeterAnimation];
 #ifdef DDEBUG
-//[self performSelector:@selector(didTapContinueToNextBlock) withObject:self afterDelay:1];
+[self performSelector:@selector(didTapContinueToNextBlock) withObject:self afterDelay:1];
 #endif
 }
 

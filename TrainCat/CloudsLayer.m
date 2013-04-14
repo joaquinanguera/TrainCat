@@ -29,7 +29,6 @@
         self.randomX = NO;
         [self schedule:@selector(gameLogic:) interval:3.0];
         [self setIsTouchEnabled:YES];
-        [[SimpleAudioEngine sharedEngine] playBackgroundMusic:kMenuBackgroundMusic];
     }
     return self;
 }
@@ -126,9 +125,7 @@
 
 -(void)pauseAnimation {
     [self setIsTouchEnabled:NO];
-    [[SimpleAudioEngine sharedEngine] stopBackgroundMusic];
     [self pauseSchedulerAndActions];
-    //[self unschedule:@selector(gameLogic:)];
 }
 
 

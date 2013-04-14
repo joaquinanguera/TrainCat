@@ -9,6 +9,8 @@
 #import "cocos2d.h"
 #import "Constants.h"
 #import "GameController.h"
+#import "SimpleAudioEngine.h"
+
 
 // Debug
 FOUNDATION_EXPORT NSInteger const kDebugSimulationWaitTime;
@@ -61,6 +63,17 @@ static inline CGFloat getWinWidth(void) {
 static inline GameController *getGameController(void) {
     return (GameController *)([CCDirector sharedDirector].delegate);
 }
+
+static inline void playMenuBackgroundMusic(void) {
+    dispatch_queue_t soundQueue = dispatch_queue_create("sound preloader", NULL);
+    dispatch_async(soundQueue, ^ {
+        [[SimpleAudioEngine sharedEngine] preloadBackgroundMusic:kMenuBackgroundMusic];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [[SimpleAudioEngine sharedEngine] playBackgroundMusic:kMenuBackgroundMusic];
+        });
+    });
+}
+
 
 typedef NS_ENUM(NSInteger, SessionType) {
     SessionTypeWarmup, // The warm up just before practice. BlockCompleteLayer will read this and direct the participant to a normal session.
