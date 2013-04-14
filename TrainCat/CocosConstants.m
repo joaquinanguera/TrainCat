@@ -17,7 +17,7 @@ NSString *const kPopEffect = @"pop.mp3";
 NSString *const kCorrectResponseEffect = @"correct.mp3";
 NSString *const kIncorrectResponseEffect = @"incorrect.mp3";
 NSString *const kBlockCompleteBackgroundMusic = @"blockComplete.mp3";
-NSString *const kMenuBackgroundMusic = @"menu.mp3";
+NSString *const kMenuBackgroundMusic = @"menu.wav";
 NSString * const kSessionCompleteBackgroundMusic = @"theme.mp3";
 
 // Stimulus

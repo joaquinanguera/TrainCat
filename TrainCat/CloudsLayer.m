@@ -27,9 +27,9 @@
             [self addClouds];
         }
         self.randomX = NO;
-        //[self schedule:@selector(gameLogic:) interval:3.0];
-        [self schedule:@selector(gameLogic:) interval:0.5];
+        [self schedule:@selector(gameLogic:) interval:3.0];
         [self setIsTouchEnabled:YES];
+        [[SimpleAudioEngine sharedEngine] playBackgroundMusic:kMenuBackgroundMusic];
     }
     return self;
 }
@@ -42,8 +42,9 @@
 	return scene;
 }
 
--(void)startAnimating {
+-(void)startAnimating {    
     [self resumeSchedulerAndActions];
+    [[SimpleAudioEngine sharedEngine] playBackgroundMusic:kMenuBackgroundMusic];
     [self setIsTouchEnabled:YES];
 }
 
@@ -80,11 +81,8 @@
     [self addChild:cloud];
     
     // Determine the speed of the cloud
-    //int minDuration = 30.0;
-    //int maxDuration = 40.0;
-
-    int minDuration = 10.0;
-    int maxDuration = 15.0;
+    int minDuration = 30.0;
+    int maxDuration = 40.0;
 
     int rangeDuration = maxDuration - minDuration;
     int actualDuration = (arc4random() % rangeDuration) + minDuration;
