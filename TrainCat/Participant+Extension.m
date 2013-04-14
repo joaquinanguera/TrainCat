@@ -165,21 +165,6 @@
     return [NSString stringWithFormat:@"Sessions:%u, Blocks:%u, Trials:%u", sc, bc, tc];
 }
 
--(NSUInteger)blocksCompletedInCurrentSession {
-    NSUInteger result = 0;
-    if(self.sessions.count) {
-        Session *lastSession = self.sessions.lastObject;
-        result = lastSession.blocks.count;
-    }
-    return result;
-}
-
--(NSUInteger)levelForLastBlock {
-    Block *block = [[[self.sessions lastObject] blocks] lastObject];
-    return (block ? [self gradeBlock:block] : 0);
-}
-
-
 -(NSArray *)performanceStats {    
     NSMutableArray *blockPerf = [[NSMutableArray alloc] initWithCapacity:kMaxBlocks];
     [blockPerf ensureCount:kMaxBlocks];
@@ -221,6 +206,40 @@
     
     return highestLevelAchieved;
 }
+
+-(NSUInteger)blocksCompletedInCurrentSession {
+    NSUInteger result = 0;
+    if(self.sessions.count) {
+        Session *lastSession = self.sessions.lastObject;
+        result = lastSession.blocks.count;
+    }
+    return result;
+}
+
+-(NSUInteger)levelForLastBlock {
+    Block *block = [[[self.sessions lastObject] blocks] lastObject];
+    return (block ? [self gradeBlock:block] : 0);
+}
+
+/*
+-(BOOL)isSessionComplete {
+    Session *lastSession = self.sessions.lastObject;
+    if(lastSession.blocks.count == kMaxBlocks) {
+        Block *lastBlock = lastSession.blocks.lastObject;
+        if(lastBlock.trials.count == kMaxTrialsPerBlock) {
+            return YES;
+        }
+    }
+    return NO;
+}
+
+-(BOOL)isGameOver {
+    if(self.sessions && self.sessions.count == kMaxSessions) {
+        return [self isSessionComplete];
+    }
+    return NO;
+}
+*/
 
 
 @end
