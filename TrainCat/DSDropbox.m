@@ -36,4 +36,5 @@
     return [[[DBAccountManager sharedManager] linkedAccount] info];
 }
 
+
 @end

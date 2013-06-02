@@ -14,10 +14,14 @@
 #import "IntroLayer.h"
 #import "CCMenu+Extension.h"
 #import "CCNode+Extension.h"
+#import "SessionCompleteLayer.h"
 
 @interface BlockCompleteLayer()
 @property (nonatomic, strong) Participant *participant;
 @property (nonatomic, assign) SessionType sessionType;
+@property (nonatomic, assign) NSInteger sessionId;
+@property (nonatomic, assign) BOOL isSessionComplete;
+@property (nonatomic, assign) BOOL isGameOver;
 @property (nonatomic, strong) id levelMeterAnimation;
 @property (nonatomic, strong) CCLabelTTF *levelText;
 @property (nonatomic, assign) ALuint backgroundScoreId;
@@ -31,18 +35,21 @@ static NSString *const kSpriteRewardNegative = @"iconRewardNegative.png";
 static double const kBlockCompleteMeterPositionPadding = 50.f;
 static double const kBlockCompleteMeterElementPadding = 15.f;
 
-+(CCScene *) sceneWithParticipant:(Participant *) participant sessionType:(SessionType)sessionType;
++(CCScene *) sceneWithParticipant:(Participant *) participant sessionType:(SessionType)sessionType sessionID:(NSInteger)sessionId isSessionComplete:(BOOL)isSessionComplete isGameOver:(BOOL)isGameOver
 {
 	CCScene *scene = [CCScene node];
-	BlockCompleteLayer *gameLayer = [[BlockCompleteLayer alloc] initWithParticipant:participant sessionType:sessionType];
+	BlockCompleteLayer *gameLayer = [[BlockCompleteLayer alloc] initWithParticipant:participant sessionType:sessionType sessionId:sessionId isSessionComplete:isSessionComplete isGameOver:isGameOver];
 	[scene addChild: gameLayer];
 	return scene;
 }
 
--(id)initWithParticipant:(Participant *)participant sessionType:(SessionType)sessionType {
+-(id)initWithParticipant:(Participant *)participant sessionType:(SessionType)sessionType sessionId:(NSInteger)sessionId isSessionComplete:(BOOL)isSessionComplete isGameOver:(BOOL)isGameOver {
     if( (self=[super initWithColor:getCocosBackgroundColor()]) ) {
         self.participant = participant;
+        self.sessionId = sessionId;
         self.sessionType = sessionType;
+        self.isSessionComplete = isSessionComplete;
+        self.isGameOver = isGameOver;
         
         [self addChild:[BackgroundLayer node]];
         
@@ -129,7 +136,12 @@ static double const kBlockCompleteMeterElementPadding = 15.f;
     NSString *line3Text;
     switch (self.sessionType) {
         case SessionTypeNormal:
-            line3Text = [NSString stringWithFormat:@"Only %d more to go for today!", kMaxBlocks - [self.participant blocksCompletedInCurrentSession]];
+            if((kMaxBlocks - [self.participant blocksCompletedInCurrentSession]) > 0) {
+                line3Text = [NSString stringWithFormat:@"Only %d more to go for today!", kMaxBlocks - [self.participant blocksCompletedInCurrentSession]];
+            } else {
+                line3Text = [NSString stringWithFormat:@"Session Complete!"];
+            }
+            
             break;
         case SessionTypePractice:
             line3Text = @"Tap Back to practice again. Tap Continue to the Game Menu.";
@@ -226,13 +238,21 @@ static double const kBlockCompleteMeterElementPadding = 15.f;
 -(void)onEnter {
     [super onEnter];
     [self runAction:self.levelMeterAnimation];
-#ifdef DDEBUG
-[self performSelector:@selector(didTapContinueToNextBlock) withObject:self afterDelay:1];
-#endif
+//#ifdef DDEBUG
+//[self performSelector:@selector(didTapContinueToNextBlock) withObject:self afterDelay:1];
+//#endif
 }
 
+// This is where you make a decision - next block or next session
 -(void)didTapContinueToNextBlock {
-    segueToScene([TrainCatLayer sceneWithSessionType:SessionTypeNormal]);
+    CCScene *scene;
+    if((self.sessionType == SessionTypeNormal) && ([self isGameOver] || [self isSessionComplete])) {
+        scene = [SessionCompleteLayer sceneWithParticipant:self.participant sessionId:self.sessionId gameOver:[self isGameOver]];
+    } else { // !isGameOver && !isSessionComplete
+        scene = [TrainCatLayer sceneWithSessionType:SessionTypeNormal];
+    }
+    
+    segueToScene(scene);
 }
 
 -(void)didTapBackToWarmup {

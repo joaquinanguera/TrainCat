@@ -14,6 +14,6 @@
 
 @interface BlockCompleteLayer : CCLayerColor
 
-+(CCScene *) sceneWithParticipant:(Participant *) participant sessionType:(SessionType)sessionType;
++(CCScene *) sceneWithParticipant:(Participant *) participant sessionType:(SessionType)sessionType sessionID:(NSInteger)sessionId isSessionComplete:(BOOL)isSessionComplete isGameOver:(BOOL)isGameOver;
 
 @end

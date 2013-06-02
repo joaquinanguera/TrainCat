@@ -61,8 +61,8 @@
         _interval = 20;
 		_maxValue = 100;
 		_minValue = 0;
-		_yLabelFont = [UIFont boldSystemFontOfSize:14];
-		_xLabelFont = [UIFont boldSystemFontOfSize:12];
+		_yLabelFont = [UIFont boldSystemFontOfSize:18];
+		_xLabelFont = [UIFont boldSystemFontOfSize:18];
 		_valueLabelFont = [UIFont boldSystemFontOfSize:14];
 		_legendFont = [UIFont boldSystemFontOfSize:14];
         _numYIntervals = 5;
@@ -103,7 +103,7 @@
     
     // Write the axis labels
     [@"Level" drawAtPoint:CGPointMake(0, scale_max) withFont:self.yLabelFont];
-    [@"Session" drawInRect:CGRectMake(0,rect.size.height-20,rect.size.width-30,20) withFont:self.yLabelFont lineBreakMode:NSLineBreakByWordWrapping alignment:NSTextAlignmentRight];
+    [@"Session" drawInRect:CGRectMake(0,rect.size.height-18,rect.size.width-30,20) withFont:self.yLabelFont lineBreakMode:NSLineBreakByWordWrapping alignment:NSTextAlignmentCenter];
     
     for (int i=0; i<n_div; i++)
     {
@@ -129,7 +129,7 @@
         CGContextStrokePath(ctx);
     }
     
-    float margin = 100; // Modified by Alankar Misra
+    float margin = 80; // Modified by Alankar Misra
     float div_width;
     if ([self.xLabels count] == 1)
     {
@@ -146,7 +146,7 @@
         if (i % self.numXIntervals == 1 || self.numXIntervals==1) {
             int x = (int) (margin + div_width * i);
             NSString *x_label = [NSString stringWithFormat:@"%@", [self.xLabels objectAtIndex:i]];
-            CGRect textFrame = CGRectMake(x - 100, self.frame.size.height - x_label_height, 200, x_label_height);
+            CGRect textFrame = CGRectMake(x - 100, self.frame.size.height - x_label_height - 20, 200, x_label_height);
             [x_label drawInRect:textFrame
                        withFont:self.xLabelFont
                   lineBreakMode:NSLineBreakByWordWrapping

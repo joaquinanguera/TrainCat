@@ -18,29 +18,30 @@
 #import "Session+Extension.h"
 #import "GameState.h"
 #import "DSDropbox.h"
+#import "Constants.h"
 
 @implementation Logger
 
 +(void)sendReportForParticipant:(Participant *)participant forSession:(NSUInteger)sid {
     [DSDropbox writeToFile:[NSString stringWithFormat:@"%04d_session_%02d.csv", participant.pid, sid+1] theString:[self makeSessionReportForParticipant:participant forSession:sid]];
     [DSDropbox writeToFile:[NSString stringWithFormat:@"%04d_log_%02d.csv", participant.pid, sid+1] theString:[self makeSessionLogsForParticipant:participant]];
-    [DSDropbox writeToFile:[NSString stringWithFormat:@"%04d_program.txt", participant.pid] theString:[self makeProgramListingForParticipant:participant]];
+    //[DSDropbox writeToFile:[NSString stringWithFormat:@"%04d_program.txt", participant.pid] theString:[self makeProgramListingForParticipant:participant]];
 }
 
 +(void)sendAllReportsForParticipant:(Participant *)participant {
     [DSDropbox writeToFile:[NSString stringWithFormat:@"%04d_session_all.csv", participant.pid] theString:[self makeFullSessionsReportForParticipant:participant]];
     [DSDropbox writeToFile:[NSString stringWithFormat:@"%04d_log_all.csv", participant.pid] theString:[self makeSessionLogsForParticipant:participant]];
-    [DSDropbox writeToFile:[NSString stringWithFormat:@"%04d_program.txt", participant.pid] theString:[self makeProgramListingForParticipant:participant]];
+    //[DSDropbox writeToFile:[NSString stringWithFormat:@"%04d_program.txt", participant.pid] theString:[self makeProgramListingForParticipant:participant]];
 }
 
 +(NSString *)makeSessionReportForParticipant:(Participant *)participant forSession:(NSUInteger)sid {
     NSInteger count = 0;
-    NSMutableString *report = [NSMutableString stringWithFormat:@"%@\n", [@[@"#", @"Session Id", @"Category Name", @"Block Id", @"Trial", @"Exemplars", @"Fixation Duration", @"Morph Level", @"Morph Stimulus", @"RT", @"Response", @"Accuracy"] componentsJoinedByString:@","]];
+    NSMutableString *report = [NSMutableString stringWithFormat:@"%@\n", [@[@"#", @"Session Id", @"Category Name", @"Block Id", @"Trial", @"Exemplars", @"Fixation Duration", @"Morph Level", @"Morph Stimulus", @"RT", @"Response", @"Accuracy",@"Level"] componentsJoinedByString:@","]];
     Session *session = participant.sessions[sid];
     for(Block *block in session.blocks) {
         for(Trial *trial in block.trials) {
             StimulusCategory *category = [StimulusPack sessions][trial.categoryId];
-            [report appendFormat:@"%@\n", [@[@(++count), @(session.sid+1), category.name, @(block.bid), @(trial.trial), trial.exemplars, @(trial.fixationDuration), @(trial.listId+1), trial.morphLabel, @(trial.responseTime), trial.response, trial.accuracy] componentsJoinedByString:@","]];
+            [report appendFormat:@"%@\n", [@[@(++count), @(session.sid+1), category.name, @(block.bid), @(trial.trial), trial.exemplars, @(trial.fixationDuration), @(trial.listId+1), trial.morphLabel, @(trial.responseTime), trial.response, trial.accuracy, !(trial.trial % kMaxTrialsPerBlock) ? @([participant gradeBlock:block]) : @""] componentsJoinedByString:@","]];
         }        
     }
     return report;
@@ -55,6 +56,7 @@
     return report;
 }
 
+/*
 +(NSString *)makeProgramListingForParticipant:(Participant *)participant {
     NSMutableString *report = [[NSMutableString alloc] init];
     NSArray *program = [NSKeyedUnarchiver unarchiveObjectWithData:participant.program];
@@ -63,7 +65,7 @@
     }
     return report;
 }
-
+*/
 
 +(NSString *)makeFullSessionsReportForParticipant:(Participant *)participant {
     NSMutableString *report = [[NSMutableString alloc] init];

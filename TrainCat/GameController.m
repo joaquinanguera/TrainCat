@@ -12,6 +12,7 @@
 #import "CocosConstants.h"
 #import "SessionCompleteLayer.h"
 #import "SimpleAudioEngine.h"
+#import "DebugLayer.h"
 
 @implementation GameController
 
@@ -44,6 +45,7 @@
     
     // Run whatever scene we'd like to run here.
     CCScene * scene = [IntroLayer scene];
+    //CCScene *scene = [DebugLayer scene];
     if(director.runningScene)
         [director replaceScene:scene];
     else

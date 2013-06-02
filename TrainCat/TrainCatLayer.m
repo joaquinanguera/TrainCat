@@ -104,10 +104,11 @@ static NSInteger const KStartMenuTextTag = 2;
 }
 
 -(void)onEnterTransitionDidFinish {
+#ifndef DDEBUG
     [getGameController().activityIndicator startAnimating];
+#endif
     self.gs = self.participant.gameState;
     self.program = [NSKeyedUnarchiver unarchiveObjectWithData:self.participant.program];
-    [self startSessionLog];
     [self setSubviews];
     
     // stop the wait animation here
@@ -151,7 +152,6 @@ static NSInteger const KStartMenuTextTag = 2;
 }
 
 -(void)setStartButton {
-    // TODO: If this is a warmup session, put a label saying so. 
     CCMenu *mnu = [CCMenu menuWithImagePrefix:@"buttonStart" tag:1 target:self selector:@selector(delayedBeginGame)];
     mnu.tag = kStartMenuTag;
     mnu.opacity = 0;
@@ -166,8 +166,9 @@ static NSInteger const KStartMenuTextTag = 2;
         [self addChild:label];
         [label runAction:[CCFadeIn actionWithDuration:0.5]];
     };
-    
+#ifndef DDEBUG
     [getGameController().activityIndicator stopAnimating];
+#endif
     [getMenuButton(mnu)
         runAction:[CCSequence actions:
                    [CCFadeIn actionWithDuration:0.5],
@@ -346,6 +347,7 @@ static NSInteger const KStartMenuTextTag = 2;
         }
         
         [self saveContext];
+        [self startSessionLog];
         [self showStimulus];
     }
 }
@@ -358,14 +360,7 @@ static NSInteger const KStartMenuTextTag = 2;
     } else {
         // If no more trials are pending
         // Transition to next screen
-        CCScene *scene;
-        if((self.sessionType == SessionTypeNormal) && ([self isGameOver] || [self isSessionComplete])) {
-            scene = [SessionCompleteLayer sceneWithParticipant:self.participant sessionId:self.gs.sessionId gameOver:[self isGameOver]];
-        } else { // SessionTypeWarmup or SessionTypePractice or SessionTypeNormal but !isGameOver && !isSessionComplete
-            scene = [BlockCompleteLayer sceneWithParticipant:self.participant sessionType:self.sessionType];
-        }
-        
-        segueToScene(scene);
+        segueToScene([BlockCompleteLayer sceneWithParticipant:self.participant sessionType:self.sessionType sessionID:self.gs.sessionId isSessionComplete:[self isSessionComplete] isGameOver:[self isGameOver]]);
     }
 }
 

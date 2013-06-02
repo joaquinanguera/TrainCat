@@ -186,7 +186,8 @@
     NSMutableArray *correct = [[NSMutableArray alloc] initWithCapacity:kMaxLevel];
     [correct ensureCount:kMaxLevel];
     
-    for(Trial *trial in block.trials) {
+    for(NSInteger t=block.trials.count - 1; t >= 0; t--) {
+        Trial *trial = block.trials[t];
         if([trial.accuracy isEqualToString:@"Correct"]) {
             // - Increment the number of corrects at this level
             [correct incrementNumberAtIndex:trial.listId];
@@ -195,14 +196,14 @@
             if(lvl != NSNotFound) {
                 // - If you got two corrects at any level
                 // Set that as the level achieved in this block (overwriting previous values)
-                // NSLog(@"Block %d: Moving level from %d to %d for correct array: %@", block.bid, highestLevelAchieved, lvl+1, [correct componentsJoinedByString:@","]);
+                //NSLog(@"Block %d: Moving level from %d to %d for correct array: %@", block.bid, highestLevelAchieved, lvl+1, [correct componentsJoinedByString:@","]);
                 highestLevelAchieved = (lvl+1);
-                // Zero out the correct counts so we can start evaluating again
-                [correct zeroOut];
+                break; // We're done!
             }
             // - If you did not get two corrects at any level, move along.
-        }        
+        }
     }
+    
     
     return highestLevelAchieved;
 }
@@ -220,26 +221,6 @@
     Block *block = [[[self.sessions lastObject] blocks] lastObject];
     return (block ? [self gradeBlock:block] : 0);
 }
-
-/*
--(BOOL)isSessionComplete {
-    Session *lastSession = self.sessions.lastObject;
-    if(lastSession.blocks.count == kMaxBlocks) {
-        Block *lastBlock = lastSession.blocks.lastObject;
-        if(lastBlock.trials.count == kMaxTrialsPerBlock) {
-            return YES;
-        }
-    }
-    return NO;
-}
-
--(BOOL)isGameOver {
-    if(self.sessions && self.sessions.count == kMaxSessions) {
-        return [self isSessionComplete];
-    }
-    return NO;
-}
-*/
 
 
 @end

@@ -15,10 +15,11 @@
 +(void)sendReportForParticipant:(Participant *)participant forSession:(NSUInteger)sid;
 +(void)sendAllReportsForParticipant:(Participant *)participant;
 
+
 // Generation
 +(NSString *)makeSessionReportForParticipant:(Participant *)participant forSession:(NSUInteger)sid;
 +(NSString *)makeSessionLogsForParticipant:(Participant *)participant;
-+(NSString *)makeProgramListingForParticipant:(Participant *)participant;
++(NSString *)makeFullSessionsReportForParticipant:(Participant *)participant;
 
 // Utility
 +(NSString *)stringFromDate:(NSDate *)date;

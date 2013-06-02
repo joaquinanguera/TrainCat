@@ -6,6 +6,7 @@
 //  Copyright 2013 Digital Sutras. All rights reserved.
 //
 
+#import <Dropbox/Dropbox.h>
 #import "SessionCompleteLayer.h"
 #import "TrainCatLayer.h"
 #import "Participant+Extension.h"
@@ -24,6 +25,8 @@
 @property (nonatomic, assign) BOOL isGameOver;
 @property (nonatomic, strong) ParticipantCompletionStatChartView *pieChart;
 @property (nonatomic, strong) ParticipantPerformanceStatsChartView *lineChart;
+@property (nonatomic, strong) CCLabelTTF *txtUploading;
+@property (nonatomic, strong) CCLabelTTF *txtDone;
 @end
 
 @implementation SessionCompleteLayer
@@ -42,26 +45,43 @@
         self.participant = participant;
         self.sessionId = sessionId;
         self.isGameOver = isGameOver;
-
+        
         CCSprite *header = [self makeHeaderWithTitle:isGameOver ? @"Game Over!" : @"Session Complete!"];
         header.opacity = 255*0.60;
         [self addChild:[[header alignTop] alignCenter]];
-        CCLabelTTF *levelText = [CCLabelTTF
-            labelWithString:@"Congratulations on getting this far!\nPress the home button on your iPad to exit the application."
+        
+        // Setup uploading label
+        self.txtUploading = [CCLabelTTF
+            labelWithString:@"Please wait while we report your progress to our system...\nDO NOT EXIT THE APPLICATION!"
             dimensions:CGSizeMake(getWinWidth(),100)
             hAlignment:kCCTextAlignmentCenter
             vAlignment:kCCVerticalTextAlignmentTop
             lineBreakMode:kCCLineBreakModeWordWrap
             fontName:kGameTextFont
-            fontSize:32.f];
+            fontSize:22.f];
+         self.txtUploading.color = ccc3(0, 0, 0);
+         self.txtUploading.opacity = 0.0;
+         [[[self.txtUploading alignMiddle] alignCenter] shiftDown:170];
+         [self addChild:self.txtUploading];
+         [self.txtUploading runAction:[CCFadeIn actionWithDuration:0.5]];
         
-         levelText.color = ccc3(0, 0, 0);
-         levelText.opacity = 0.0;
-         [[[levelText alignMiddle] alignCenter] shiftDown:160];
-         [self addChild:levelText];
-         [levelText runAction:[CCSequence actionOne:[CCDelayTime actionWithDuration:1.0] two:[CCFadeIn actionWithDuration:1.0]]];
-        
+        // Setup done label
+        self.txtDone = [CCLabelTTF
+                             labelWithString:@"All done! Congratulations on getting this far!\nYou may now exit the application by tapping the home button on your iPad."
+                             dimensions:CGSizeMake(getWinWidth(),100)
+                             hAlignment:kCCTextAlignmentCenter
+                             vAlignment:kCCVerticalTextAlignmentTop
+                             lineBreakMode:kCCLineBreakModeWordWrap
+                             fontName:kGameTextFont
+                             fontSize:22.f];
+        self.txtDone.color = ccc3(0, 0, 0);
+        self.txtDone.opacity = 0.0;
+        [[[self.txtDone alignMiddle] alignCenter] shiftDown:170];
+        [self addChild:self.txtDone];
+
         [Logger sendReportForParticipant:self.participant forSession:self.sessionId];
+        [self performSelector:@selector(updateSynchStatus) withObject:self afterDelay:0.5];
+        
         if(self.isGameOver) {
             [Logger sendAllReportsForParticipant:self.participant];
         }
@@ -69,6 +89,19 @@
     
     [self makeGraphs];
     return self;
+}
+
+-(void)updateSynchStatus {
+    if([[DBFilesystem sharedFilesystem] status] & DBSyncStatusUploading) {
+         [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+        [getGameController().activityIndicator startAnimating];
+        [self performSelector:@selector(updateSynchStatus) withObject:self afterDelay:1];
+    } else {
+         [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+        [getGameController().activityIndicator stopAnimating];
+        [self.txtUploading runAction:[CCFadeOut actionWithDuration:0.5]];
+        [self.txtDone runAction:[CCSequence actionOne:[CCDelayTime actionWithDuration:0.5] two:[CCFadeIn actionWithDuration:0.5]]];
+    }
 }
 
 -(void)onEnterTransitionDidFinish {
@@ -88,12 +121,13 @@
     self.pieChart.alpha = 0;
     [self.pieChart chartWithCompletionStat:[self.participant completionStat]];
     [[[CCDirector sharedDirector] view] addSubview:self.pieChart];
+    [[[CCDirector sharedDirector] view] insertSubview:self.pieChart belowSubview:[getGameController() activityIndicator]];
     
     self.lineChart = [[ParticipantPerformanceStatsChartView alloc] initWithFrame:CGRectMake(517, 140, 497, 352)];
     self.lineChart.backgroundColor = [UIColor clearColor];
     self.lineChart.alpha = 0;
     [self.lineChart chartWithPoints:self.participant.performanceStats];
-    [[[CCDirector sharedDirector] view] addSubview:self.lineChart];
+    [[[CCDirector sharedDirector] view] insertSubview:self.lineChart belowSubview:[getGameController() activityIndicator]];
 }
 
 -(CCSprite *)makeHeaderWithTitle:(NSString *)title {

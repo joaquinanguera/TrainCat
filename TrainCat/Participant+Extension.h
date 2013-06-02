@@ -7,6 +7,7 @@
 //
 
 #import "Participant.h"
+#import "Block+Extension.h"
 
 @interface Participant (Extension)
 
@@ -20,6 +21,6 @@
 -(NSString *)completionStatDescription;
 -(NSUInteger)blocksCompletedInCurrentSession;
 -(NSUInteger)levelForLastBlock;
-
+-(NSUInteger)gradeBlock:(Block *)block;
 
 @end

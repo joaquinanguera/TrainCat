@@ -10,7 +10,7 @@
 #import "PCLineChartView.h"
 
 #define kParticipantPerformanceStatsChartViewMinValue 5
-#define kParticipantPerformanceStatsChartViewMaxValue 10
+#define kParticipantPerformanceStatsChartViewMaxValue 9
 #define kParticipantPerformanceStatsChartViewInterval 1
 #define kParticipantPerformanceStatsChartViewTitle @"Level"
 
