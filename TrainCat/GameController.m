@@ -12,7 +12,7 @@
 #import "CocosConstants.h"
 #import "SessionCompleteLayer.h"
 #import "SimpleAudioEngine.h"
-#import "DebugLayer.h"
+
 
 @implementation GameController
 

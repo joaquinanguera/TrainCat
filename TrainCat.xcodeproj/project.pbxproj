@@ -121,7 +121,6 @@
 		6D2E612E16C3897300C51C9D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D2E612D16C3897300C51C9D /* AppDelegate.m */; };
 		6D2E613116C3897300C51C9D /* TrainCatLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D2E613016C3897300C51C9D /* TrainCatLayer.m */; };
 		6D2E613416C3897300C51C9D /* IntroLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D2E613316C3897300C51C9D /* IntroLayer.m */; };
-		6D322D201758922C00904132 /* DebugLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D322D1F1758922C00904132 /* DebugLayer.m */; };
 		6D4ADE4C16DD56650077E1D7 /* DSDropbox.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D4ADE4B16DD56650077E1D7 /* DSDropbox.m */; };
 		6D4C2D1E1710B7C1008F9A17 /* buttonLoginParticipantNormal.png in Resources */ = {isa = PBXBuildFile; fileRef = 6D4C2D161710B7C1008F9A17 /* buttonLoginParticipantNormal.png */; };
 		6D4C2D1F1710B7C1008F9A17 /* buttonLoginParticipantNormal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6D4C2D171710B7C1008F9A17 /* buttonLoginParticipantNormal@2x.png */; };
@@ -2544,8 +2543,6 @@
 		6D2E613016C3897300C51C9D /* TrainCatLayer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TrainCatLayer.m; sourceTree = "<group>"; };
 		6D2E613216C3897300C51C9D /* IntroLayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IntroLayer.h; sourceTree = "<group>"; };
 		6D2E613316C3897300C51C9D /* IntroLayer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IntroLayer.m; sourceTree = "<group>"; };
-		6D322D1E1758922C00904132 /* DebugLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DebugLayer.h; sourceTree = "<group>"; };
-		6D322D1F1758922C00904132 /* DebugLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DebugLayer.m; sourceTree = "<group>"; };
 		6D4ADE4A16DD56650077E1D7 /* DSDropbox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DSDropbox.h; sourceTree = "<group>"; };
 		6D4ADE4B16DD56650077E1D7 /* DSDropbox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DSDropbox.m; sourceTree = "<group>"; };
 		6D4C2D161710B7C1008F9A17 /* buttonLoginParticipantNormal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = buttonLoginParticipantNormal.png; sourceTree = "<group>"; };
@@ -5236,8 +5233,6 @@
 		6D4ADE4F16DD58920077E1D7 /* Game */ = {
 			isa = PBXGroup;
 			children = (
-				6D322D1E1758922C00904132 /* DebugLayer.h */,
-				6D322D1F1758922C00904132 /* DebugLayer.m */,
 				6DE8E4E91703256700F76997 /* OpeningScreenViewController.h */,
 				6DE8E4EA1703256700F76997 /* OpeningScreenViewController.m */,
 				6D805F8616CD14E300DC2096 /* GameController.h */,
@@ -9936,7 +9931,6 @@
 				6D7D32F817181B6500F31037 /* CocosConstants.m in Sources */,
 				6D82DCAB1719CAB6004730CD /* CloudsLayer.m in Sources */,
 				6DFF9C06171B1E4C0025AEFF /* FileUtils.m in Sources */,
-				6D322D201758922C00904132 /* DebugLayer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
